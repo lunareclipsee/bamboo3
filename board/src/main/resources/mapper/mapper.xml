@@ -3,21 +3,34 @@
 <mapper namespace="board">
 
 	<select id="list" resultType="com.bamboo.board.model.BoardDto">
-		SELECT *
+		SELECT IDX, TITLE, NAME, INIP,
+		INDATE
 		FROM
-		BOARDTABLE		
+		BOARDTABLE
 		ORDER BY IDX DESC;
 	</select>
 
-	<insert id="add" parameterType="map" useGeneratedKeys="true" keyProperty="idx">
+	<insert id="add" parameterType="com.bamboo.board.model.BoardDto" useGeneratedKeys="true"
+		keyProperty="idx">
 		INSERT INTO BOARDTABLE
-		(TITLE,	NAME, CONTENT, PASSWORD, INIP, INDATE)
-		VALUES(#{title}, #{name}, #{content}, #{password}, #{inip}, SYSDATE()
+		(TITLE, NAME, CONTENT, PASSWORD,
+		INIP, INDATE)
+		VALUES(#{title}, #{name}, #{content}, #{password},
+		#{inip}, SYSDATE()
 		)
 	</insert>
+	
+	<select id="cnt" resultType="int">
+		SELECT COUNT(*) 
+		FROM 
+		BOARDTABLE 
+		WHERE INDATE > NOW() - INTERVAL ${blockTime} MINUTE
+		AND INIP = #{inip}
+	</select>
 
 	<select id="select" resultType="com.bamboo.board.model.BoardDto">
-		SELECT *
+		SELECT IDX, TITLE, CONTENT, NAME,
+		INIP, INDATE
 		FROM
 		BOARDTABLE
 		WHERE IDX = #{idx}
@@ -25,24 +38,26 @@
 
 	<select id="check" resultType="int">
 		SELECT COUNT(*)
-		FROM 
+		FROM
 		BOARDTABLE
 		WHERE IDX = #{idx}
 		AND PASSWORD = #{password}
 	</select>
-	
-	<update id="revise" parameterType="com.bamboo.board.model.BoardDto">
+
+	<update id="revise"	parameterType="com.bamboo.board.model.BoardDto">
 		UPDATE BOARDTABLE
 		SET
 		TITLE = #{title},
-		CONTENT = #{content}
+		CONTENT =
+		#{content}
 		WHERE
 		IDX = #{idx}
 	</update>
 
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="com.bamboo.board.model.BoardDto">
 		DELETE FROM
 		BOARDTABLE
 		WHERE IDX = #{idx}
+		AND PASSWORD = #{password}
 	</delete>
 </mapper>

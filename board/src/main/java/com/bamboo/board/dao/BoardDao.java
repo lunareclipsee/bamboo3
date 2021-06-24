@@ -10,12 +10,14 @@ public interface BoardDao {
 
 	public int postAdd(BoardDto boardDto);
 
+	public int postBlock(String userIp, int blockTime);
+	
 	public BoardDto postSelect(BoardDto boardDto);
 
+	public int pwdCheck(BoardDto boardDto);
+	
 	public int postRevise(BoardDto boardDto);
 
 	public int postDelete(BoardDto boardDto);
-
-	public boolean pwdCheck(int idx, String password);
 
 }

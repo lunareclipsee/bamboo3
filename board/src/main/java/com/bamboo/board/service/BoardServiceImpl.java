@@ -29,14 +29,28 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
+	public int postBlock(String userIp, int blockTime) {
+		int resultNum = 0;
+		resultNum= BoardDao.postBlock(userIp, blockTime);
+		return resultNum;
+	}
+	
+	@Override
 	public BoardDto postSelect(BoardDto boardDto) {
 		return BoardDao.postSelect(boardDto);
 	}
 
 	@Override
+	public int pwdCheck(BoardDto boardDto) {
+		int resultNum = 0;
+		resultNum = BoardDao.pwdCheck(boardDto);
+		return resultNum;
+	}
+	
+	@Override
 	public int postRevise(BoardDto boardDto) {
 		int resultNum = 0;
-		resultNum= BoardDao.postRevise(boardDto);
+		resultNum = BoardDao.postRevise(boardDto);
 		return resultNum;
 	}
 
@@ -45,11 +59,6 @@ public class BoardServiceImpl implements BoardService {
 		int resultNum = 0;
 		resultNum= BoardDao.postDelete(boardDto);
 		return resultNum;
-	}
-
-	@Override
-	public boolean pwdCheck(int idx, String password) {
-		return BoardDao.pwdCheck(idx, password);
 	}
 
 }

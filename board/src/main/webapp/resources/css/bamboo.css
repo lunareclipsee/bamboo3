@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+tr>th {
+	text-align: center;
+}
+
+.input_infotxt {
+	float: left;
+	margin: 10px 10px 0 0;
+}
+
+.input_write {
+	clear: both;
+	float: left;
+	margin: 10px 0 0 0PX;
+	float: left;
+}
+
+.outer {
+  display: flex;
+  margin-top: 100px;
+}
+
+.inner {
+  margin: auto;
+}
+
+#title, #content {
+	width: 410px;
+}
+
+.input_margin {
+	margin: 0px 10px 0px 0px;
+}
+
+#pwdCheckBox {
+	width: 400px;
+    height: 220px;
+    border: 3px solid #29367c;
+    background: #fff;
+}
+
+.pwdBox { 
+    height: 60px;
+ } 
+
+.tempBtnOpt {
+    margin: 0px 10px 0px 10px;
+}

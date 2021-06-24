@@ -12,11 +12,13 @@ public interface BoardService {
 
 	public BoardDto postSelect(BoardDto boardDto);
 	
+	public int pwdCheck(BoardDto boardDto);
+	
 	public int postRevise(BoardDto boardDto);
 
 	public int postDelete(BoardDto boardDto);
 
-	public boolean pwdCheck(int idx, String password);
+	public int postBlock(String userIp, int blockTime);
 
 
 }

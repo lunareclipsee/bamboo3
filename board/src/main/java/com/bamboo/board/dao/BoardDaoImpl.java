@@ -25,12 +25,27 @@ public class BoardDaoImpl implements BoardDao {
 	public int postAdd(BoardDto boardDto) {
 		return sqlSession.insert("board.add", boardDto);
 	}
+
+	@Override
+	public int postBlock(String userIp, int blockTime) {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<>();
+		map.put("inip", userIp);
+		map.put("blockTime", blockTime);
+				
+		return sqlSession.selectOne("board.cnt", map);
+	}
 	
 	@Override
 	public BoardDto postSelect(BoardDto boardDto) {
 		return sqlSession.selectOne("board.select", boardDto);
 	}
 
+	@Override
+	public int pwdCheck(BoardDto boardDto) {
+		return sqlSession.selectOne("board.check", boardDto);
+	}
+	
 	@Override
 	public int postRevise(BoardDto boardDto) {
 		return sqlSession.update("board.revise", boardDto);
@@ -39,21 +54,6 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int postDelete(BoardDto boardDto) {
 		return sqlSession.delete("board.delete", boardDto);
-	}
-
-	@Override
-	public boolean pwdCheck(int idx, String password) {
-
-		boolean result = false;
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("idx", idx);
-		map.put("password", password);
-		
-		int cnt = sqlSession.selectOne("board.check", map);
-		
-		if (cnt == 1) result = true;
-		return result;
 	}
 
 }

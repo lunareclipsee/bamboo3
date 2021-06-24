@@ -5,42 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>문의 수정</title>
-<style type="text/css">
-#title, #content {
-	width: 403px;
-}
-</style>
-
-<style type="text/css">
-th {
-	text-align: center;
-}
-</style>
+<title>게시글 수정</title>
 </head>
-
 <body>
-	<div class="container">
-		<div class="col-md-9" style="margin-top: 40px">
-
-			<form method="post">
-
+<header><jsp:include page="/WEB-INF/views/common/Header.jsp" /></header>
+	<div class="container outer">
+		<div class="col-md-9 inner">
+			<form method="post" id="modify_confirm" name="modify_confirm">
 				<table class="table table-bordered">
-
 					<tr>
 						<th class="textCenter success">제목</th>
 						<td colspan="3">
-							<input type="text" id="title" name="title" maxlength="30" value="${ boardDto.title }">
+							<input type="text" id="title" class="form-control" name="title" maxlength="30" value="${ boardDto.title }">
 						</td>
 					</tr>
 					<tr>
 						<th class="textCenter success">작성자</th>
-						<td class="textCenter">${ boardDto.name } (${ boardDto.inip })
-							<input type="hidden" name="idx" value="${ boardDto.idx }">
-							<input type="hidden" name="name" value="${ boardDto.name }">
-						
-						</td>
+						<td class="textCenter">${ boardDto.name } (${ boardDto.inip })</td>
 						<th class="textCenter success" scope="row">작성일</th>
 						<td><fmt:formatDate value="${ boardDto.indate }"
 							pattern="yyyy-MM-dd a hh:mm:ss" /></td>
@@ -48,47 +29,19 @@ th {
 
 					<tr>
 						<th class="textCenter success">내용</th>
-						<td colspan="3"><textarea id="content" name="content" maxlength="300" rows="5">${boardDto.content}</textarea>
+						<td colspan="3">
+							<textarea id="content" class="form-control" name="content" maxlength="300" rows="5">${boardDto.content}</textarea>
 						</td>
 					</tr>
 				</table>
-				<input id="okBtn" class="btn btn-success" type="submit" value="변경하기">
-				<input id="cancelBtn" class="btn btn-default" type="button"
-					value="취소"
-					onclick="editMoveFnc()">
-
+				<div class="pull-right">
+					<input id="reviseCancelBtn" class="btn btn-default" type="button" value="취소">
+					<input id="reviseConfirmBtn" class="btn btn-primary" type="button" value="수정하기">
+					<input type="hidden" id="idx" name="idx" value="${ boardDto.idx }">
+					<input type="hidden" id="name" name="name" value="${ boardDto.name }">
+				</div>
 			</form>
 		</div>
-
-
 	</div>
 </body>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	
-<script type="text/javascript">
-	var editMoveFnc = function() {
-		location.href = 'postSelect.do?idx=${boardDto.idx}'
-	}
-	
-	$('#title').focus();
-	
-	$('#okBtn').on('click', function() {
-	
-		if ($('#title').val() == "") {
-			alert("제목을 입력해주세요.");
-			$('#title').focus();
-			return false;
-		} else if ($('#content').val() == "") {
-			alert("내용을 입력해주세요.");
-			$('#content').focus();
-			return false;
-		}
-		alert("게시글 수정이 완료되었습니다.");
-		$('form').attr('action', './postReviseCtr.do');
-	});
-
-</script>
 </html>
