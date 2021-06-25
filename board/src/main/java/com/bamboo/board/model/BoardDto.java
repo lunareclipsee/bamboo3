@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class BoardDto {
 
-	private int idx;
-	private String name;
-	private String title;
-	private String content;
-	private String password;
-	private String inip;
-	private Date indate;
+	private int idx;			// 게시글 번호
+	private String name;		// 닉네임
+	private String title;		// 제목
+	private String content;		// 내용
+	private String password;	// 비밀번호
+	private String inip;		// 접속IP
+	private Date indate;		// 작성시간
 
 	public BoardDto() {
 		super();

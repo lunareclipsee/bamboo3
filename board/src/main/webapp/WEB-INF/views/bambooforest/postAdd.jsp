@@ -10,32 +10,32 @@
 <header><jsp:include page="/WEB-INF/views/common/Header.jsp" /></header>
 	<div class="container outer">
 		<div class="inner">
-			<form id="post_frm" class="form-inline center-block" name="post_frm" action="" method="post">
+			<form id="post_frm" name="post_frm" class="form-inline center-block" action="" method="post">
 				<div class="form-group pull-left input_infotxt ">
-					<label class="sr-only" for="name">닉네임</label> 
-					<input id="name" class="form-control" name="name" placeholder="닉네임" type="text" maxlength="10" value=""/>
+					<label for="name" class="sr-only" >닉네임</label> 
+					<input type="text" id="name" name="name" class="form-control" placeholder="닉네임" maxlength="10" value=""/>
 				</div>
 	
-				<div class="form-group pull-left input_infotxt">
+				<div class="form-group pull-left input_infotxt2">
 					<label for="password" class="sr-only">비밀번호</label> 
-					<input id="password" class="form-control" name="password"
-						placeholder="비밀번호" type="password" maxlength="10" value=""/>
+					<input type="password" id="password" name="password" class="form-control"
+						placeholder="비밀번호" maxlength="10" value=""/>
 				</div>
 				
 				<div class="form-group input_write">
-					<label for="inip" class="sr-only">제목</label> 
-					<input id="title" class="form-control" name="title" placeholder="제목" type="text" value=""/>
+					<label for="title" class="sr-only">제목</label> 
+					<input type="text" id="title" name="title" class="form-control" placeholder="제목" maxlength="50" value=""/>
 				</div>
 	
 				<div class="form-group input_write">
 					<label for="content" class="sr-only">내용</label>
-					<textarea id="content" class="form-control" rows="10" cols="10" name="content"
-						placeholder="내용"></textarea>
+					<textarea id="content" name="content" class="form-control" rows="10" cols="10" maxlength="200" placeholder="내용"></textarea>
 				</div>
 	
 				<div class="input_write pull-right">
-					<input id="addPostCancelBtn" type="button" class="btn btn-default" value="취소">  <!-- 여기선 굳이? -->
-					<input id="addConfirmBtn" type="button" class="btn btn-primary tempBtnOpt pull-right" value="저장"> 
+					남은글자: <input type="text" id="counter" name="counter" style="width: 33px" readonly value="200">
+					<input type="button" id="addPostCancelBtn" class="btn btn-default tempBtnOpt" value="취소">  <!-- 여기선 굳이? -->
+					<input type="button" id="addConfirmBtn" class="btn btn-primary tempBtnOpt2 pull-right" value="저장"> 
 				</div>		
 			</form>
 		</div>

@@ -11,9 +11,7 @@
 <header><jsp:include page="/WEB-INF/views/common/Header.jsp" /></header>
 	<div class="container outer">
 		<div class="col-md-9 inner">
-
 			<table class="table table-bordered">
-
 				<tr>
 					<th class="textCenter success">제목</th>
 					<td colspan="3">${ boardDto.title }</td>
@@ -29,17 +27,12 @@
 				</tr>
 
 				<tr>
-					<th class="textCenter success">내용</th>
-					<td colspan="3">${ boardDto.content }</td>
+					<td colspan="4" style="word-break:break-all"><div>${ boardDto.content }</div></td>
 				</tr>
-
 			</table>
-
-				<input id="backBtn" class="btn btn-default" type='button' value='목록'
-					onClick="location.href = 'postList.do?idx=${boardDto.idx}'"> 
-				<input id="edittBtn" class="btn btn-primary pull-right"
-					type="button" value="수정" onclick="location.href = 'edit/pwdCheck.do?idx=${boardDto.idx}'"> 
-				<input id="Btn"	class="btn btn-danger input_margin pull-right" type="button" onclick="location.href = 'delete/pwdCheck.do?idx=${boardDto.idx}'" value='삭제'>
+			<input type="button" onClick="location.href = 'postList.do?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
+			<input type="button" onclick="location.href = 'edit/pwdCheck.do?idx=${boardDto.idx}'" id="editBtn" class="btn btn-primary pull-right" value="수정" > 
+			<input type="button" onclick="location.href = 'delete/pwdCheck.do?idx=${boardDto.idx}'" id="deleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
 		</div>
 	</div>
 </body>

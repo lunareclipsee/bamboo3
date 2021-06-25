@@ -4,15 +4,23 @@ tr>th {
 	text-align: center;
 }
 
+textarea {
+	resize: none;
+}
+
 .input_infotxt {
 	float: left;
 	margin: 10px 10px 0 0;
 }
 
+.input_infotxt2 {
+	float: left;
+	margin: 10px 0px 0 0;
+}
+
 .input_write {
 	clear: both;
-	float: left;
-	margin: 10px 0 0 0PX;
+	margin: 10px 0 0 0px;
 	float: left;
 }
 
@@ -30,7 +38,7 @@ tr>th {
 }
 
 .input_margin {
-	margin: 0px 10px 0px 0px;
+	margin: 0 10px 0 0;
 }
 
 #pwdCheckBox {
@@ -45,5 +53,9 @@ tr>th {
  } 
 
 .tempBtnOpt {
-    margin: 0px 10px 0px 10px;
+    margin-left: 192px;
+}
+
+.tempBtnOpt2 {
+    margin-left: 10px;
 }

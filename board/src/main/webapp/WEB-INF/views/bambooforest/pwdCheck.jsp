@@ -13,13 +13,13 @@
 				<form action="" id="password_confirm" name="password_confirm" method="post">
 				
 					<div class="pwdBox">
-						<input id="password" type="password" class="form-control" value="" maxlength="10" name="password">
+						<input type="password" id="password" name="password" class="form-control" value="" maxlength="10">
 					</div>
 					
-					<input id="idx" type="hidden" name="idx" value="${boardDto.idx}"> 
-					<input class="btn btn-default btn-lg btnmargin pull-left" type='button' value='뒤로가기' onClick="location.href = '../postSelect.do?idx='+${boardDto.idx}">
-					<input id="confirmBtn" class="btn btn-primary btn-lg btnmargin pull-right" type="button" value='입력완료'>
-					<input id="url" type="hidden" value="${URL}">
+					<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
+					<input type="button" class="btn btn-default btn-lg btnmargin pull-left" value="뒤로가기" onClick="location.href = '../postSelect.do?idx='+${boardDto.idx}">
+					<input type="button" id="confirmBtn" class="btn btn-primary btn-lg btnmargin pull-right" value='입력완료'>
+					<input type="hidden" id="url" value="${URL}">
 				</form>
 			</div>
 		</div>

@@ -29,7 +29,7 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public int postBlock(String userIp, int blockTime) {
 		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("inip", userIp);
 		map.put("blockTime", blockTime);
 				

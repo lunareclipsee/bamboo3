@@ -9,6 +9,11 @@ window.onload = function () {
 	$('#addPostCancelBtn').click(function () {
 		addCancel();
 	});
+	
+	 $('#content').keyup(function (e){
+      var content = $(this).val();       
+      $('#counter').val(200-content.length);
+      });
 
 	addConfirm = function () {
 
@@ -43,7 +48,7 @@ window.onload = function () {
 				data: form,
 				success: function (data) {
 					if (data >= 3) {
-						alert("게시글은 10분 이내 3건까지만 작성 가능합니다.");
+						alert("동일 IP로 작성된 게시글은 10분 이내 3건까지만 작성 가능합니다.");
 					} else {
 						alert("게시글 작성이 완료되었습니다.");
 						theForm.action = "postAddCtr.do"
@@ -173,9 +178,6 @@ window.onload = function () {
 postAddFnc = function () {
 	location.href = 'postAdd.do'
 }
-
-
-
 
 function fn_view(idx) {
 

@@ -7,9 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 hello
-
 
 <h2>드디어 ㅡㅠㅠㅠㅠㅠㅠㅠㅠddddddddddㅠㅠ</h2>
 </body>

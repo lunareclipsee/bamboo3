@@ -2,8 +2,6 @@ package com.bamboo.board.service;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +16,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<BoardDto> postList(BoardDto boardDto) {
+		
 		return BoardDao.postList(boardDto);
 	}
 
 	@Override
 	public int postAdd(BoardDto boardDto) {
-		int resultNum = 0;
-		resultNum= BoardDao.postAdd(boardDto);
-		return resultNum;
+		
+		return BoardDao.postAdd(boardDto);
 	}
 	
 	@Override
 	public int postBlock(String userIp, int blockTime) {
-		int resultNum = 0;
-		resultNum= BoardDao.postBlock(userIp, blockTime);
-		return resultNum;
+		
+		return BoardDao.postBlock(userIp, blockTime);
 	}
 	
 	@Override
@@ -42,23 +39,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int pwdCheck(BoardDto boardDto) {
-		int resultNum = 0;
-		resultNum = BoardDao.pwdCheck(boardDto);
-		return resultNum;
+		
+		return BoardDao.pwdCheck(boardDto);
 	}
 	
 	@Override
 	public int postRevise(BoardDto boardDto) {
-		int resultNum = 0;
-		resultNum = BoardDao.postRevise(boardDto);
-		return resultNum;
+		
+		return BoardDao.postRevise(boardDto);
 	}
 
 	@Override
 	public int postDelete(BoardDto boardDto) {
-		int resultNum = 0;
-		resultNum= BoardDao.postDelete(boardDto);
-		return resultNum;
+		
+		return BoardDao.postDelete(boardDto);
 	}
 
 }
