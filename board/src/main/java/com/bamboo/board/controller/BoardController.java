@@ -11,13 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bamboo.board.model.BoardDto;
 import com.bamboo.board.service.BoardService;
 
 @Controller
-@RequestMapping("/bambooforest/*")
+@RequestMapping("/bamboo/board/*")
 public class BoardController {
 
 	private static final Logger log = LoggerFactory.getLogger(BoardController.class);
@@ -25,14 +26,8 @@ public class BoardController {
 	@Autowired
 	BoardService BoardService;
 
-	@RequestMapping("/index")
-	private String indexMain() {
-
-		return "index";
-	}
-
 	// 게시글 리스트
-	@RequestMapping(value = "postList.do")
+	@RequestMapping(value = "postList.do", method = RequestMethod.GET)
 	public String list(@ModelAttribute BoardDto boardDto, Model model) {
 		log.info("Welcome postList.do!");
 
@@ -40,7 +35,7 @@ public class BoardController {
 
 		model.addAttribute("postList", postList);
 
-		return "bambooforest/postList";
+		return "board/postList";
 	}
 
 	// 게시글 작성
@@ -48,7 +43,7 @@ public class BoardController {
 	public String add() {
 		log.info("Welcome postAdd.do!");
 
-		return "bambooforest/postAdd";
+		return "board/postAdd";
 	}
 
 	// 도배방지 
@@ -81,7 +76,7 @@ public class BoardController {
 		
 		BoardService.postAdd(boardDto);
 
-		return "redirect:/bambooforest/postList.do";
+		return "redirect:postList.do";
 	}
 
 	// 게시글 상세보기
@@ -93,7 +88,7 @@ public class BoardController {
 
 		model.addAttribute("boardDto", resultBoardDto);
 
-		return "bambooforest/postRead";
+		return "board/postRead";
 	}
 
 	// 비밀번호 확인페이지 이동
@@ -103,7 +98,7 @@ public class BoardController {
 
 		model.addAttribute("URL", request.getRequestURL());
 		
-		return "bambooforest/pwdCheck";
+		return "board/pwdCheck";
 	}
 
 	// 비밀번호를 통한 권한조회
@@ -129,7 +124,7 @@ public class BoardController {
 		BoardDto resultBoardDto = BoardService.postSelect(boardDto);
 		model.addAttribute("boardDto", resultBoardDto);
 		
-		return "bambooforest/postRevise"; 
+		return "board/postRevise"; 
 	}
 
 	// 게시글 수정
@@ -141,7 +136,7 @@ public class BoardController {
 		int idx = boardDto.getIdx();
 		log.info("idx=" + boardDto.getIdx() + "번 게시글 수정완료");
 		
-		return "redirect:/bambooforest/postSelect.do?idx=" + idx;
+		return "redirect:postSelect.do?idx=" + idx;
 	}
 
 	// 게시글 삭제
@@ -152,6 +147,6 @@ public class BoardController {
 		BoardService.postDelete(boardDto);
 		log.info("idx=" + boardDto.getIdx() + "번 게시글 삭제완료");
 		
-		return "redirect:/bambooforest/postList.do";
+		return "redirect:../postList.do";
 	}
 }

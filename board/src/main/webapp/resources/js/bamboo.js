@@ -182,7 +182,7 @@ postAddFnc = function () {
 function fn_view(idx) {
 
 	var form = document.getElementById("frm");
-	var url = "/bambooforest/postSelect.do";
+	var url = "postSelect.do";
 	url = url + "?idx=" + idx;
 
 	form.action = url;
