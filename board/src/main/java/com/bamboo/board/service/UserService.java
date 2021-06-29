@@ -16,4 +16,13 @@ public interface UserService {
 	// 3. 회원 가입
 	public void insertUser(UserDto UserDto, HttpServletRequest request);
 
+	// 4. 회원정보변경 비밀번호 확인 
+
+	public boolean pwCheck(UserDto userDto);
+
+	// 5. 회원정보 수정
+	public UserDto reviseUser(UserDto userDto);
+
+	public int withdrawUser(String id); 
+
 }

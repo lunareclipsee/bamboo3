@@ -12,7 +12,7 @@
 		
 		alert("로그인을 실패했습니다.\n다시 시도해주시기 바랍니다.");
 		
-		location.href = "login.do";
+		location.href = "login";
 	} 
 		
 </script>

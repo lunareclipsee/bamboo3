@@ -11,7 +11,7 @@
 			// 2. 아이디 입력 창에서 포커스가 이동하면 아이디 중복 체크 결과에 따라 메세지를 idDiv에 출력하는 메소드
 			function confirmId() {
 				// 1) 요청 주소
-				var addr = 'idCheck.do';
+				var addr = 'idCheck';
 
 				// 2) 요청에 넘겨줄 파라미터 값 가져오기
 				// -> form에서 id가 id인 개체의 value값(즉, 사용자가 입력한 id값) 가져와서 저장
@@ -95,7 +95,7 @@
 						<!-- 파일 업로드 form의 경우, enctype을 설정 & 전송 방식은 post  -->
 						<!-- onsubmit : 전송 버튼을 누를 때 작동하는 메소드 설정 -->
 						<!-- -> 아이디 중복 검사를 하지 않으면 전송하지 못하도록 설정하기 -->
-						<form id="joinform" action="joinCtr.do" method="post" onsubmit="return check()">
+						<form id="joinform" action="joinCtr" method="post" onsubmit="return check()">
 							<!-- hidden : 아이디 중복검사 성공 여부를 저장하기 위한 변수 -->
 							<!-- 기본 값은 false -->
 							<input type="hidden" id="idCheck" value="false" />

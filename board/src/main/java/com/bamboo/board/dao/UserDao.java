@@ -18,4 +18,12 @@ public interface UserDao {
 	// UserDTO - 회원 가입 form과 연결
 	public int insertUser(UserDto userDto);
 
+	public String getUserPw(String id);
+
+	public int reviseUser(UserDto userDto);
+
+	public UserDto getUserInfo(String id);
+
+	public int withdrawUser(String id);
+	
 }

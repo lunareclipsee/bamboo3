@@ -1,21 +1,29 @@
-window.onload = function () {
+window.onload = function() {
 
 	// postAdd js
 
-	$('#addConfirmBtn').click(function () {
+	$('#addConfirmBtn').click(function() {
 		addConfirm();
 	});
 
-	$('#addPostCancelBtn').click(function () {
+
+	//revise페이지에서 pwdCheck
+	$('#editUserInfoBtn').click(function() {
+		var theForm = document.selectForm;
+		theForm.action = "pwdCheck";
+		theForm.submit();
+	});
+
+	$('#addPostCancelBtn').click(function() {
 		addCancel();
 	});
-	
-	 $('#content').keyup(function (e){
-      var content = $(this).val();       
-      $('#counter').val(200-content.length);
-      });
 
-	addConfirm = function () {
+	$('#content').keyup(function(e) {
+		var content = $(this).val();
+		$('#counter').val(200 - content.length);
+	});
+
+	addConfirm = function() {
 
 		var password = $('input[type=password]').val();
 		var theForm = document.post_frm;
@@ -44,93 +52,101 @@ window.onload = function () {
 		} else {
 			$.ajax({
 				type: "POST",
-				url: "postCnt.do",
+				url: "postCnt",
 				data: form,
-				success: function (data) {
+				success: function(data) {
 					if (data >= 3) {
 						alert("동일 IP로 작성된 게시글은 10분 이내 3건까지만 작성 가능합니다.");
 					} else {
 						alert("게시글 작성이 완료되었습니다.");
-						theForm.action = "postAddCtr.do"
+						theForm.action = "postAddCtr"
 					}
 					theForm.submit();
 				},
-				error: function (data) {
+				error: function() {
 					alert("문제야 문제");
 				}
 			});
 		}
 	}
 
-	addCancel = function () {
+	addCancel = function() {
 		var addSelect = confirm("게시글 작성을 취소할까요?");
 		if (addSelect) {
-			location.href = 'postList.do'
+			location.href = 'postList'
 		}
 	}
 
+	// userRevise js
+
+	$('#withdrawBtn').click(function() {
+		var theForm = document.selectForm;
+		var edit = confirm("탈퇴할까요?");
+		if (edit) {
+			theForm.action = "withdrawCtr";
+			theForm.submit();
+		} else {
+			return false;
+		}
+	});
 
 
-
-	// postRevise js
-
-	var idx = $('#idx').val();
+	$('#pwdSwich').click(function() {
+		$('#password').attr('readonly', false);
+	});
 
 	$('#password').focus();
 	$('#title').focus();
 	$('#name').focus();
 
-	$('#reviseConfirmBtn').click(function () {
+	$('#reviseConfirmBtn').click(function() {
 		reviseConfirm();
 	});
 
-	$('#reviseCancelBtn').click(function () {
+	$('#reviseCancelBtn').click(function() {
 		reviseCancel();
 	});
 
-	reviseConfirm = function () {
-		var theForm = document.modify_confirm;
+	reviseConfirm = function() {
+		var theForm = document.selectForm;
 
-		if ($('#title').val() == "") {
-			alert("제목을 입력해주세요.");
-			$('#title').focus();
-		} else if ($('#content').val() == "") {
-			alert("내용을 입력해주세요.");
-			$('#content').focus();
+		if ($('#name').val() == "") {
+			alert("닉네임을 입력해주세요.");
+			$('#name').focus();
 		} else {
-			var edit = confirm("게시글을 수정할까요?");
+			var edit = confirm("회원정보를 수정할까요?");
 			if (edit) {
-				alert("게시글 수정이 완료되었습니다.");
-				theForm.action = "../postReviseCtr.do"
+				theForm.action = "./reviseUserCtr"
+				alert("회원정보 수정이 완료되었습니다.");
 			} else {
+				$('#name').focus();
 				return false;
 			}
 			theForm.submit();
 		}
 	}
 
-	reviseCancel = function () {
-		var reviseSelect = confirm("게시글 수정을 취소할까요?");
+	reviseCancel = function() {
+		var reviseSelect = confirm("회원정보 수정을 취소할까요?");
 		if (reviseSelect) {
-			location.href = '../postSelect.do?idx=' + idx;
+			location.href = './myPage';
 		} else {
 			return false;
 		}
 	}
 
-
 	// pwdCheck js
 
-	$('#confirmBtn').click(function () {
+	$('#pwdConfirmBtn').click(function() {
 		confirmPassword();
 	});
 
-	confirmPassword = function () {
+	confirmPassword = function() {
 
 		var password = $('input[type=password]').val();
-		var theForm = document.password_confirm;
+		var theForm = document.selectForm;
 		var url = $('#url').val();
-		var idx = $('#idx').val();
+		//		var id = $('#id').val();
 
 		if (password == "") {
 			alert("비밀번호를 입력해주세요.");
@@ -138,34 +154,20 @@ window.onload = function () {
 		} else {
 			$.ajax({
 				type: "POST",
-				url: "pwdCheckCtr.do",
-				data: { password: $("#password").val(), idx: $("#idx").val() },
-				success: function (data) {
+				url: "pwdCheckCtr",
+				data: { password: $("#password").val(), id: $("#id").val() },
+				success: function(data) {
 					console.log("1 = 중복o / 0 = 중복x : " + data);
-					if (data == 1) {
-						// 1 : 비밀번호 통과
-						if (url.indexOf("delete") != -1) {
-							// url값에 delete가 포함안되어있으면 -1 반환 
-							var del = confirm("게시글을 삭제할까요?");
-
-							if (del) {
-								theForm.action = "postDeleteCtr.do";
-								alert("게시글 삭제가 완료되었습니다.");
-							} else {
-								alert("게시글로 돌아갑니다.");
-								theForm.action = "../postSelect.do?idx=" + idx
-							}
-						} else {
-							// url값에 딜리트가 포함안되서 수정으로 진행
-							theForm.action = "postRevise.do"
-						}
+					if (data) {
+						theForm.action = "reviseUser"
 					} else {
 						// 0 : 비밀번호 통과못함
 						alert("비밀번호가 틀렸습니다.");
+						//						$('input[type=password]').focus()
 					}
 					theForm.submit();
 				},
-				error: function (data) {
+				error: function() {
 					alert("문제야 문제");
 				}
 			});
@@ -175,14 +177,14 @@ window.onload = function () {
 
 
 // PostList js
-postAddFnc = function () {
-	location.href = 'postAdd.do'
+postAddFnc = function() {
+	location.href = 'postAdd'
 }
 
 function fn_view(idx) {
 
 	var form = document.getElementById("frm");
-	var url = "postSelect.do";
+	var url = "postSelect";
 	url = url + "?idx=" + idx;
 
 	form.action = url;

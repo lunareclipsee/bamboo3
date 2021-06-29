@@ -18,7 +18,7 @@ import com.bamboo.board.model.BoardDto;
 import com.bamboo.board.service.BoardService;
 
 @Controller
-@RequestMapping("/bamboo/board/*")
+@RequestMapping("/board/*")
 public class BoardController {
 
 	private static final Logger log = LoggerFactory.getLogger(BoardController.class);
@@ -27,9 +27,9 @@ public class BoardController {
 	BoardService BoardService;
 
 	// 게시글 리스트
-	@RequestMapping(value = "postList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "postList", method = RequestMethod.GET)
 	public String list(@ModelAttribute BoardDto boardDto, Model model) {
-		log.info("Welcome postList.do!");
+		log.info("Welcome postList!");
 
 		List<BoardDto> postList = BoardService.postList(boardDto);
 
@@ -39,18 +39,18 @@ public class BoardController {
 	}
 
 	// 게시글 작성
-	@RequestMapping(value = "postAdd.do")
+	@RequestMapping(value = "postAdd")
 	public String add() {
-		log.info("Welcome postAdd.do!");
+		log.info("Welcome postAdd!");
 
 		return "board/postAdd";
 	}
 
 	// 도배방지 
-	@RequestMapping(value = "postCnt.do")
+	@RequestMapping(value = "postCnt")
 	@ResponseBody // 비동기
 	public int postCnt(@ModelAttribute BoardDto boardDto, HttpServletRequest request, Model model) {
-		log.info("Welcome postCnt.do!");   		//HttpServletRequest ip 받아오기위해 
+		log.info("Welcome postCnt!");   		//HttpServletRequest ip 받아오기위해 
 
 		String userIp = request.getLocalAddr();
 		int postCnt = 0; // 작성글 수
@@ -67,22 +67,22 @@ public class BoardController {
 	}
 	
 	// 게시글 저장
-	@RequestMapping(value = "postAddCtr.do")
+	@RequestMapping(value = "postAddCtr")
 	public String addCtr(@ModelAttribute BoardDto boardDto, HttpServletRequest request, Model model) {
-		log.info("Welcome postAddCtr.do!");
+		log.info("Welcome postAddCtr!");
 
 		String userIp = request.getLocalAddr();
 		boardDto.setInip(userIp); // ip넣기
 		
 		BoardService.postAdd(boardDto);
 
-		return "redirect:postList.do";
+		return "redirect:postList";
 	}
 
 	// 게시글 상세보기
-	@RequestMapping(value = "postSelect.do")
+	@RequestMapping(value = "postSelect")
 	public String select(@ModelAttribute BoardDto boardDto, Model model) {
-		log.info("Welcome postSelect.do! idx=" + boardDto.getIdx() + "번 게시글 조회");
+		log.info("Welcome postSelect! idx=" + boardDto.getIdx() + "번 게시글 조회");
 
 		BoardDto resultBoardDto = BoardService.postSelect(boardDto);
 
@@ -92,9 +92,9 @@ public class BoardController {
 	}
 
 	// 비밀번호 확인페이지 이동
-	@RequestMapping(value = "*/pwdCheck.do") //   */ 으로 revise, delete 구분해서 같이씀
+	@RequestMapping(value = "*/pwdCheck") //   */ 으로 revise, delete 구분해서 같이씀
 	public String pwdCheck(@ModelAttribute BoardDto boardDtom, HttpServletRequest request, Model model) {
-		log.info("Welcome pwdCheck.do!");
+		log.info("Welcome pwdCheck!");
 
 		model.addAttribute("URL", request.getRequestURL());
 		
@@ -102,10 +102,10 @@ public class BoardController {
 	}
 
 	// 비밀번호를 통한 권한조회
-	@RequestMapping(value = "*/pwdCheckCtr.do")
+	@RequestMapping(value = "*/pwdCheckCtr")
 	@ResponseBody // 이게 있어야 ajax에서 받을수 있다.
 	public int pwdcheckCtr(@ModelAttribute BoardDto boardDto, Model model) {
-		log.info("Welcome pwdCheckCtr.do!");
+		log.info("Welcome pwdCheckCtr!");
 		
 		int resultNum = 0;
 		resultNum = BoardService.pwdCheck(boardDto);
@@ -117,9 +117,9 @@ public class BoardController {
 	}
 
 	// 게시글 수정페이지
-	@RequestMapping(value = "*/postRevise.do")
+	@RequestMapping(value = "*/postRevise")
 	public String revise(@ModelAttribute BoardDto boardDto, Model model) {
-		log.info("Welcome postRevise.do!");
+		log.info("Welcome postRevise!");
 
 		BoardDto resultBoardDto = BoardService.postSelect(boardDto);
 		model.addAttribute("boardDto", resultBoardDto);
@@ -128,25 +128,25 @@ public class BoardController {
 	}
 
 	// 게시글 수정
-	@RequestMapping(value = "postReviseCtr.do")
+	@RequestMapping(value = "postReviseCtr")
 	public String reviseCtr(@ModelAttribute BoardDto boardDto) {
-		log.info("Welcome postReviseCtr.do! ");
+		log.info("Welcome postReviseCtr! ");
 
 		BoardService.postRevise(boardDto);
 		int idx = boardDto.getIdx();
 		log.info("idx=" + boardDto.getIdx() + "번 게시글 수정완료");
 		
-		return "redirect:postSelect.do?idx=" + idx;
+		return "redirect:postSelect?idx=" + idx;
 	}
 
 	// 게시글 삭제
-	@RequestMapping(value = "*/postDeleteCtr.do")
+	@RequestMapping(value = "*/postDeleteCtr")
 	public String deleteCtr(@ModelAttribute BoardDto boardDto) {
 		log.info("call postDeleteCtr! ");
 
 		BoardService.postDelete(boardDto);
 		log.info("idx=" + boardDto.getIdx() + "번 게시글 삭제완료");
 		
-		return "redirect:../postList.do";
+		return "redirect:../postList";
 	}
 }

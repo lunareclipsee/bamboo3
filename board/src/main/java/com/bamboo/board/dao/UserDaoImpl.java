@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bamboo.board.model.BoardDto;
 import com.bamboo.board.model.UserDto;
 
 @Repository
@@ -31,6 +32,30 @@ public class UserDaoImpl implements UserDao {
 	public int insertUser(UserDto userDto) {
 
 		return sqlSession.insert("user.insertUser", userDto);
+	}
+
+	@Override
+	public String getUserPw(String id) {
+		
+		return sqlSession.selectOne("user.getUserPw", id);
+	}
+
+	@Override
+	public int reviseUser(UserDto userDto) {
+		
+		return sqlSession.update("user.updateUser", userDto);
+	}
+
+	@Override
+	public UserDto getUserInfo(String id) {
+		
+		return sqlSession.selectOne("user.getUserInfo", id);
+	}
+
+	@Override
+	public int withdrawUser(String id) {
+
+		return sqlSession.delete("user.deleteUser", id);
 	}
 
 }

@@ -18,19 +18,19 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/bambooforest/postList.do">대나무숲</a>
+				<a class="navbar-brand" href="/board/postList">대나무숲</a>
 			</div>
 		</div>
 
 		<div>
 			<c:if test="${login == null}">
-				<li><a href="/bamboo/user/login.do"><span>로그인</span></a></li>
-				<li><a href="/bamboo/user/join.do"><span>회원가입</span></a></li>
+				<li><a href="/user/login"><span>로그인</span></a></li>
+				<li><a href="/user/join"><span>회원가입</span></a></li>
 			</c:if>
 			<!-- session으로 전달한 login 값이 null이 아니면 로그인 된 상태 -> 로그아웃 출력 -->
 			<c:if test="${login != null}">
-				<li><a href="/bamboo/user/logout.do"><i
-						class="fa fa-circle-o text-red"></i> <span>로그아웃</span></a></li>
+			<li><a href="/user/myPage"><span>내정보</span></a></li>
+				<li><a href="/user/logout"><span>로그아웃</span></a></li>
 			</c:if>
 		</div>
 

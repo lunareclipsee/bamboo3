@@ -30,9 +30,9 @@
 					<td colspan="4" style="word-break:break-all"><div>${ boardDto.content }</div></td>
 				</tr>
 			</table>
-			<input type="button" onClick="location.href = 'postList.do?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
-			<input type="button" onclick="location.href = 'edit/pwdCheck.do?idx=${boardDto.idx}'" id="editBtn" class="btn btn-primary pull-right" value="수정" > 
-			<input type="button" onclick="location.href = 'delete/pwdCheck.do?idx=${boardDto.idx}'" id="deleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
+			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
+			<input type="button" onclick="location.href = 'edit/pwdCheck?idx=${boardDto.idx}'" id="editBtn" class="btn btn-primary pull-right" value="수정" > 
+			<input type="button" onclick="location.href = 'delete/pwdCheck?idx=${boardDto.idx}'" id="deleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
 		</div>
 	</div>
 </body>

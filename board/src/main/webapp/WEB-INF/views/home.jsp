@@ -17,14 +17,14 @@
 
 			<!-- session으로 전달한 login 값이 null이면 로그인이 필요한 상태 -> 로그인 출력  -->
 			<c:if test="${login == null}">
-				<a href="bamboo/user/login.do"><h1>로그인</h1></a>
+				<a href="user/login"><h1>로그인</h1></a>
 			</c:if>
 			<!-- session으로 전달한 login 값이 null이 아니면 로그인 된 상태 -> 로그아웃 출력 -->
 			<c:if test="${login != null}">
-				<a href="bamboo/user/logout.do"><h1>로그아웃</h1></a>
+				<a href="user/logout"><h1>로그아웃</h1></a>
 			</c:if>
 			
-			<a href="bamboo/board/postList.do"><h1>게시판목록</h1></a>
+			<a href="board/postList"><h1>게시판목록</h1></a>
 
 		</div>
 

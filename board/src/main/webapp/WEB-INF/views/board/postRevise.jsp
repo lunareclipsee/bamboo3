@@ -39,7 +39,7 @@
 				</table>
 				<div class="pull-right">
 					<input type="button" id="reviseCancelBtn" class="btn btn-default" value="취소">
-					<input type="button" id="reviseConfirmBtn" class="btn btn-primary" value="수정하기">
+					<input type="button" id="123" class="btn btn-primary" value="수정하기">
 					<input type="hidden" id="idx" name="idx" value="${ boardDto.idx }">
 					<input type="hidden" id="name" name="name" value="${ boardDto.name }">
 				</div>

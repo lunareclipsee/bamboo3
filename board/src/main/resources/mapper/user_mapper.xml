@@ -6,7 +6,8 @@
 
 	<!-- 1. 로그인 처리 SQL -->
 	<!-- public UserVO login(UserVO userVO); -->
-	<select id="login" resultType="com.bamboo.board.model.UserDto" parameterType="com.bamboo.board.model.UserDto">
+	<select id="login" resultType="com.bamboo.board.model.UserDto"
+		parameterType="com.bamboo.board.model.UserDto">
 		SELECT *
 		FROM USER
 		WHERE ID=#{id} AND PASSWORD=#{password}
@@ -22,10 +23,42 @@
 
 	<!-- 3. 회원 가입 -->
 	<!-- public int insertUser(UserVO userVO); -->
-	<insert id="insertUser" parameterType="com.bamboo.board.model.UserDto">
+	<insert id="insertUser"
+		parameterType="com.bamboo.board.model.UserDto">
 		INSERT INTO USER
 		VALUES(#{id}, #{password}, #{name})
 	</insert>
 
+	<select id="getUserPw" resultType="String"
+		parameterType="String">
+		SELECT PASSWORD
+		FROM USER
+		WHERE ID = #{id}
+	</select>
+
+	<select id="getUserInfo"
+		resultType="com.bamboo.board.model.UserDto"
+		parameterType="com.bamboo.board.model.UserDto">
+		SELECT *
+		FROM USER
+		WHERE ID = #{id}
+	</select>
+
+	<update id="updateUser"
+		parameterType="com.bamboo.board.model.UserDto">
+		UPDATE USER
+		SET
+		NAME = #{name},
+		PASSWORD = #{password}
+		WHERE
+		ID = #{id}
+	</update>
+
+
+	<delete id="deleteUser" parameterType="String">
+		DELETE FROM
+		USER
+		WHERE ID = #{id}
+	</delete>
 
 </mapper>
