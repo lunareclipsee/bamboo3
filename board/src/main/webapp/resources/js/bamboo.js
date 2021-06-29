@@ -1,5 +1,17 @@
 window.onload = function() {
 
+	// join js
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
 	// postAdd js
 
 	$('#addConfirmBtn').click(function() {

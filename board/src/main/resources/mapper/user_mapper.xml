@@ -21,6 +21,12 @@
 		WHERE ID = #{id}
 	</select>
 
+	<select id="nameCheck" resultType="String" parameterType="String">
+		SELECT NAME
+		FROM USER
+		WHERE NAME = #{name}
+	</select>
+
 	<!-- 3. 회원 가입 -->
 	<!-- public int insertUser(UserVO userVO); -->
 	<insert id="insertUser"
@@ -58,7 +64,8 @@
 	<delete id="deleteUser" parameterType="String">
 		DELETE FROM
 		USER
-		WHERE ID = #{id}
+		WHERE ID =
+		#{id}
 	</delete>
 
 </mapper>

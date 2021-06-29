@@ -26,6 +26,12 @@ public class UserDaoImpl implements UserDao {
 
 		return sqlSession.selectOne("user.idCheck", id);
 	}
+	
+	@Override
+	public String nameCheck(String name) {
+		
+		return sqlSession.selectOne("user.nameCheck", name);
+	}
 
 	// 3. 회원 가입 SQL 연동
 	@Override

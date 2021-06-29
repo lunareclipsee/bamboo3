@@ -37,7 +37,7 @@ public class UserController {
 //		return "user/login";
 	}
 
-	// 2. 로그인 처리 요청(/user/loginPost) 처리 메소드
+	// 2. 로그인 처리 요청(/user/loginCtr) 처리 메소드
 	// -> 로그인 처리 시 로그인 성공 결과는 HttpSession에 저장해야함 ****
 	@RequestMapping(value = "loginCtr", method = RequestMethod.POST)
 	public String loginCtr(UserDto userDto, HttpSession session) {
@@ -88,7 +88,8 @@ public class UserController {
 
 	// 5. 실제 회원 가입 요청 처리 메소드
 	@RequestMapping(value = "joinCtr", method = RequestMethod.POST)
-	public String joinCtr(@RequestParam("id") String id, UserDto userDto, HttpServletRequest request,
+	public String joinCtr(
+			@RequestParam("id") String id, UserDto userDto, HttpServletRequest request,
 			RedirectAttributes attr) {
 		log.info("Welcome joinCtr! " + id);
 		// 1) service 메소드 실행
@@ -105,6 +106,16 @@ public class UserController {
 	public Boolean idCheck(@RequestParam("id") String id) {
 		// 1) UserService의 idCheck 메소드를 실행해서 결과 저장
 		boolean result = userService.idCheck(id);
+
+		return result;
+
+	}
+	
+	@RequestMapping(value = "nameCheck", method = RequestMethod.GET)
+	@ResponseBody
+	public Boolean nameCheck(@RequestParam("name") String name) {
+		// 1) UserService의 idCheck 메소드를 실행해서 결과 저장
+		boolean result = userService.nameCheck(name);
 
 		return result;
 

@@ -51,6 +51,15 @@ public class UserServiceImpl implements UserService {
 		// result 가 null이 아니면 아이디 중복
 		return false;
 	}
+	
+	@Override
+	public boolean nameCheck(String name) {
+		String result = userDao.nameCheck(name);
+		if (result == null) {
+			return true;
+		}
+		return false;
+	}
 
 	// 3. 회원 가입 **** 중요
 	@Override

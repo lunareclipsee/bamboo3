@@ -25,5 +25,7 @@ public interface UserDao {
 	public UserDto getUserInfo(String id);
 
 	public int withdrawUser(String id);
+
+	public String nameCheck(String name);
 	
 }

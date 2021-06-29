@@ -13,18 +13,7 @@
 				// 1) 요청 주소
 				var addr = 'idCheck';
 
-				// 2) 요청에 넘겨줄 파라미터 값 가져오기
-				// -> form에서 id가 id인 개체의 value값(즉, 사용자가 입력한 id값) 가져와서 저장
 				var id = $('#id').val();
-				// 3) JQuery의 AJAX로 요청 주소의 결과 가져오기
-				// [AJAX]
-				// url - 요청 주소
-				// date - {}를 이용하여 파라미터 전달 (없는 경우 생략)
-				// dataType - return해서 받아오는 데이터 타입 지정 (JSON,XML,CSV 등등)
-				// success - 성공했을 때 호출될 함수 설정
-				// error - 실패했을 때 호출될 함수 설정
-
-				// ** /myboard/user/idCheck의 요청에 파라미터로 id를 넘겨주고 결과는 JSON으로 가져옴
 				$.ajax({
 					url : addr,
 					data : {
@@ -36,6 +25,7 @@
 						// alert(data); // -> [Object objec] 이렇게 뜨면 ok
 						// alert(data.result); // -> false 또는 true로 뜨면 ok
 						if (data == true) {
+							
 							// data == true 아이디 중복 X
 							// (1)idDiv에 사용가능한 아이디 입니다 출력
 							$('#idDiv').html('사용가능한 아이디입니다.');
@@ -46,13 +36,8 @@
 							$('#idCheck').val('true');
 
 						} else {
-							// 아이디가 중복 된 경우
-							// (1)idDiv에 사용할 수 없는 아이디입니다 출력
 							$('#idDiv').html('이미 사용 중인 아이디입니다.');
-							// (2)문자 색은 빨강
 							$('#idDiv').css('color', 'red');
-							// (3) 아이디 성공 여부를 저장하는 hidden 태그의 value값을 false 로 저장
-							// <input type="hidden" id="idCheck" value="false" /> 
 							$('#idCheck').val('false');
 						}
 
@@ -74,6 +59,40 @@
 			return false; // 다음 페이지로 넘어갈 수 없도록 설정 
 
 		}
+	}
+		
+		$('#confirmName').click(function() {
+
+			// 1) 요청 주소
+			var addr = 'nameCheck';
+			var name = $('#name').val();
+			$.ajax({
+				url : addr,
+				data : {
+					'name' : name
+				},
+				dataType : 'json',
+				success : function(data) {
+					if (data == true) {
+						// (1)nameDiv에 사용가능한 닉네임 입니다 출력
+						$('#nameDiv').html('사용가능한 닉네임 입니다.');
+						// (2)성공 문자 색은 파란색
+						$('#nameDiv').css('color', 'blue');
+						// (3)닉네임 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
+						// <input type="hidden" id="nameCheck" value="false" /> 
+						$('#nameCheck').val('true');
+
+					} else {
+						$('#nameDiv').html('이미 사용 중인 닉네임 입니다.');
+						$('#nameDiv').css('color', 'red');
+						$('#nameCheck').val('false');
+					}
+
+				}
+
+			});
+			
+		});
 
 	}
 </script>
@@ -87,7 +106,6 @@
 	<section class="content">
 		<div class="box">
 			<div class="box-body">
-				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="box-header with-border">
 						<!-- 회원 가입 양식 form -->
@@ -99,6 +117,7 @@
 							<!-- hidden : 아이디 중복검사 성공 여부를 저장하기 위한 변수 -->
 							<!-- 기본 값은 false -->
 							<input type="hidden" id="idCheck" value="false" />
+							<input type="hidden" id="nameCheck" value="false" />
 							<p align="center">
 							<table class="table table-striped centered">
 
@@ -110,10 +129,9 @@
 								<!-- 아이디 입력 -->
 								<tr>
 									<!-- &nbsp; : html기초, 태그나 문자 사이에 공백 주는 기능!!-->
-									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; <label
-										for="id">아이디</label> <!-- onblur : 아이디 입력란에서 포커스가 다른 곳으로 이동할 때 호출할 함수 설정 -->
-										<input type="text" class="form-control" name="id" id="id"
-										size="20" maxlength="30" onblur="confirmId()"
+									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
+										<label for="id">아이디</label> <!-- onblur : 아이디 입력란에서 포커스가 다른 곳으로 이동할 때 호출할 함수 설정 -->
+										<input type="text" class="form-control" name="id" id="id" size="20" maxlength="30" onblur="confirmId()"
 										required="required" placeholder="아이디를 입력하세요" /> <!-- 아이디 중복검사 후 중복 여부를 출력할 영역 설정 -->
 										<div id="idDiv"></div>
 									</td>
@@ -129,33 +147,29 @@
 								</tr>
 								<!-- 이름 입력 -->
 								<tr>
-									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; <label
-										for="name">닉네임</label> <!-- pattern : 알파벳 대소문자, 한글로 입력해야하고 2글자 이상 입력해야함-->
-										<input type="text" class="form-control" name="name" id="name"
-										size="20" maxlength="30" pattern="([a-z,A-Z,가-힣]){2,}"
+									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; <label for="name">닉네임</label> <!-- pattern : 알파벳 대소문자, 한글로 입력해야하고 2글자 이상 입력해야함-->
+										<input type="text" class="form-control" name="name" id="name" size="20" maxlength="30" pattern="([a-z,A-Z,가-힣]){2,}"
 										required="required" placeholder="닉네임을 입력하세요" />
+										<div id="nameDiv"></div>
 									</td>
-
+									<td>
+										<input type="button" id="confirmName" value="중복확인">
+									</td>
 								</tr>
 
 								<tr>
-									<td colspan="2" align="center"><br /> <input
-										type="submit" value="회원가입" class="btn btn-success" /> <input
-										type="button" value="메인으로" class="btn btn-primary"
-										onclick="javascript:window.location='/'" /></td>
+									<td colspan="2" align="center"><br /> 
+										<input type="submit" value="회원가입" class="btn btn-success" /> 
+										<input type="button" value="메인으로" class="btn btn-primary"
+										onclick="javascript:window.location='/'" />
+									</td>
 								</tr>
 							</table>
 						</form>
-
 					</div>
-					<div class="col-md-2"></div>
 				</div>
 			</div>
 		</div>
 	</section>
-
-
 </body>
-
-
 </html>
