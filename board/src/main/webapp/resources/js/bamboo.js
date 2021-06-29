@@ -1,15 +1,97 @@
 window.onload = function() {
 
 	// join js
-	
-	
-	
-	
-	
-	
-	
-	
 
+	// 2. 아이디 입력 창에서 포커스가 이동하면 아이디 중복 체크 결과에 따라 메세지를 idDiv에 출력하는 메소드
+	function confirmId() {
+		// 1) 요청 주소
+		var addr = 'idCheck';
+
+		var id = $('#id').val();
+		$.ajax({
+			url: addr,
+			data: {
+				'id': id
+			},
+			dataType: 'json',
+			success: function(data) {
+				// 일단 테스트 
+				// alert(data); // -> [Object objec] 이렇게 뜨면 ok
+				// alert(data.result); // -> false 또는 true로 뜨면 ok
+				if (data == true) {
+
+					// data == true 아이디 중복 X
+					// (1)idDiv에 사용가능한 아이디 입니다 출력
+					$('#idDiv').html('사용가능한 아이디입니다.');
+					// (2)성공 문자 색은 파란색
+					$('#idDiv').css('color', 'blue');
+					// (3) 아이디 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
+					// <input type="hidden" id="idCheck" value="false" /> 
+					$('#idCheck').val('true');
+
+				} else {
+					$('#idDiv').html('이미 사용 중인 아이디입니다.');
+					$('#idDiv').css('color', 'red');
+					$('#idCheck').val('false');
+				}
+
+			}
+
+		});
+	}
+
+	// 3. form에서 submit 버튼 클릭 시 실행할 check() 함수 생성
+	// <form id="joinform" enctype="multipart/form-data" method="post" onsubmit="return check()">
+	function check() {
+		var joinform = $('#joinform');
+		// 아이디가 중복된 상태에서 회원 가입 버튼을 누르면 다음페이지로 넘어갈 수 없도록! 
+		// id가 idCheck인 객체의 value값이 false이면 아이디 중복상태
+		if ($('#idCheck').val() == 'false') {
+			alert("아이디를 확인해주세요");
+			$('#idDiv').html('이미 사용 중인 아이디입니다.');
+			$('#idDiv').css('color', 'red');
+			return false; // 다음 페이지로 넘어갈 수 없도록 설정 
+
+		}
+	}
+
+	$('#confirmName').click(function() {
+		confirmName();
+	});
+
+	confirmName = function() {
+		alert("asdasd");
+		// 1) 요청 주소
+		var addr = 'nameCheck';
+		var name = $('#name').val();
+		$.ajax({
+			url: addr,
+			data: {
+				'name': name
+			},
+			dataType: 'json',
+			success: function(data) {
+				if (data == true) {
+					// (1)nameDiv에 사용가능한 닉네임 입니다 출력
+					$('#nameDiv').html('사용가능한 닉네임 입니다.');
+					// (2)성공 문자 색은 파란색
+					$('#nameDiv').css('color', 'blue');
+					// (3)닉네임 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
+					// <input type="hidden" id="nameCheck" value="false" /> 
+					$('#nameCheck').val('true');
+
+				} else {
+					$('#nameDiv').html('이미 사용 중인 닉네임 입니다.');
+					$('#nameDiv').css('color', 'red');
+					$('#nameCheck').val('false');
+				}
+
+			}
+
+		});
+
+
+	}
 
 
 	// postAdd js
@@ -185,20 +267,20 @@ window.onload = function() {
 			});
 		}
 	}
-}
 
 
-// PostList js
-postAddFnc = function() {
-	location.href = 'postAdd'
-}
+	// PostList js
+	postAddFnc = function() {
+		location.href = 'postAdd'
+	}
 
-function fn_view(idx) {
+	function fn_view(idx) {
 
-	var form = document.getElementById("frm");
-	var url = "postSelect";
-	url = url + "?idx=" + idx;
+		var form = document.getElementById("frm");
+		var url = "postSelect";
+		url = url + "?idx=" + idx;
 
-	form.action = url;
-	form.submit();
+		form.action = url;
+		form.submit();
+	}
 }

@@ -7,95 +7,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
-<script>
-			// 2. 아이디 입력 창에서 포커스가 이동하면 아이디 중복 체크 결과에 따라 메세지를 idDiv에 출력하는 메소드
-			function confirmId() {
-				// 1) 요청 주소
-				var addr = 'idCheck';
 
-				var id = $('#id').val();
-				$.ajax({
-					url : addr,
-					data : {
-						'id' : id
-					},
-					dataType : 'json',
-					success : function(data) {
-						// 일단 테스트 
-						// alert(data); // -> [Object objec] 이렇게 뜨면 ok
-						// alert(data.result); // -> false 또는 true로 뜨면 ok
-						if (data == true) {
-							
-							// data == true 아이디 중복 X
-							// (1)idDiv에 사용가능한 아이디 입니다 출력
-							$('#idDiv').html('사용가능한 아이디입니다.');
-							// (2)성공 문자 색은 파란색
-							$('#idDiv').css('color', 'blue');
-							// (3) 아이디 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
-							// <input type="hidden" id="idCheck" value="false" /> 
-							$('#idCheck').val('true');
-
-						} else {
-							$('#idDiv').html('이미 사용 중인 아이디입니다.');
-							$('#idDiv').css('color', 'red');
-							$('#idCheck').val('false');
-						}
-
-					}
-
-				});
-			}
-
-	// 3. form에서 submit 버튼 클릭 시 실행할 check() 함수 생성
-	// <form id="joinform" enctype="multipart/form-data" method="post" onsubmit="return check()">
-	function check() {
-		var joinform = $('#joinform');
-		// 아이디가 중복된 상태에서 회원 가입 버튼을 누르면 다음페이지로 넘어갈 수 없도록! 
-		// id가 idCheck인 객체의 value값이 false이면 아이디 중복상태
-		if ($('#idCheck').val() == 'false') {
-			alert("아이디를 확인해주세요");
-			$('#idDiv').html('이미 사용 중인 아이디입니다.');
-			$('#idDiv').css('color', 'red');
-			return false; // 다음 페이지로 넘어갈 수 없도록 설정 
-
-		}
-	}
-		
-		$('#confirmName').click(function() {
-
-			// 1) 요청 주소
-			var addr = 'nameCheck';
-			var name = $('#name').val();
-			$.ajax({
-				url : addr,
-				data : {
-					'name' : name
-				},
-				dataType : 'json',
-				success : function(data) {
-					if (data == true) {
-						// (1)nameDiv에 사용가능한 닉네임 입니다 출력
-						$('#nameDiv').html('사용가능한 닉네임 입니다.');
-						// (2)성공 문자 색은 파란색
-						$('#nameDiv').css('color', 'blue');
-						// (3)닉네임 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
-						// <input type="hidden" id="nameCheck" value="false" /> 
-						$('#nameCheck').val('true');
-
-					} else {
-						$('#nameDiv').html('이미 사용 중인 닉네임 입니다.');
-						$('#nameDiv').css('color', 'red');
-						$('#nameCheck').val('false');
-					}
-
-				}
-
-			});
-			
-		});
-
-	}
-</script>
 </head>
 <body>
 
@@ -116,7 +28,7 @@
 						<form id="joinform" action="joinCtr" method="post" onsubmit="return check()">
 							<!-- hidden : 아이디 중복검사 성공 여부를 저장하기 위한 변수 -->
 							<!-- 기본 값은 false -->
-							<input type="hidden" id="idCheck" value="false" />
+							<input type="hidden" id="idCheck" value="false" /> 
 							<input type="hidden" id="nameCheck" value="false" />
 							<p align="center">
 							<table class="table table-striped centered">
@@ -132,24 +44,25 @@
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
 										<label for="id">아이디</label> <!-- onblur : 아이디 입력란에서 포커스가 다른 곳으로 이동할 때 호출할 함수 설정 -->
 										<input type="text" class="form-control" name="id" id="id" size="20" maxlength="30" onblur="confirmId()"
-										required="required" placeholder="아이디를 입력하세요" /> <!-- 아이디 중복검사 후 중복 여부를 출력할 영역 설정 -->
+											required="required" placeholder="아이디를 입력하세요" /> <!-- 아이디 중복검사 후 중복 여부를 출력할 영역 설정 -->
 										<div id="idDiv"></div>
 									</td>
 
 								</tr>
 								<!-- 비밀번호 입력 -->
 								<tr>
-									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; <label
-										for="pw">비밀번호</label> <input type="password"
-										class="form-control" name="password" id="password" size="20"
+									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
+									<label for="pw">비밀번호</label> 
+									<input type="password" class="form-control" name="password" id="password" size="20"
 										maxlength="30" required="required" placeholder="비밀번호를 입력하세요" />
 									</td>
 								</tr>
 								<!-- 이름 입력 -->
 								<tr>
-									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; <label for="name">닉네임</label> <!-- pattern : 알파벳 대소문자, 한글로 입력해야하고 2글자 이상 입력해야함-->
+									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
+										<label for="name">닉네임</label> <!-- pattern : 알파벳 대소문자, 한글로 입력해야하고 2글자 이상 입력해야함-->
 										<input type="text" class="form-control" name="name" id="name" size="20" maxlength="30" pattern="([a-z,A-Z,가-힣]){2,}"
-										required="required" placeholder="닉네임을 입력하세요" />
+											required="required" placeholder="닉네임을 입력하세요" />
 										<div id="nameDiv"></div>
 									</td>
 									<td>
@@ -159,9 +72,8 @@
 
 								<tr>
 									<td colspan="2" align="center"><br /> 
-										<input type="submit" value="회원가입" class="btn btn-success" /> 
-										<input type="button" value="메인으로" class="btn btn-primary"
-										onclick="javascript:window.location='/'" />
+										<input type="submit" value="회원가입" class="btn btn-success"/> 
+										<input type="button" value="메인으로" class="btn btn-primary"	onclick="javascript:window.location='/'" />
 									</td>
 								</tr>
 							</table>
