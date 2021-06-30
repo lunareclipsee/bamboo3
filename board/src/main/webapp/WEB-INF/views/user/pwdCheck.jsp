@@ -10,10 +10,10 @@
 		<div class="col-md-9 inner" style="width: 500px;">
 			<div id="pwdCheckBox" class="col-md-9 inner" style="padding-top: 25px;">
 				<h3 style="font-weight: bold; text-align: center;">비밀번호를 입력해주세요</h3>
-				<form action="" id="selectForm" name="selectForm" method="post">
+				<form action="reviseUser" id="selectForm" name="formName" method="post">
 				
 					<div class="pwdBox">
-						<input type="password" id="password" name="password" class="form-control" value="" maxlength="10">
+						<input type="password" id="password" name="password" class="form-control" value="" maxlength="10" onkeypress="JavaScript:press(this.form)">
 					</div>
 					
 					<input type="hidden" id="url" value="${URL}">

@@ -35,8 +35,10 @@
 				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
 			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
-			<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
-			<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
+			<c:if test="${login != null }">
+				<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
+				<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
+			</c:if>
 		</div>
 	</div>
 </body>

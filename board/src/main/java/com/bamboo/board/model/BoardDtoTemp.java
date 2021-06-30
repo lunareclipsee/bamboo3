@@ -2,18 +2,19 @@ package com.bamboo.board.model;
 
 import java.util.Date;
 
-public class BoardDto {
+public class BoardDtoTemp {
 
-	private int idx; // 게시글 번호
-	private String name; // 닉네임
-	private String title; // 제목
-	private String content; // 내용
-	private String password; // 비밀번호
-	private String inip; // 접속IP
-	private Date indate; // 작성시간
-	private int groupno; // 그룹번호 원글은 자신의 값
-	private int orderno; // 원글(답글포함)에 대한 순서
-	private int depth; // 답글 계층
+	private int idx;			// 게시글 번호
+	private String name;		// 닉네임
+	private String title;		// 제목
+	private String content;		// 내용
+	private String password;	// 비밀번호
+	private String inip;		// 접속IP
+	private Date indate;		// 작성시간
+
+	public BoardDtoTemp() {
+		super();
+	}
 
 	public int getIdx() {
 		return idx;
@@ -71,35 +72,10 @@ public class BoardDto {
 		this.indate = indate;
 	}
 
-	public int getGroupno() {
-		return groupno;
-	}
-
-	public void setGroupno(int groupno) {
-		this.groupno = groupno;
-	}
-
-	public int getOrderno() {
-		return orderno;
-	}
-
-	public void setOrderno(int orderno) {
-		this.orderno = orderno;
-	}
-
-	public int getDepth() {
-		return depth;
-	}
-
-	public void setDepth(int depth) {
-		this.depth = depth;
-	}
-
 	@Override
 	public String toString() {
 		return "BoardDto [idx=" + idx + ", name=" + name + ", title=" + title + ", content=" + content + ", password="
-				+ password + ", inip=" + inip + ", indate=" + indate + ", groupno=" + groupno + ", orderno=" + orderno
-				+ ", depth=" + depth + "]";
+				+ password + ", inip=" + inip + ", indate=" + indate + "]";
 	}
 
 }

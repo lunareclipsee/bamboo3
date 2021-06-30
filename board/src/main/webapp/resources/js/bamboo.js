@@ -178,7 +178,6 @@ window.onload = function() {
 	
 			var password = $('input[type=password]').val();
 			var theForm = document.selectForm;
-			var url = $('#url').val();
 			//		var id = $('#id').val();
 	
 			if (password == "") {
@@ -192,7 +191,7 @@ window.onload = function() {
 					success: function(data) {
 						console.log("1 = 중복o / 0 = 중복x : " + data);
 						if (data) {
-							theForm.action = "reviseUser"
+//							theForm.action = "reviseUser"
 						} else {
 							// 0 : 비밀번호 통과못함
 							alert("비밀번호가 틀렸습니다.");

@@ -11,16 +11,7 @@
 	<div class="container outer">
 		<div class="inner">
 			<form id="post_frm" name="post_frm" class="form-inline center-block" action="" method="post">
-				<div class="form-group pull-left input_infotxt ">
-					<label for="name" class="sr-only" >닉네임</label> 
-					<input type="text" id="name" name="name" class="form-control" placeholder="닉네임" maxlength="10" value=""/>
-				</div>
-	
-				<div class="form-group pull-left input_infotxt2">
-					<label for="password" class="sr-only">비밀번호</label> 
-					<input type="password" id="password" name="password" class="form-control"
-						placeholder="비밀번호" maxlength="10" value=""/>
-				</div>
+				<input type="hidden" id="name" name="name" value="${userName}"/>
 				
 				<div class="form-group input_write">
 					<label for="title" class="sr-only">제목</label> 

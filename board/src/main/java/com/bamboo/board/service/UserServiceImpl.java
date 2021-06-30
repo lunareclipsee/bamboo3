@@ -94,12 +94,11 @@ public class UserServiceImpl implements UserService {
 		if (userDto.getPassword() == "") {
 			String pw = userDao.getUserPw(id);
 			userDto.setPassword(pw);
+		} else {
+			// 새로운 비밀번호 암호화
+			String encodedPassword = passwordEncoder.encode(userDto.getPassword());
+			userDto.setPassword(encodedPassword);
 		}
-
-		// 새로운 비밀번호 암호화
-		String encodedPassword = passwordEncoder.encode(userDto.getPassword());
-		userDto.setPassword(encodedPassword);
-
 		userDao.reviseUser(userDto);
 		// 업데이트 된 정보 result에 담아옴
 		UserDto result = userDao.getUserInfo(id);

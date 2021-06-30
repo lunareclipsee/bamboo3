@@ -3,6 +3,7 @@ package com.bamboo.board.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bamboo.board.model.BoardDto;
+import com.bamboo.board.model.UserDto;
 import com.bamboo.board.service.BoardService;
 
 @Controller
@@ -25,14 +27,15 @@ public class BoardController {
 
 	@Autowired
 	BoardService BoardService;
-
+	
 	// 게시글 리스트
 	@RequestMapping(value = "postList", method = RequestMethod.GET)
-	public String list(@ModelAttribute BoardDto boardDto, Model model) {
+	public String list(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
 		log.info("Welcome postList!");
-
+		UserDto temp = (UserDto)session.getAttribute("login");
 		List<BoardDto> postList = BoardService.postList(boardDto);
 
+		model.addAttribute("login", temp);
 		model.addAttribute("postList", postList);
 
 		return "board/postList";
@@ -40,9 +43,12 @@ public class BoardController {
 
 	// 게시글 작성
 	@RequestMapping(value = "postAdd")
-	public String add() {
+	public String add(HttpSession session, Model model) {
 		log.info("Welcome postAdd!");
-
+		UserDto temp = (UserDto)session.getAttribute("login");
+		String userName = temp.getName();
+		
+		model.addAttribute("userName", userName);
 		return "board/postAdd";
 	}
 
@@ -81,43 +87,23 @@ public class BoardController {
 
 	// 게시글 상세보기
 	@RequestMapping(value = "postSelect")
-	public String select(@ModelAttribute BoardDto boardDto, Model model) {
+	public String select(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
 		log.info("Welcome postSelect! idx=" + boardDto.getIdx() + "번 게시글 조회");
 
+		UserDto temp = (UserDto)session.getAttribute("login");
+		List<BoardDto> postList = BoardService.postList(boardDto);
+		
 		BoardDto resultBoardDto = BoardService.postSelect(boardDto);
-
+		
+		model.addAttribute("login", temp);
 		model.addAttribute("boardDto", resultBoardDto);
 
 		return "board/postRead";
 	}
 
-//	// 비밀번호 확인페이지 이동
-//	@RequestMapping(value = "*/pwdCheck") //   */ 으로 revise, delete 구분해서 같이씀
-//	public String pwdCheck(@ModelAttribute BoardDto boardDtom, HttpServletRequest request, Model model) {
-//		log.info("Welcome pwdCheck!");
-//
-//		model.addAttribute("URL", request.getRequestURL());
-//		
-//		return "board/pwdCheck";
-//	}
-
-//	// 비밀번호를 통한 권한조회
-//	@RequestMapping(value = "*/pwdCheckCtr")
-//	@ResponseBody // 이게 있어야 ajax에서 받을수 있다.
-//	public int pwdcheckCtr(@ModelAttribute BoardDto boardDto, Model model) {
-//		log.info("Welcome pwdCheckCtr!");
-//		
-//		int resultNum = 0;
-//		resultNum = BoardService.pwdCheck(boardDto);
-//		
-//		log.info("1 = 통과o / 0 = 통과x : " + resultNum);
-//
-//		return resultNum;
-//
-//	}
-
 	// 게시글 수정페이지
-	@RequestMapping(value = "postRevise")
+	// 비로그인 막아야함
+	@RequestMapping(value = "postRevise", method = RequestMethod.POST)
 	public String revise(@ModelAttribute BoardDto boardDto, Model model) {
 		log.info("Welcome postRevise!");
 
@@ -128,7 +114,8 @@ public class BoardController {
 	}
 
 	// 게시글 수정
-	@RequestMapping(value = "postReviseCtr")
+	// 비로그인 막아야함
+	@RequestMapping(value = "postReviseCtr", method = RequestMethod.POST)
 	public String reviseCtr(@ModelAttribute BoardDto boardDto) {
 		log.info("Welcome postReviseCtr! ");
 
@@ -140,6 +127,7 @@ public class BoardController {
 	}
 
 	// 게시글 삭제
+	// 비로그인 막아야함
 	@RequestMapping(value = "postDeleteCtr")
 	public String deleteCtr(@ModelAttribute BoardDto boardDto) {
 		log.info("call postDeleteCtr! "+boardDto);

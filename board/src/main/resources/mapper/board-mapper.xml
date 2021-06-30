@@ -13,10 +13,8 @@
 	<insert id="add" parameterType="com.bamboo.board.model.BoardDto" useGeneratedKeys="true"
 		keyProperty="idx">
 		INSERT INTO BOARDTABLE
-		(TITLE, NAME, CONTENT, PASSWORD,
-		INIP, INDATE)
-		VALUES(#{title}, #{name}, #{content}, #{password},
-		#{inip}, SYSDATE()
+		(TITLE, NAME, CONTENT, INIP, INDATE, GROUPNO, ORDERNO, DEPTH)
+		VALUES(#{title}, #{name}, #{content}, #{inip}, SYSDATE(), #{groupno}, #{orderno}, #{depth}
 		)
 	</insert>
 	
