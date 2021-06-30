@@ -91,33 +91,33 @@ public class BoardController {
 		return "board/postRead";
 	}
 
-	// 비밀번호 확인페이지 이동
-	@RequestMapping(value = "*/pwdCheck") //   */ 으로 revise, delete 구분해서 같이씀
-	public String pwdCheck(@ModelAttribute BoardDto boardDtom, HttpServletRequest request, Model model) {
-		log.info("Welcome pwdCheck!");
+//	// 비밀번호 확인페이지 이동
+//	@RequestMapping(value = "*/pwdCheck") //   */ 으로 revise, delete 구분해서 같이씀
+//	public String pwdCheck(@ModelAttribute BoardDto boardDtom, HttpServletRequest request, Model model) {
+//		log.info("Welcome pwdCheck!");
+//
+//		model.addAttribute("URL", request.getRequestURL());
+//		
+//		return "board/pwdCheck";
+//	}
 
-		model.addAttribute("URL", request.getRequestURL());
-		
-		return "board/pwdCheck";
-	}
-
-	// 비밀번호를 통한 권한조회
-	@RequestMapping(value = "*/pwdCheckCtr")
-	@ResponseBody // 이게 있어야 ajax에서 받을수 있다.
-	public int pwdcheckCtr(@ModelAttribute BoardDto boardDto, Model model) {
-		log.info("Welcome pwdCheckCtr!");
-		
-		int resultNum = 0;
-		resultNum = BoardService.pwdCheck(boardDto);
-		
-		log.info("1 = 통과o / 0 = 통과x : " + resultNum);
-
-		return resultNum;
-
-	}
+//	// 비밀번호를 통한 권한조회
+//	@RequestMapping(value = "*/pwdCheckCtr")
+//	@ResponseBody // 이게 있어야 ajax에서 받을수 있다.
+//	public int pwdcheckCtr(@ModelAttribute BoardDto boardDto, Model model) {
+//		log.info("Welcome pwdCheckCtr!");
+//		
+//		int resultNum = 0;
+//		resultNum = BoardService.pwdCheck(boardDto);
+//		
+//		log.info("1 = 통과o / 0 = 통과x : " + resultNum);
+//
+//		return resultNum;
+//
+//	}
 
 	// 게시글 수정페이지
-	@RequestMapping(value = "*/postRevise")
+	@RequestMapping(value = "postRevise")
 	public String revise(@ModelAttribute BoardDto boardDto, Model model) {
 		log.info("Welcome postRevise!");
 
@@ -140,13 +140,13 @@ public class BoardController {
 	}
 
 	// 게시글 삭제
-	@RequestMapping(value = "*/postDeleteCtr")
+	@RequestMapping(value = "postDeleteCtr")
 	public String deleteCtr(@ModelAttribute BoardDto boardDto) {
-		log.info("call postDeleteCtr! ");
+		log.info("call postDeleteCtr! "+boardDto);
 
 		BoardService.postDelete(boardDto);
 		log.info("idx=" + boardDto.getIdx() + "번 게시글 삭제완료");
 		
-		return "redirect:../postList";
+		return "redirect:./postList";
 	}
 }

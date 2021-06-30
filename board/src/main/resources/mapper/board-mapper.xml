@@ -57,6 +57,5 @@
 		DELETE FROM
 		BOARDTABLE
 		WHERE IDX = #{idx}
-		AND PASSWORD = #{password}
 	</delete>
 </mapper>

@@ -1,122 +1,11 @@
 window.onload = function() {
 
-	// join js
-
-	// 2. 아이디 입력 창에서 포커스가 이동하면 아이디 중복 체크 결과에 따라 메세지를 idDiv에 출력하는 메소드
-	function confirmId() {
-		// 1) 요청 주소
-		var addr = 'idCheck';
-
-		var id = $('#id').val();
-		$.ajax({
-			url: addr,
-			data: {
-				'id': id
-			},
-			dataType: 'json',
-			success: function(data) {
-				// 일단 테스트 
-				// alert(data); // -> [Object objec] 이렇게 뜨면 ok
-				// alert(data.result); // -> false 또는 true로 뜨면 ok
-				if (data == true) {
-
-					// data == true 아이디 중복 X
-					// (1)idDiv에 사용가능한 아이디 입니다 출력
-					$('#idDiv').html('사용가능한 아이디입니다.');
-					// (2)성공 문자 색은 파란색
-					$('#idDiv').css('color', 'blue');
-					// (3) 아이디 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
-					// <input type="hidden" id="idCheck" value="false" /> 
-					$('#idCheck').val('true');
-
-				} else {
-					$('#idDiv').html('이미 사용 중인 아이디입니다.');
-					$('#idDiv').css('color', 'red');
-					$('#idCheck').val('false');
-				}
-
-			}
-
-		});
-	}
-
-	// 3. form에서 submit 버튼 클릭 시 실행할 check() 함수 생성
-	// <form id="joinform" enctype="multipart/form-data" method="post" onsubmit="return check()">
-	function check() {
-		var joinform = $('#joinform');
-		// 아이디가 중복된 상태에서 회원 가입 버튼을 누르면 다음페이지로 넘어갈 수 없도록! 
-		// id가 idCheck인 객체의 value값이 false이면 아이디 중복상태
-		if ($('#idCheck').val() == 'false') {
-			alert("아이디를 확인해주세요");
-			$('#idDiv').html('이미 사용 중인 아이디입니다.');
-			$('#idDiv').css('color', 'red');
-			return false; // 다음 페이지로 넘어갈 수 없도록 설정 
-
-		}
-	}
-
-	$('#confirmName').click(function() {
-		confirmName();
-	});
-
-	confirmName = function() {
-		alert("asdasd");
-		// 1) 요청 주소
-		var addr = 'nameCheck';
-		var name = $('#name').val();
-		$.ajax({
-			url: addr,
-			data: {
-				'name': name
-			},
-			dataType: 'json',
-			success: function(data) {
-				if (data == true) {
-					// (1)nameDiv에 사용가능한 닉네임 입니다 출력
-					$('#nameDiv').html('사용가능한 닉네임 입니다.');
-					// (2)성공 문자 색은 파란색
-					$('#nameDiv').css('color', 'blue');
-					// (3)닉네임 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
-					// <input type="hidden" id="nameCheck" value="false" /> 
-					$('#nameCheck').val('true');
-
-				} else {
-					$('#nameDiv').html('이미 사용 중인 닉네임 입니다.');
-					$('#nameDiv').css('color', 'red');
-					$('#nameCheck').val('false');
-				}
-
-			}
-
-		});
-
-
-	}
-
-
 	// postAdd js
 
 	$('#addConfirmBtn').click(function() {
 		addConfirm();
 	});
-
-
-	//revise페이지에서 pwdCheck
-	$('#editUserInfoBtn').click(function() {
-		var theForm = document.selectForm;
-		theForm.action = "pwdCheck";
-		theForm.submit();
-	});
-
-	$('#addPostCancelBtn').click(function() {
-		addCancel();
-	});
-
-	$('#content').keyup(function(e) {
-		var content = $(this).val();
-		$('#counter').val(200 - content.length);
-	});
-
+	
 	addConfirm = function() {
 
 		var password = $('input[type=password]').val();
@@ -164,6 +53,14 @@ window.onload = function() {
 		}
 	}
 
+
+
+	//board revise페이지에서 pwdCheck
+
+	$('#addPostCancelBtn').click(function() {
+		addCancel();
+	});
+
 	addCancel = function() {
 		var addSelect = confirm("게시글 작성을 취소할까요?");
 		if (addSelect) {
@@ -171,7 +68,48 @@ window.onload = function() {
 		}
 	}
 
+	$('#content').keyup(function(e) {
+		var content = $(this).val();
+		$('#counter').val(200 - content.length);
+	});
+
+	
+
+	// postRevise js
+	
+	
+	$('#postEditBtn').click(function() {
+		var theForm = document.modify_confirm;
+		var edit = confirm("게시글을 수정하시겠습니까?");
+		if (edit) {
+			theForm.action = "postReviseCtr";
+			theForm.submit();
+		} else {
+			return false;
+		}
+	});
+	
+	
+		$('#postDeleteBtn').click(function() {
+		var theForm = document.selectForm;
+		var edit = confirm("게시글을 삭제하시겠습니까?");
+		if (edit) {
+			theForm.action = "postDeleteCtr";
+			theForm.submit();
+		} else {
+			return false;
+		}
+	});
+	
+
 	// userRevise js
+
+	$('#editUserInfoBtn').click(function() {
+		var theForm = document.selectForm;
+		theForm.action = "pwdCheck";
+		theForm.submit();
+	});
+
 
 	$('#withdrawBtn').click(function() {
 		var theForm = document.selectForm;
@@ -197,9 +135,6 @@ window.onload = function() {
 		reviseConfirm();
 	});
 
-	$('#reviseCancelBtn').click(function() {
-		reviseCancel();
-	});
 
 	reviseConfirm = function() {
 		var theForm = document.selectForm;
@@ -220,6 +155,10 @@ window.onload = function() {
 		}
 	}
 
+	$('#reviseCancelBtn').click(function() {
+		reviseCancel();
+	});
+
 	reviseCancel = function() {
 		var reviseSelect = confirm("회원정보 수정을 취소할까요?");
 		if (reviseSelect) {
@@ -228,45 +167,45 @@ window.onload = function() {
 			return false;
 		}
 	}
-
-	// pwdCheck js
-
-	$('#pwdConfirmBtn').click(function() {
-		confirmPassword();
-	});
-
-	confirmPassword = function() {
-
-		var password = $('input[type=password]').val();
-		var theForm = document.selectForm;
-		var url = $('#url').val();
-		//		var id = $('#id').val();
-
-		if (password == "") {
-			alert("비밀번호를 입력해주세요.");
-			$('input[type=password]').focus();
-		} else {
-			$.ajax({
-				type: "POST",
-				url: "pwdCheckCtr",
-				data: { password: $("#password").val(), id: $("#id").val() },
-				success: function(data) {
-					console.log("1 = 중복o / 0 = 중복x : " + data);
-					if (data) {
-						theForm.action = "reviseUser"
-					} else {
-						// 0 : 비밀번호 통과못함
-						alert("비밀번호가 틀렸습니다.");
-						//						$('input[type=password]').focus()
+	
+		// pwdCheck js
+	
+		$('#pwdConfirmBtn').click(function() {
+			confirmPassword();
+		});
+	
+		confirmPassword = function() {
+	
+			var password = $('input[type=password]').val();
+			var theForm = document.selectForm;
+			var url = $('#url').val();
+			//		var id = $('#id').val();
+	
+			if (password == "") {
+				alert("비밀번호를 입력해주세요.");
+				$('input[type=password]').focus();
+			} else {
+				$.ajax({
+					type: "POST",
+					url: "pwdCheckCtr",
+					data: { password: $("#password").val(), id: $("#id").val() },
+					success: function(data) {
+						console.log("1 = 중복o / 0 = 중복x : " + data);
+						if (data) {
+							theForm.action = "reviseUser"
+						} else {
+							// 0 : 비밀번호 통과못함
+							alert("비밀번호가 틀렸습니다.");
+							//						$('input[type=password]').focus()
+						}
+						theForm.submit();
+					},
+					error: function() {
+						alert("문제야 문제");
 					}
-					theForm.submit();
-				},
-				error: function() {
-					alert("문제야 문제");
-				}
-			});
+				});
+			}
 		}
-	}
 
 
 	// PostList js
@@ -274,13 +213,167 @@ window.onload = function() {
 		location.href = 'postAdd'
 	}
 
-	function fn_view(idx) {
 
-		var form = document.getElementById("frm");
-		var url = "postSelect";
-		url = url + "?idx=" + idx;
+}
 
-		form.action = url;
-		form.submit();
+//login js
+
+// 엔터누르면 폼 실행 메소드
+function press(f) {
+	if (f.keyCode == 13) {			//javascript에서는 13이 enter키를 의미함 
+		formName.submit();			//formname에 사용자가 지정한 form의 name입력 
+	}
+}
+
+//board list js
+
+function fn_view(idx) {
+
+	var form = document.getElementById("frm");
+	var url = "postSelect";
+	url = url + "?idx=" + idx;
+
+	form.action = url;
+	form.submit();
+}
+
+// join js
+
+// 외전 공백방지 메소드
+
+function noSpaceForm(obj) {
+	var str_space = /\s/;               // 공백 체크
+	if (str_space.exec(obj.value)) {     // 공백 체크
+		alert("해당 항목에는 공백을 사용할 수 없습니다.\n\n공백 제거됩니다.");
+		obj.focus();
+		obj.value = obj.value.replace(' ', ''); // 공백제거
+		return false;
+	}
+}
+
+// 1. 아이디 입력 창에서 포커스가 이동하면 아이디 중복 체크 결과에 따라 메세지를 idDiv에 출력하는 메소드
+
+//결함 아이디 최소글자수 
+//비밀번호 공백제거 및 유효성
+function confirmId() {
+	// 1) 요청 주소
+	var addr = 'idCheck';
+	var id = $('#id').val();
+
+	$.ajax({
+		url: addr,
+		data: {
+			'id': id
+		},
+		dataType: 'json',
+		success: function(data) {
+			// 일단 테스트 
+			// alert(data); // -> [Object objec] 이렇게 뜨면 ok
+			// alert(data.result); // -> false 또는 true로 뜨면 ok
+			if (data == true) {
+
+				// data == true 아이디 중복 X
+				// (1)idDiv에 사용가능한 아이디 입니다 출력
+				$('#idDiv').html('사용가능한 아이디입니다.');
+				// (2)성공 문자 색은 파란색
+				$('#idDiv').css('color', 'blue');
+				// (3) 아이디 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
+				// <input type="hidden" id="idCheck" value="false" /> 
+				$('#idCheck').val('true');
+				// (4) 아이디 닉네임 성공시 회원가입 버튼 활성화
+				if ($('#nameCheck').val() == 'true' && $('#idCheck').val() == 'true') {
+					$("#submitBtn").attr("disabled", false);
+				}
+
+			} else {
+				$('#idDiv').html('이미 사용 중인 아이디입니다.');
+				$('#idDiv').css('color', 'red');
+				$('#idCheck').val('false');
+				if ($('#nameCheck').val() == 'false' || $('#idCheck').val() == 'false') {
+					$("#submitBtn").attr("disabled", true);
+				}
+			}
+
+		}
+
+	});
+}
+
+
+// 2. 닉네임 입력 창에서 포커스가 이동하면 닉네임 중복 체크 결과에 따라 메세지를 idDiv에 출력하는 메소드
+function confirmNameFnc() {
+
+	// 1) 요청 주소
+	var addr = 'nameCheck';
+	var name = $('#name').val();
+
+	if (name.length < 2) {
+
+		alert("닉네임은 2글자 이상입니다.")
+		$('#name').focus();
+
+	} else {
+
+		$.ajax({
+			url: addr,
+			data: {
+				'name': name
+			},
+			dataType: 'json',
+			success: function(data) {
+				if (data == true) {
+					// 				var nameCheck = $('#nameCheck').val();
+					var select = confirm("사용가능한 닉네임입니다. 사용하시겠습니까? 변경할 수 없습니다.");
+					// (1)nameDiv에 사용가능한 닉네임 입니다 출력
+					// 				$('#nameDiv').html('사용가능한 닉네임 입니다.');
+					// 				// (2)성공 문자 색은 파란색
+					// 				$('#nameDiv').css('color', 'blue');
+					// 				// (3)닉네임 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
+					// 				// <input type="hidden" id="nameCheck" value="false" /> 
+					if (select) {
+						$('#nameCheck').val('true');
+						$('#name').attr('readonly', true);
+						$("#nameCheckBtn").attr("disabled", true);
+						if ($('#nameCheck').val() == 'true'
+							&& $('#idCheck').val() == 'true') {
+							$("#submitBtn").attr("disabled", false);
+
+						}
+					} else {
+						$('#name').focus();
+						return false;
+					}
+				} else {
+					alert("이미 사용중인 닉네임입니다.")
+					$('#nameCheck').val('false');
+					$('#name').val('');
+					$('#name').focus();
+				}
+
+			}
+
+		});
+
+	}
+}
+
+
+// 3. form에서 submit 버튼 클릭 시 실행할 check() 함수 생성
+// <form id="joinform" enctype="multipart/form-data" method="post" onsubmit="return check()">
+
+function check() {
+	// 아이디가 중복된 상태에서 회원 가입 버튼을 누르면 다음페이지로 넘어갈 수 없도록! 
+	// id가 idCheck인 객체의 value값이 false이면 아이디 중복상태
+
+	if ($('#idCheck').val() == 'false') {
+		alert("아이디를 확인해주세요");
+		$('#idDiv').html('이미 사용 중인 아이디입니다.');
+		$('#idDiv').css('color', 'red');
+		return false; // 다음 페이지로 넘어갈 수 없도록 설정 
+	} else if ($('#idCheck').val() == 'false') {
+		alert("아이디를 확인해주세요");
+		$('#nameDiv').html('이미 사용 중인 닉네임입니다.');
+		$('#nameDiv').css('color', 'red');
+		return false; // 다음 페이지로 넘어갈 수 없도록 설정 
 	}
 }

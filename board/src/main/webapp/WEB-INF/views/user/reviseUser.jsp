@@ -25,8 +25,8 @@
 						</tr>
 						<tr>
 							<th class='tCenter'><span>닉네임</span></th>
-							<td><input type="text" id="name" class="form-control" name="name" value="${userInfo.name}"></td>
-							<td><input type="button" id="nameCheck" class="btn btn-default" value="중복확인"></td>
+							<td><input type="text" id="name" class="form-control" name="name" value="${userInfo.name}" onkeyup="noSpaceForm(this);"></td>
+							<td><input type="button" id="nameCheckBtn" class="btn btn-default" value="중복확인" onclick="confirmNameFnc()"></td>
 						</tr>
 
 						<tr>

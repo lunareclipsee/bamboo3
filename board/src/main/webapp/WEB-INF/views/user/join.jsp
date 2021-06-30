@@ -5,6 +5,8 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="${path}/resources/js/bamboo.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>회원가입</title>
 
@@ -44,7 +46,7 @@
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
 										<label for="id">아이디</label> <!-- onblur : 아이디 입력란에서 포커스가 다른 곳으로 이동할 때 호출할 함수 설정 -->
 										<input type="text" class="form-control" name="id" id="id" size="20" maxlength="30" onblur="confirmId()"
-											required="required" placeholder="아이디를 입력하세요" /> <!-- 아이디 중복검사 후 중복 여부를 출력할 영역 설정 -->
+											onkeyup="noSpaceForm(this);" required="required" placeholder="아이디를 입력하세요" />
 										<div id="idDiv"></div>
 									</td>
 
@@ -52,28 +54,28 @@
 								<!-- 비밀번호 입력 -->
 								<tr>
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
-									<label for="pw">비밀번호</label> 
+									<label for="password">비밀번호</label> 
 									<input type="password" class="form-control" name="password" id="password" size="20"
-										maxlength="30" required="required" placeholder="비밀번호를 입력하세요" />
+										maxlength="30" required="required" placeholder="비밀번호를 입력하세요"/>
 									</td>
 								</tr>
 								<!-- 이름 입력 -->
 								<tr>
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
 										<label for="name">닉네임</label> <!-- pattern : 알파벳 대소문자, 한글로 입력해야하고 2글자 이상 입력해야함-->
-										<input type="text" class="form-control" name="name" id="name" size="20" maxlength="30" pattern="([a-z,A-Z,가-힣]){2,}"
-											required="required" placeholder="닉네임을 입력하세요" />
+										<input type="text" class="form-control" name="name" id="name" size="20" maxlength="30"
+											required="required" placeholder="닉네임을 입력하세요" onkeyup="noSpaceForm(this);"/>
 										<div id="nameDiv"></div>
 									</td>
 									<td>
-										<input type="button" id="confirmName" value="중복확인">
-									</td>
+										<input type="button" class="btn btn-default" id="nameCheckBtn" onclick="confirmNameFnc()" value="중복확인">
+									</td>		
 								</tr>
 
 								<tr>
 									<td colspan="2" align="center"><br /> 
-										<input type="submit" value="회원가입" class="btn btn-success"/> 
 										<input type="button" value="메인으로" class="btn btn-primary"	onclick="javascript:window.location='/'" />
+										<input type="submit" value="회원가입" id="submitBtn" disabled class="btn btn-success"/> 
 									</td>
 								</tr>
 							</table>
@@ -84,4 +86,13 @@
 		</div>
 	</section>
 </body>
+<script type="text/javascript">
+
+
+
+
+
+
+
+</script>
 </html>

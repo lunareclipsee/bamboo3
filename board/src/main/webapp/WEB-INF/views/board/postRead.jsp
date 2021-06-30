@@ -30,10 +30,25 @@
 					<td colspan="4" style="word-break:break-all"><div>${ boardDto.content }</div></td>
 				</tr>
 			</table>
+			
+			<form method="post" id="selectForm" name="selectForm">
+				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
+			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
-			<input type="button" onclick="location.href = 'edit/pwdCheck?idx=${boardDto.idx}'" id="editBtn" class="btn btn-primary pull-right" value="수정" > 
-			<input type="button" onclick="location.href = 'delete/pwdCheck?idx=${boardDto.idx}'" id="deleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
+			<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
+			<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
 		</div>
 	</div>
 </body>
+
+
+<script type="text/javascript">
+
+function boardEditBtn() {
+	var theForm = document.selectForm;
+	theForm.action = "postRevise";
+	theForm.submit();
+}
+
+</script>
 </html>

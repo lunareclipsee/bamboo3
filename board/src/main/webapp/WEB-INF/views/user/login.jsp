@@ -17,14 +17,14 @@
 			<p>아이디와 비밀번호를 입력하세요</p>
 
 			<!-- 로그인 form에 action값 주기 -->
-			<form action="loginCtr" method="post">
+			<form action="loginCtr" name="formName" method="post">
 				<div>
 					<input type="text" name="id" class="form-control"
-						placeholder="아이디를 입력하세요" required="required" />
+						placeholder="아이디를 입력하세요" required="required" autofocus="autofocus" onkeypress="JavaScript:press(this.form)"/>
 				</div>
 				<div class="form-group">
 					<input type="password" name="password" class="form-control"
-						placeholder="비밀번호를 입력하세요" required="required" />
+						placeholder="비밀번호를 입력하세요" required="required" onkeypress="JavaScript:press(this.form)"/>
 				</div>
 				<div>
 					<div>
@@ -37,22 +37,8 @@
 						<a href="join" class="btn btn-success">회원가입</a>
 					</div>
 				</div>
-
 			</form>
 		</div>
 	</div>
-
-
-	<c:if test="${fail != null }">
-		<script>
-			$(function() {
-				$("#loginfail").html("아이디가 없거나 비밀번호가 틀렸습니다.");
-			})
-			
-
-		</script>
-	</c:if>
-
 </body>
-
 </html>
