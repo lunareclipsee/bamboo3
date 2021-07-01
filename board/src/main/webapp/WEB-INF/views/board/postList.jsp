@@ -18,7 +18,7 @@
 					<col width="30%" />
 					<col width="20%" />
 					<col width="30%" />
-					<col width="10%" />
+<%-- 					<col width="10%" /> --%>
 				</colgroup>
 				<tbody>
 				<thead>
@@ -27,7 +27,7 @@
 						<th>제목</th>
 						<th>글쓴이</th>
 						<th>작성일</th>
-						<th>답글</th>
+<!-- 						<th>답글</th> -->
 					</tr>
 				</thead>
 				<c:forEach items="${ postList }" var="post" varStatus="status">
@@ -41,9 +41,9 @@
 						<td><c:out value="${ post.name }"/></td>
 						<td>
 							<fmt:formatDate value="${ post.indate }" pattern="yyyy-MM-dd a hh:mm:ss" />
-						<c:if test="${login != null }">
-							<td><input type="button" value="답글달기"></td>
-						</c:if>
+<%-- 						<c:if test="${login != null }"> --%>
+<!-- 							<td><input type="button" value="답글달기"></td> -->
+<%-- 						</c:if> --%>
 					</tr>
 				</c:forEach>
 				</tbody>

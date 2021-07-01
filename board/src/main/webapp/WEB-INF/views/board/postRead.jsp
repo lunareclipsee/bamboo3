@@ -36,6 +36,8 @@
 			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
 			<c:if test="${login != null }">
+			<input type="button" value="답글달기">
+			<input type="button" value="댓글달기">
 				<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
 				<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
 			</c:if>
