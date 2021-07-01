@@ -150,8 +150,9 @@ public class UserController {
 	@ResponseBody
 	public boolean pwCheck(@ModelAttribute UserDto UserDto) {
 		// 1) UserService의 idCheck 메소드를 실행해서 결과 저장
-
+System.out.println("뭔뎅ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+UserDto);
 		boolean result = userService.pwCheck(UserDto);
+		System.out.println("뭔뎅ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+result);
 
 		return result;
 	}

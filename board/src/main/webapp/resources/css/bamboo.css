@@ -25,12 +25,12 @@ textarea {
 }
 
 .outer {
-  display: flex;
-  margin-top: 100px;
+	display: flex;
+	margin-top: 100px;
 }
 
 .inner {
-  margin: auto;
+	margin: auto;
 }
 
 #title, #content {
@@ -43,19 +43,55 @@ textarea {
 
 #pwdCheckBox {
 	width: 400px;
-    height: 220px;
-    border: 3px solid #29367c;
-    background: #fff;
+	height: 220px;
+	border: 3px solid #29367c;
+	background: #fff;
 }
 
-.pwdBox { 
-    height: 60px;
- } 
+.pwdBox {
+	height: 60px;
+}
 
 .tempBtnOpt {
-    margin-left: 192px;
+	margin-left: 192px;
 }
 
 .tempBtnOpt2 {
-    margin-left: 10px;
+	margin-left: 10px;
+}
+
+/* 댓글 css */
+ol, ul {
+	list-style: none;
+	padding-left: 0px;
+}
+
+.reply_nameBox {
+	float: left;
+	width: 132px;
+	margin-right: 33px;
+}
+
+.reply_box {
+	position: relative;
+	border-top: 1px solid #eee;
+}
+
+.reply_li {
+	height: 56px;
+	line-height: 4;
+}
+
+.replyBtn {
+	height: 40px;
+}
+
+.replyTextBox {
+	height: 50px;
+}
+
+.reviseReplyArea {
+	height: 50px;
+    width: 600px;
+	
 }

@@ -5,7 +5,7 @@ window.onload = function() {
 	$('#addConfirmBtn').click(function() {
 		addConfirm();
 	});
-	
+
 	addConfirm = function() {
 
 		var password = $('input[type=password]').val();
@@ -73,11 +73,11 @@ window.onload = function() {
 		$('#counter').val(200 - content.length);
 	});
 
-	
+
 
 	// postRevise js
-	
-	
+
+
 	$('#postEditBtn').click(function() {
 		var theForm = document.modify_confirm;
 		var edit = confirm("게시글을 수정하시겠습니까?");
@@ -88,9 +88,9 @@ window.onload = function() {
 			return false;
 		}
 	});
-	
-	
-		$('#postDeleteBtn').click(function() {
+
+
+	$('#postDeleteBtn').click(function() {
 		var theForm = document.selectForm;
 		var edit = confirm("게시글을 삭제하시겠습니까?");
 		if (edit) {
@@ -100,7 +100,7 @@ window.onload = function() {
 			return false;
 		}
 	});
-	
+
 
 	// userRevise js
 
@@ -167,44 +167,44 @@ window.onload = function() {
 			return false;
 		}
 	}
-	
-		// pwdCheck js
-	
-		$('#pwdConfirmBtn').click(function() {
-			confirmPassword();
-		});
-	
-		confirmPassword = function() {
-	
-			var password = $('input[type=password]').val();
-			var theForm = document.selectForm;
-			//		var id = $('#id').val();
-	
-			if (password == "") {
-				alert("비밀번호를 입력해주세요.");
-				$('input[type=password]').focus();
-			} else {
-				$.ajax({
-					type: "POST",
-					url: "pwdCheckCtr",
-					data: { password: $("#password").val(), id: $("#id").val() },
-					success: function(data) {
-						console.log("1 = 중복o / 0 = 중복x : " + data);
-						if (data) {
-//							theForm.action = "reviseUser"
-						} else {
-							// 0 : 비밀번호 통과못함
-							alert("비밀번호가 틀렸습니다.");
-							//						$('input[type=password]').focus()
-						}
-						theForm.submit();
-					},
-					error: function() {
-						alert("문제야 문제");
+
+	// pwdCheck js
+
+	$('#pwdConfirmBtn').click(function() {
+		confirmPassword();
+	});
+
+	confirmPassword = function() {
+
+		var password = $('input[type=password]').val();
+		var theForm = document.formName;
+		//		var id = $('#id').val();
+
+		if (password == "") {
+			alert("비밀번호를 입력해주세요.");
+			$('input[type=password]').focus();
+		} else {
+			$.ajax({
+				type: "POST",
+				url: "pwdCheckCtr",
+				data: { password: $("#password").val(), id: $("#id").val() },
+				success: function(data) {
+					console.log("1 = 중복o / 0 = 중복x : " + data);
+					if (data) {
+						theForm.action = "reviseUser"
+					} else {
+						alert("비밀번호가 틀렸습니다.");
+						$('input[type=password]').val('');
+						$('input[type=password]').focus();
 					}
-				});
-			}
+					theForm.submit();
+				},
+				error: function() {
+					alert("문제야 문제");
+				}
+			});
 		}
+	}
 
 
 	// PostList js

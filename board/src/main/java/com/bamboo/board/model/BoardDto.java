@@ -6,13 +6,14 @@ public class BoardDto {
 
 	private int idx; // 게시글 번호
 	private String name; // 닉네임
+	private String id; // 유저 아이디
 	private String title; // 제목
 	private String content; // 내용
 	private String password; // 비밀번호
 	private String inip; // 접속IP
 	private Date indate; // 작성시간
 	private int groupno; // 그룹번호 원글은 자신의 값
-	private int orderno; // 원글(답글포함)에 대한 순서
+	private int groupord; // 원글(답글포함)에 대한 순서
 	private int depth; // 답글 계층
 
 	public int getIdx() {
@@ -29,6 +30,14 @@ public class BoardDto {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -79,12 +88,12 @@ public class BoardDto {
 		this.groupno = groupno;
 	}
 
-	public int getOrderno() {
-		return orderno;
+	public int getGroupord() {
+		return groupord;
 	}
 
-	public void setOrderno(int orderno) {
-		this.orderno = orderno;
+	public void setGroupord(int groupord) {
+		this.groupord = groupord;
 	}
 
 	public int getDepth() {
@@ -97,9 +106,9 @@ public class BoardDto {
 
 	@Override
 	public String toString() {
-		return "BoardDto [idx=" + idx + ", name=" + name + ", title=" + title + ", content=" + content + ", password="
-				+ password + ", inip=" + inip + ", indate=" + indate + ", groupno=" + groupno + ", orderno=" + orderno
-				+ ", depth=" + depth + "]";
+		return "BoardDto [idx=" + idx + ", name=" + name + ", id=" + id + ", title=" + title + ", content=" + content
+				+ ", password=" + password + ", inip=" + inip + ", indate=" + indate + ", groupno=" + groupno
+				+ ", groupord=" + groupord + ", depth=" + depth + "]";
 	}
 
 }

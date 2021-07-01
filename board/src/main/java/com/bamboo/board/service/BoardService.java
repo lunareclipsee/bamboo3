@@ -3,6 +3,7 @@ package com.bamboo.board.service;
 import java.util.List;
 
 import com.bamboo.board.model.BoardDto;
+import com.bamboo.board.model.ReplyDto;
 
 public interface BoardService {
 
@@ -19,5 +20,14 @@ public interface BoardService {
 	public int postRevise(BoardDto boardDto);
 
 	public int postDelete(BoardDto boardDto);
+
+	// 댓글 부분
+	public List<ReplyDto> replyList(int BOARD_IDX);
+
+	public int replyAdd(ReplyDto replyDto);
+
+	public int replyRevise(ReplyDto replyDto);
+
+	public int replyDelete(int REPLY_IDX);
 
 }

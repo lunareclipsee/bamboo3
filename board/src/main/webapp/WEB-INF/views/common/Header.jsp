@@ -9,6 +9,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <link href="${path}/resources/css/bamboo.css" rel="stylesheet" />
 <script src="${path}/resources/js/bamboo.js"></script>
 
