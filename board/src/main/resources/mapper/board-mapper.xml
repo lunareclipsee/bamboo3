@@ -6,54 +6,95 @@
 		SELECT IDX, TITLE, NAME, INIP,
 		INDATE
 		FROM
-		BOARDTABLE
+		BOARD
 		ORDER BY IDX DESC;
 	</select>
 
-	<insert id="add" parameterType="com.bamboo.board.model.BoardDto" useGeneratedKeys="true"
-		keyProperty="idx">
-		INSERT INTO BOARDTABLE
-		(TITLE, NAME, CONTENT, INIP, INDATE, GROUPNO, ORDERNO, DEPTH)
-		VALUES(#{title}, #{name}, #{content}, #{inip}, SYSDATE(), #{groupno}, #{orderno}, #{depth}
+	<insert id="add" parameterType="com.bamboo.board.model.BoardDto"
+		useGeneratedKeys="true" keyProperty="idx">
+		INSERT INTO BOARD
+		(TITLE, NAME, ID, 
+		CONTENT, INIP, INDATE, GROUPNO, GROUPORD, DEPTH)
+		VALUES(#{title}, #{name}, #{id}, #{content}, #{inip}, SYSDATE(), 
+		#{groupno}, #{groupord}, #{depth}
 		)
 	</insert>
-	
+
 	<select id="cnt" resultType="int">
-		SELECT COUNT(*) 
-		FROM 
-		BOARDTABLE 
-		WHERE INDATE > NOW() - INTERVAL ${blockTime} MINUTE
+		SELECT COUNT(*)
+		
+		FROM
+		BOARD
+		WHERE INDATE
+		> NOW() - INTERVAL ${blockTime} MINUTE
 		AND INIP = #{inip}
 	</select>
 
 	<select id="select" resultType="com.bamboo.board.model.BoardDto">
-		SELECT IDX, TITLE, CONTENT, NAME, INIP, INDATE
+		SELECT IDX, TITLE, CONTENT, NAME, ID,
+		INIP, INDATE
 		FROM
-		BOARDTABLE
+		BOARD
 		WHERE IDX = #{idx}
 	</select>
 
-	<select id="check" resultType="int">
-		SELECT COUNT(*)
-		FROM
-		BOARDTABLE
-		WHERE IDX = #{idx}
-		AND PASSWORD = #{password}
-	</select>
+<!-- 	<select id="check" resultType="int"> -->
+<!-- 		SELECT COUNT(*) -->
+<!-- 		FROM -->
+<!-- 		BOARD -->
+<!-- 		WHERE IDX -->
+<!-- 		= #{idx} -->
+<!-- 		AND PASSWORD = #{password} -->
+<!-- 	</select> -->
 
 	<update id="revise"	parameterType="com.bamboo.board.model.BoardDto">
-		UPDATE BOARDTABLE
+		UPDATE BOARD
 		SET
 		TITLE = #{title},
-		CONTENT =
-		#{content}
+		NAME = #{name},
+		CONTENT = #{content}
 		WHERE
 		IDX = #{idx}
 	</update>
 
-	<delete id="delete" parameterType="com.bamboo.board.model.BoardDto">
+	<delete id="delete"	parameterType="com.bamboo.board.model.BoardDto">
 		DELETE FROM
-		BOARDTABLE
+		BOARD
 		WHERE IDX = #{idx}
 	</delete>
+
+	<select id="replyCount" resultType="int">
+		SELECT COUNT(*)
+		FROM
+		board_reply
+	</select>
+
+	<select id="replyList" resultType="com.bamboo.board.model.ReplyDto">
+		SELECT REPLY_IDX, BOARD_IDX, REPLY_NAME, REPLY_CONTENT, REPLY_INDATE
+		FROM
+		BOARD_REPLY
+		WHERE
+		BOARD_IDX = #{board_idx}
+		ORDER BY REPLY_INDATE desc
+	</select>
+
+	<insert id="replyAdd" parameterType="com.bamboo.board.model.ReplyDto" useGeneratedKeys="true" keyProperty="reply_idx">
+		INSERT INTO BOARD_REPLY(BOARD_IDX, REPLY_NAME, REPLY_CONTENT, REPLY_INDATE)
+		VALUES (#{board_idx}, #{reply_name}, #{reply_content}, SYSDATE())
+	</insert>
+	
+	<update id="replyRevise" parameterType="com.bamboo.board.model.ReplyDto">
+		UPDATE BOARD_REPLY SET REPLY_CONTENT = #{reply_content}
+		WHERE
+		REPLY_IDX = #{reply_idx}
+	</update>
+
+	<delete id="replyDelete" parameterType="int">
+
+		DELETE FROM board_reply
+		WHERE
+		RID = #{rid}
+
+	</delete>
+
 </mapper>

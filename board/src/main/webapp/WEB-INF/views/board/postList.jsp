@@ -40,7 +40,7 @@
 						</td>
 						<td><c:out value="${ post.name }"/></td>
 						<td>
-							<fmt:formatDate value="${ post.indate }" pattern="yyyy-MM-dd a hh:mm:ss" />
+							<fmt:formatDate value="${ post.indate }" pattern="yyyy-MM-dd hh:mm:ss" />
 						<c:if test="${login != null }">
 							<td><input type="button" value="답글달기"></td>
 						</c:if>

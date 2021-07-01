@@ -22,7 +22,7 @@
 					<td class="textCenter">${ boardDto.name } (${ boardDto.inip })</td>
 					<th class="textCenter success">작성일</th>
 					<td>
-						<fmt:formatDate value="${ boardDto.indate }" pattern="yyyy-MM-dd a hh:mm:ss" />
+						<fmt:formatDate value="${ boardDto.indate }" pattern="yyyy-MM-dd hh:mm:ss" />
 					</td>
 				</tr>
 
@@ -33,14 +33,18 @@
 			
 			<form method="post" id="selectForm" name="selectForm">
 				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
+				<input type="hidden" id="id" name="id" value="${boardDto.id}"> 
+				<input type="hidden" id="name" name="name" value="${boardDto.name}"> 
 			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
-			<c:if test="${login != null }">
+			<c:if test="${login.id == boardDto.id}">
 				<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
 				<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
+				<input type="button" value="답글달기">
 			</c:if>
 		</div>
 	</div>
+		<jsp:include page="/WEB-INF/views/board/reply.jsp" />
 </body>
 
 
@@ -51,6 +55,10 @@ function boardEditBtn() {
 	theForm.action = "postRevise";
 	theForm.submit();
 }
+
+
+
+
 
 </script>
 </html>

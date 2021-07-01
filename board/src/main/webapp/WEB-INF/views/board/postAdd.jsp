@@ -12,6 +12,7 @@
 		<div class="inner">
 			<form id="post_frm" name="post_frm" class="form-inline center-block" action="" method="post">
 				<input type="hidden" id="name" name="name" value="${userName}"/>
+				<input type="hidden" id="id" name="id" value="${userId}"/>
 				
 				<div class="form-group input_write">
 					<label for="title" class="sr-only">제목</label> 
