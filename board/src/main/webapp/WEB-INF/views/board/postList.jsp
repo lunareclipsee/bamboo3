@@ -18,7 +18,7 @@
 					<col width="30%" />
 					<col width="20%" />
 					<col width="30%" />
-<%-- 					<col width="10%" /> --%>
+					<col width="10%" />
 				</colgroup>
 				<tbody>
 				<thead>
@@ -27,7 +27,7 @@
 						<th>제목</th>
 						<th>글쓴이</th>
 						<th>작성일</th>
-<!-- 						<th>답글</th> -->
+						<th>답글</th>
 					</tr>
 				</thead>
 				<c:forEach items="${ postList }" var="post" varStatus="status">
@@ -36,31 +36,25 @@
 						<td class="text-left">
 							<a href='#' onClick='fn_view(${ post.idx })'>
 								<c:out value="${ post.title }"/>
+								<span id="replyCnt"></span>
 							</a>
 						</td>
 						<td><c:out value="${ post.name }"/></td>
 						<td>
-<<<<<<< HEAD
-							<fmt:formatDate value="${ post.indate }" pattern="yyyy-MM-dd a hh:mm:ss" />
-<%-- 						<c:if test="${login != null }"> --%>
-<!-- 							<td><input type="button" value="답글달기"></td> -->
-<%-- 						</c:if> --%>
-=======
 							<fmt:formatDate value="${ post.indate }" pattern="yyyy-MM-dd hh:mm:ss" />
 						<c:if test="${login != null }">
 							<td><input type="button" value="답글달기"></td>
 						</c:if>
->>>>>>> branch 'master' of https://github.com/lunareclipsee/bamboo3.git
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
 		</form>
-		<c:if test="${login != null }">
+<%-- 		<c:if test="${login != null }"> --%>
 		<div class="pull-right">
 			<button type="button" class="btn btn-primary" onclick="postAddFnc()">글작성</button>
 		</div>
-		</c:if>
+<%-- 		</c:if> --%>
 	</div>
 	</div>
 

@@ -45,7 +45,7 @@
 									<!-- &nbsp; : html기초, 태그나 문자 사이에 공백 주는 기능!!-->
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
 										<label for="id">아이디</label> <!-- onblur : 아이디 입력란에서 포커스가 다른 곳으로 이동할 때 호출할 함수 설정 -->
-										<input type="text" class="form-control" name="id" id="id" size="20" maxlength="30" onblur="confirmId()"
+										<input type="text" class="form-control" name="id" id="id" size="20" maxlength="15" onblur="confirmId()"
 											onkeyup="noSpaceForm(this);" required="required" placeholder="아이디를 입력하세요" />
 										<div id="idDiv"></div>
 									</td>
@@ -56,20 +56,18 @@
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
 									<label for="password">비밀번호</label> 
 									<input type="password" class="form-control" name="password" id="password" size="20"
-										maxlength="30" required="required" placeholder="비밀번호를 입력하세요"/>
+										maxlength="12" required="required" placeholder="비밀번호를 입력하세요"/>
 									</td>
 								</tr>
 								<!-- 이름 입력 -->
 								<tr>
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
 										<label for="name">닉네임</label> <!-- pattern : 알파벳 대소문자, 한글로 입력해야하고 2글자 이상 입력해야함-->
-										<input type="text" class="form-control" name="name" id="name" size="20" maxlength="30"
+										<input type="text" class="form-control" name="name" id="name" size="20" maxlength="10"
 											required="required" placeholder="닉네임을 입력하세요" onkeyup="noSpaceForm(this);"/>
 										<div id="nameDiv"></div>
-									</td>
-									<td>
 										<input type="button" class="btn btn-default" id="nameCheckBtn" onclick="confirmNameFnc()" value="중복확인">
-									</td>		
+									</td>
 								</tr>
 
 								<tr>

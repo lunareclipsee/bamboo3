@@ -24,9 +24,10 @@
 							<td><input type="text" class="form-control" name="id" value="${userInfo.id}" readonly="readonly"></td>
 						</tr>
 						<tr>
-							<th class='tCenter'><span>닉네임</span></th>
-							<td><input type="text" id="name" class="form-control" name="name" value="${userInfo.name}" onkeyup="noSpaceForm(this);"></td>
+ 							<th class='tCenter'><span>닉네임</span></th>																				<!--한글때문에 오류나는 경우 있어 길이조정 -->
+							<td><input type="text" id="name" class="form-control" name="name" value="${userInfo.name}" onkeyup="noSpaceForm(this);" maxlength="10"></td>
 							<td><input type="button" id="nameCheckBtn" class="btn btn-default" value="중복확인" onclick="confirmNameFnc()"></td>
+							
 						</tr>
 
 						<tr>
@@ -39,6 +40,7 @@
 						</tr>
 					</table>
 				</div>
+				<input type="hidden" id="nameCheck" value="false" />
 				<input type='button' id="reviseConfirmBtn" class="btn btn-primary btn-lg pull-right" value='변경하기'> 
 			 	<input type='button' id="reviseCancelBtn" class="btn btn-default btn-lg pull-right" value='돌아가기'>
 				<input type='button' id="withdrawBtn" class="btn btn-danger btn-lg" value='회원탈퇴'>

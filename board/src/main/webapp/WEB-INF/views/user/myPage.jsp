@@ -15,7 +15,7 @@
 	<div class="container bs-docs-container contentBox"
 		style="margin-top: 150px">
 		<div class="col-md-9">
-			<form action="pwdCheck" id="selectForm" name="selectForm" method="post">
+			<form action="pwdCheck.do" id="selectForm" name="selectForm" method="post">
 				<div id="pageName">회원정보</div>
 
 				<div id="tableBox">
@@ -29,7 +29,6 @@
 							<td><span>${userInfo.name}</span></td>
 						</tr>
 					</table>
-					<!-- 					onclick="location.href = 'edit/pwdCheck'"  -->
 					<input type="hidden" id="id" name="id" value="${userInfo.id}"> <input
 						type="hidden" id="name" name="name" value="${userInfo.name}"> <input
 						type="button" id="editUserInfoBtn" value="회원정보 수정"> 

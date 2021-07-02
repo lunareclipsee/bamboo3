@@ -101,8 +101,8 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "idCheck", method = RequestMethod.GET)
 	@ResponseBody
+	@RequestMapping(value = "idCheck", method = RequestMethod.GET)
 	public Boolean idCheck(@RequestParam("id") String id) {
 		// 1) UserService의 idCheck 메소드를 실행해서 결과 저장
 		boolean result = userService.idCheck(id);
@@ -111,8 +111,8 @@ public class UserController {
 
 	}
 	
-	@RequestMapping(value = "nameCheck", method = RequestMethod.GET)
 	@ResponseBody
+	@RequestMapping(value = "nameCheck", method = RequestMethod.GET)
 	public Boolean nameCheck(@RequestParam("name") String name) {
 		// 1) UserService의 idCheck 메소드를 실행해서 결과 저장
 		boolean result = userService.nameCheck(name);
@@ -121,7 +121,7 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "myPage", method = RequestMethod.GET)
+	@RequestMapping(value = "myPage.do", method = RequestMethod.GET)
 	public String myPage(HttpSession session, Model model) {
 		log.info("Welcome myPage!");
 
@@ -135,7 +135,7 @@ public class UserController {
 	}
 
 	// 비밀번호 확인페이지 이동
-	@RequestMapping(value = "pwdCheck", method = { RequestMethod.GET, RequestMethod.POST }) // */ 으로 revise, delete
+	@RequestMapping(value = "pwdCheck.do") // */ 으로 revise, delete
 																							// 구분해서 같이씀
 	public String pwdCheck(@ModelAttribute UserDto UserDto, HttpServletRequest request, Model model) {
 		log.info("Welcome User pwdCheck!");
@@ -146,19 +146,17 @@ public class UserController {
 		return "user/pwdCheck";
 	}
 
-	@RequestMapping(value = "pwdCheckCtr", method = RequestMethod.POST)
 	@ResponseBody
+	@RequestMapping(value = "pwdCheckCtr.do", method = RequestMethod.POST)
 	public boolean pwCheck(@ModelAttribute UserDto UserDto) {
 		// 1) UserService의 idCheck 메소드를 실행해서 결과 저장
-System.out.println("뭔뎅ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+UserDto);
 		boolean result = userService.pwCheck(UserDto);
-		System.out.println("뭔뎅ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+result);
 
 		return result;
 	}
 
 	// 회원정보 수정페이지
-	@RequestMapping(value = "reviseUser")
+	@RequestMapping(value = "reviseUser.do")
 	public String reviseUser(@ModelAttribute UserDto UserDto, Model model) {
 		log.info("Welcome infoRevise!");
 		model.addAttribute("userInfo", UserDto);
@@ -167,7 +165,7 @@ System.out.println("뭔뎅ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+UserDto);
 	}
 
 	// 회원정보 수정
-	@RequestMapping(value = "reviseUserCtr", method = RequestMethod.POST)
+	@RequestMapping(value = "reviseUserCtr.do", method = RequestMethod.POST)
 	public String reviseUserCtr(@ModelAttribute UserDto userDto, HttpSession session) {
 		log.info("Welcome infoReviseCtr! ");
 		String viewUrl = "";
@@ -177,13 +175,13 @@ System.out.println("뭔뎅ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ"+UserDto);
 
 		session.setAttribute("login", result);
 
-		viewUrl = "redirect:../user/myPage";
+		viewUrl = "redirect:../user/myPage.do";
 
 		return viewUrl;
 	}
 
 	// 회원 탈퇴
-	@RequestMapping(value = "withdrawCtr", method = RequestMethod.POST)
+	@RequestMapping(value = "withdrawCtr.do", method = RequestMethod.POST)
 	public String withdrawCtr(HttpSession session, Model model) {
 
 		log.info("call withdrawCtr!");

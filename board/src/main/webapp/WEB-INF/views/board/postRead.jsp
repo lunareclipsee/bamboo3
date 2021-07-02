@@ -37,16 +37,10 @@
 				<input type="hidden" id="name" name="name" value="${boardDto.name}"> 
 			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
-<<<<<<< HEAD
-			<c:if test="${login != null }">
-			<input type="button" value="답글달기">
-			<input type="button" value="댓글달기">
-=======
 			<c:if test="${login.id == boardDto.id}">
->>>>>>> branch 'master' of https://github.com/lunareclipsee/bamboo3.git
 				<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
 				<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
-				<input type="button" value="답글달기">
+				<input type="button" class="btn btn-default" value="답글달기">
 			</c:if>
 		</div>
 	</div>
@@ -58,13 +52,9 @@
 
 function boardEditBtn() {
 	var theForm = document.selectForm;
-	theForm.action = "postRevise";
+	theForm.action = "postRevise.do";
 	theForm.submit();
 }
-
-
-
-
 
 </script>
 </html>

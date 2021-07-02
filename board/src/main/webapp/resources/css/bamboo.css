@@ -84,6 +84,8 @@ ol, ul {
 
 .replyBtn {
 	height: 40px;
+	margin-bottom: 5px;
+    margin-left: 10px;
 }
 
 .replyTextBox {
@@ -92,6 +94,11 @@ ol, ul {
 
 .reviseReplyArea {
 	height: 50px;
-    width: 600px;
+    width: 400px;
 	
+}
+
+.replyReviseBtn {
+	margin-left: 10px;
+    margin-bottom: 42px;
 }

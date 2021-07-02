@@ -19,21 +19,23 @@
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="/board/postList">대나무숲</a>
+				<a class="navbar-brand" href="/board/postList">게시판 바로가기</a>
 			</div>
-		</div>
-
-		<div>
+			<div class='pull-right'>
 			<c:if test="${login == null}">
-				<li><a href="/user/login"><span>로그인</span></a></li>
-				<li><a href="/user/join"><span>회원가입</span></a></li>
+			<span><a class="navbar-brand" href="/user/login">로그인</a></span>
+				<span><a class="navbar-brand" href="/user/join">회원가입</a></span>
 			</c:if>
 			<!-- session으로 전달한 login 값이 null이 아니면 로그인 된 상태 -> 로그아웃 출력 -->
 			<c:if test="${login != null}">
-			<li><a href="/user/myPage"><span>내정보</span></a></li>
-				<li><a href="/user/logout"><span>로그아웃</span></a></li>
+				<span class="navbar-brand"><strong>${login.name} 님의 방문을 환영합니다.</strong></span>
+				<span><a class="navbar-brand" href="/user/myPage.do">내정보</a></span>
+				<span><a class="navbar-brand" href="/user/logout">로그아웃</a></span>
 			</c:if>
 		</div>
+		</div>
+
+		
 
 	</nav>
 </body>

@@ -91,9 +91,9 @@
 
 	<delete id="replyDelete" parameterType="int">
 
-		DELETE FROM board_reply
+		DELETE FROM BOARD_REPLY
 		WHERE
-		RID = #{rid}
+		REPLY_IDX = #{reply_idx}
 
 	</delete>
 

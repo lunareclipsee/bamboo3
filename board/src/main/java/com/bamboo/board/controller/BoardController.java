@@ -1,8 +1,6 @@
 package com.bamboo.board.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -47,7 +44,7 @@ public class BoardController {
 	}
 
 	// 게시글 작성
-	@RequestMapping(value = "postAdd")
+	@RequestMapping(value = "postAdd.do")
 	public String add(HttpSession session, Model model) {
 		log.info("Welcome postAdd!");
 		UserDto temp = (UserDto) session.getAttribute("login");
@@ -60,7 +57,7 @@ public class BoardController {
 	}
 	
 	// 게시글 저장
-	@RequestMapping(value = "postAddCtr")
+	@RequestMapping(value = "postAddCtr.do")
 	public String addCtr(@ModelAttribute BoardDto boardDto, HttpServletRequest request, Model model) {
 		log.info("Welcome postAddCtr!");
 
@@ -73,8 +70,8 @@ public class BoardController {
 	}
 
 	// 도배방지
-	@RequestMapping(value = "postCnt")
 	@ResponseBody // 비동기
+	@RequestMapping(value = "postCnt")
 	public int postCnt(@ModelAttribute BoardDto boardDto, HttpServletRequest request, Model model) {
 		log.info("Welcome postCnt!"); // HttpServletRequest ip 받아오기위해
 
@@ -93,23 +90,22 @@ public class BoardController {
 	}
 
 	// 게시글 상세보기
-	@RequestMapping(value = "postSelect")
+	@RequestMapping(value = "postSelect.do")
 	public String select(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
 		log.info("Welcome postSelect! idx=" + boardDto.getIdx() + "번 게시글 조회");
 
-		//세션의 아이디와 게시글의 아이디가 같아야함
 		UserDto login = (UserDto) session.getAttribute("login");
-//		List<BoardDto> postList = BoardService.postList(boardDto);
-		// 댓글도 뽑아와야함
 		BoardDto resultBoardDto = BoardService.postSelect(boardDto);
+		
 		model.addAttribute("login", login);
 		model.addAttribute("boardDto", resultBoardDto);
+		
 		return "board/postRead";
 	}
 	
 	// 게시글 수정페이지
 	// 비로그인 막아야함
-	@RequestMapping(value = "postRevise", method = RequestMethod.POST)
+	@RequestMapping(value = "postRevise.do", method = RequestMethod.POST)
 	public String revise(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
 		log.info("Welcome postRevise!");
 
@@ -125,19 +121,19 @@ public class BoardController {
 
 	// 게시글 수정
 	// 비로그인 막아야함
-	@RequestMapping(value = "postReviseCtr", method = RequestMethod.POST)
+	@RequestMapping(value = "postReviseCtr.do", method = RequestMethod.POST)
 	public String reviseCtr(@ModelAttribute BoardDto boardDto) {
 		log.info("Welcome postReviseCtr! ");
 		BoardService.postRevise(boardDto);
 		int idx = boardDto.getIdx();
 		log.info("idx=" + boardDto.getIdx() + "번 게시글 수정완료");
 
-		return "redirect:postSelect?idx=" + idx;
+		return "redirect:postSelect.do?idx=" + idx;
 	}
 
 	// 게시글 삭제
 	// 비로그인 막아야함
-	@RequestMapping(value = "postDeleteCtr")
+	@RequestMapping(value = "postDeleteCtr.do")
 	public String deleteCtr(@ModelAttribute BoardDto boardDto) {
 		log.info("call postDeleteCtr! " + boardDto);
 
@@ -149,37 +145,48 @@ public class BoardController {
 
 	// 댓글 불러오기
 	@ResponseBody
-	@RequestMapping(value = "replyList", method = RequestMethod.POST)
+	@RequestMapping(value = "replyList.do", method = RequestMethod.POST)
 	public List<ReplyDto> getBoardContent(@RequestParam int board_idx, Model model) {
 
 		List<ReplyDto> replyList = BoardService.replyList(board_idx);
-System.out.println(replyList);
+	
 		return replyList;
 	}
 
 	// 댓글 저장
-
-	@RequestMapping(value = "replyAdd", method = RequestMethod.POST)
 	@ResponseBody
+	@RequestMapping(value = "replyAdd.do", method = RequestMethod.POST)
 	public int replyAdd(@ModelAttribute ReplyDto replyDto, HttpSession session, Model model) {
-
+		
 		UserDto temp = (UserDto) session.getAttribute("login");
 		String userName = temp.getName();
 		
 		replyDto.setReply_name(userName);
 		int result = BoardService.replyAdd(replyDto);
-		
+				
 		model.addAttribute("Reply", replyDto);
+		
 		return result;
 	}
 	
 	//댓글 수정
-	@RequestMapping(value = "replyRevise", method = RequestMethod.POST)
 	@ResponseBody
+	@RequestMapping(value = "replyRevise.do", method = RequestMethod.POST)
 	public int replyRevise(@ModelAttribute ReplyDto replyDto, HttpSession session, Model model) {
 		
 		int result = BoardService.replyRevise(replyDto);
+		
 		model.addAttribute("Reply", replyDto);
+		
+		return result;
+	}
+	
+	//댓글 삭제
+	@ResponseBody
+	@RequestMapping(value = "replyDelete.do", method = RequestMethod.POST)
+	public int replyDelete(@ModelAttribute ReplyDto replyDto, HttpSession session) {
+		
+		int result = BoardService.replyDelete(replyDto.getReply_idx());
 		
 		return result;
 	}

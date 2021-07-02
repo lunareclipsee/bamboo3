@@ -42,7 +42,7 @@ window.onload = function() {
 						alert("동일 IP로 작성된 게시글은 10분 이내 3건까지만 작성 가능합니다.");
 					} else {
 						alert("게시글 작성이 완료되었습니다.");
-						theForm.action = "postAddCtr"
+						theForm.action = "postAddCtr.do"
 					}
 					theForm.submit();
 				},
@@ -82,7 +82,7 @@ window.onload = function() {
 		var theForm = document.modify_confirm;
 		var edit = confirm("게시글을 수정하시겠습니까?");
 		if (edit) {
-			theForm.action = "postReviseCtr";
+			theForm.action = "postReviseCtr.do";
 			theForm.submit();
 		} else {
 			return false;
@@ -94,7 +94,7 @@ window.onload = function() {
 		var theForm = document.selectForm;
 		var edit = confirm("게시글을 삭제하시겠습니까?");
 		if (edit) {
-			theForm.action = "postDeleteCtr";
+			theForm.action = "postDeleteCtr.do";
 			theForm.submit();
 		} else {
 			return false;
@@ -106,7 +106,7 @@ window.onload = function() {
 
 	$('#editUserInfoBtn').click(function() {
 		var theForm = document.selectForm;
-		theForm.action = "pwdCheck";
+		theForm.action = "pwdCheck.do";
 		theForm.submit();
 	});
 
@@ -115,7 +115,7 @@ window.onload = function() {
 		var theForm = document.selectForm;
 		var edit = confirm("탈퇴할까요?");
 		if (edit) {
-			theForm.action = "withdrawCtr";
+			theForm.action = "withdrawCtr.do";
 			theForm.submit();
 		} else {
 			return false;
@@ -142,10 +142,12 @@ window.onload = function() {
 		if ($('#name').val() == "") {
 			alert("닉네임을 입력해주세요.");
 			$('#name').focus();
+		} else if($('#nameCheck').val() == 'false'){
+			alert("닉네임 중복확인을 먼저 진행해주세요");
 		} else {
 			var edit = confirm("회원정보를 수정할까요?");
 			if (edit) {
-				theForm.action = "./reviseUserCtr"
+				theForm.action = "./reviseUserCtr.do"
 				alert("회원정보 수정이 완료되었습니다.");
 			} else {
 				$('#name').focus();
@@ -162,7 +164,7 @@ window.onload = function() {
 	reviseCancel = function() {
 		var reviseSelect = confirm("회원정보 수정을 취소할까요?");
 		if (reviseSelect) {
-			location.href = './myPage';
+			location.href = './myPage.do';
 		} else {
 			return false;
 		}
@@ -186,12 +188,12 @@ window.onload = function() {
 		} else {
 			$.ajax({
 				type: "POST",
-				url: "pwdCheckCtr",
+				url: "pwdCheckCtr.do",
 				data: { password: $("#password").val(), id: $("#id").val() },
 				success: function(data) {
 					console.log("1 = 중복o / 0 = 중복x : " + data);
 					if (data) {
-						theForm.action = "reviseUser"
+						theForm.action = "reviseUser.do"
 					} else {
 						alert("비밀번호가 틀렸습니다.");
 						$('input[type=password]').val('');
@@ -209,7 +211,7 @@ window.onload = function() {
 
 	// PostList js
 	postAddFnc = function() {
-		location.href = 'postAdd'
+		location.href = 'postAdd.do'
 	}
 
 
@@ -229,7 +231,7 @@ function press(f) {
 function fn_view(idx) {
 
 	var form = document.getElementById("frm");
-	var url = "postSelect";
+	var url = "postSelect.do";
 	url = url + "?idx=" + idx;
 
 	form.action = url;
@@ -260,7 +262,9 @@ function confirmId() {
 	var id = $('#id').val();
 
 	$.ajax({
-		url: addr,
+		url:
+		
+		 addr,
 		data: {
 			'id': id
 		},
@@ -321,14 +325,7 @@ function confirmNameFnc() {
 			dataType: 'json',
 			success: function(data) {
 				if (data == true) {
-					// 				var nameCheck = $('#nameCheck').val();
 					var select = confirm("사용가능한 닉네임입니다. 사용하시겠습니까? 변경할 수 없습니다.");
-					// (1)nameDiv에 사용가능한 닉네임 입니다 출력
-					// 				$('#nameDiv').html('사용가능한 닉네임 입니다.');
-					// 				// (2)성공 문자 색은 파란색
-					// 				$('#nameDiv').css('color', 'blue');
-					// 				// (3)닉네임 성공 여부를 저장하는 hidden 태그의 value값을 true 로 저장
-					// 				// <input type="hidden" id="nameCheck" value="false" /> 
 					if (select) {
 						$('#nameCheck').val('true');
 						$('#name').attr('readonly', true);
@@ -336,7 +333,6 @@ function confirmNameFnc() {
 						if ($('#nameCheck').val() == 'true'
 							&& $('#idCheck').val() == 'true') {
 							$("#submitBtn").attr("disabled", false);
-
 						}
 					} else {
 						$('#name').focus();

@@ -11,18 +11,19 @@
 		<div>
 			<div>
 				<span><strong>Reply</strong></span> <span id="replyCnt"></span>
-				<c:if test="${temp=='null'}"><input type='button' class='replyBtn' onclick='reviseComentFnc()' value='수정'></c:if>
 			</div>
 			<div>
 				<table class="table">
 					<tr>
 						<td>   																				<!-- 한줄에 안쓰면 플레이스 홀더 안됨; -->
+							<c:if test="${login.id != null}">
 							<textarea style="width: 1100px" rows="3" cols="30" id="reply_content" name="reply_content" placeholder="텍스트를 입력해주세요."></textarea>
 							<br>
 							<div>
 								<a href='#' onClick="fn_comment()"
 									class="btn pull-right btn-success">등록</a>
 							</div>
+							</c:if>
 						</td>
 					</tr>
 				</table>
@@ -51,7 +52,7 @@ $(function() {
 
 /* 댓글 불러오기(Ajax) */
 function getCommentList() {
-	var addr = 'replyList';
+	var addr = 'replyList.do';
 	var user_id = $('#user_id').val();
 	var paramData = {
 		"board_idx" : "${boardDto.idx}"
@@ -77,7 +78,8 @@ function getCommentList() {
 					html += "<div class='pull-left replyTextBox'><span id='"+data[i].reply_idx+"'>"
 							+ data[i].reply_content
 							+ "</span></div>";
-					html += "<div class='pull-right replyBtn'><input type='button' class='replyBtn' onclick='reviseComentFnc("+data[i].reply_idx+")' value='수정'></div>";
+					html += "<div class='pull-right replyBtn'><input type='button' class='btn replyBtn' onclick='reviseComentFnc("+data[i].reply_idx+")' value='수정'>";
+					html += "<input type='button' class='btn replyBtn' onclick='deleteComentFnc("+data[i].reply_idx+")' value='삭제'></div>";
 					html += "<div class='pull-right'><span>"+ moment(data[i].reply_indate).format("YYYY-MM-DD HH:mm:ss")+"</span></div></div>";
 					html += "</li>";
 				} else {
@@ -115,7 +117,7 @@ function getCommentList() {
 function fn_comment() {
 
 	// 1) 요청 주소
-	var addr = 'replyAdd';
+	var addr = 'replyAdd.do';
 	var reply_content = $('#reply_content').val();
 	var board_idx = $('#board_idx').val();
 	if (reply_content.length < 5) {
@@ -147,25 +149,29 @@ function fn_comment() {
 
 function reviseComentFnc(e) {
 	var reviseComentView = "";
+	var originComent = $('#'+e).html();
 	
 	reviseComentView += "<textarea id='replyEditArea' class='reviseReplyArea'></textarea>";
-	reviseComentView += "<input type='button' onclick='reviseSubmitBtn("+e+")' value='수정완료'>";
-	
+	reviseComentView += "<input type='button' class='btn btn-danger replyReviseBtn' onclick='reviseCancelBtn("+e+")' value='수정취소'>";
+	reviseComentView += "<input type='button' class='btn btn-primary replyReviseBtn' onclick='reviseSubmitBtn("+e+")' value='수정완료'>";
 	$('#'+e).replaceWith(reviseComentView);
+	$('#replyEditArea').val(originComent);
+	$('#replyEditArea').focus();
 }
 
 function reviseSubmitBtn(e) {
 	
 	// 1) 요청 주소
-	var addr = 'replyRevise';
+	var addr = 'replyRevise.do';
 	var reply_content = $('#replyEditArea').val();
 	var reply_idx = e;
 	var board_idx = $('#board_idx').val();
+	var okmag = confirm("수정하시겠습니까?");
 	
 	if (reply_content.length < 5) {
 		alert("댓글은 5자 이상 작성해주셔야합니다.")
 		$('#replyEditArea').focus();
-	} else {
+	} else if (okmag) {
 		$.ajax({
 			url: addr,
 			type: "POST",
@@ -179,16 +185,47 @@ function reviseSubmitBtn(e) {
 				if (data == 1){
 					getCommentList();
 			}
+				return false;
+			}
+
+		});
+	} else{
+		$('#replyEditArea').focus()
+	}
+}
+
+function reviseCancelBtn(e) {
+	getCommentList();
+	
+}
+
+
+function deleteComentFnc(e) {
+	// 1) 요청 주소
+	var addr = 'replyDelete.do';
+	var reply_idx = e;
+	var okmag = confirm("작성하신 댓글을 삭제하시겠습니까?");
+
+	if (okmag) {
+		$.ajax({
+			url : addr,
+			type : "POST",
+			data : {
+				'reply_idx' : reply_idx
+			},
+			dataType : 'json',
+			success : function(data) {
+				alert("작성하신 댓글의 삭제가 완료되었습니다.");
+				if (data == 1) {
+					getCommentList();
+				}
+				return false;
 			}
 
 		});
 
 	}
-	
-	
 }
-
-
 </script>
 
 </body>
