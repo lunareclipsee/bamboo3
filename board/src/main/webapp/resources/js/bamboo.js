@@ -123,8 +123,38 @@ window.onload = function() {
 	});
 
 
-	$('#pwdSwich').click(function() {
-		$('#password').attr('readonly', false);
+	//비밀번호 변경 관련 
+
+	$('#pwdSwichBtn').click(function() {
+		if (confirm("비밀번호를 변경하시겠습니까?")) {
+			$('#password').attr('readonly', false);
+			$('#pwdCheck').val('false');
+			$('#password').focus();
+			$('#pwdSwichBtn').attr('type', 'hidden');
+			$('#pwdSwichCancelBtn').attr('type', 'button');
+			$('#pwdOkBtn').attr('type', 'button');
+		}
+	});
+
+	$('#pwdOkBtn').click(function() {
+		if ($('#password').val().length < 5) {
+			alert("비밀번호는 5자 이상 입력해주셔야합니다.");
+		} else {
+			$('#pwdCheck').val('true');
+			$('#password').attr('readonly', true);
+			$('#pwdSwichBtn').attr('type', 'button');
+			$('#pwdSwichCancelBtn').attr('type', 'hidden');
+			$('#pwdOkBtn').attr('type', 'hidden');
+		}
+		$('#password').focus();
+	});
+
+	$('#pwdSwichCancelBtn').click(function() {
+		$('#password').val('');
+		$('#pwdCheck').val('true');
+		$('#password').attr('readonly', true);
+		$('#pwdSwichBtn').attr('type', 'button');
+		$('#pwdSwichCancelBtn').attr('type', 'hidden');
 	});
 
 	$('#password').focus();
@@ -142,8 +172,10 @@ window.onload = function() {
 		if ($('#name').val() == "") {
 			alert("닉네임을 입력해주세요.");
 			$('#name').focus();
-		} else if($('#nameCheck').val() == 'false'){
-			alert("닉네임 중복확인을 먼저 진행해주세요");
+		} else if ($('#nameCheck').val() == 'false') {
+			alert("닉네임 중복확인을 진행해주세요");
+		} else if ($('#pwdCheck').val() == 'false') {
+			alert("비밀번호 입력완료 버튼을 눌러주세요");
 		} else {
 			var edit = confirm("회원정보를 수정할까요?");
 			if (edit) {
@@ -156,7 +188,7 @@ window.onload = function() {
 			theForm.submit();
 		}
 	}
-
+	
 	$('#reviseCancelBtn').click(function() {
 		reviseCancel();
 	});
@@ -177,11 +209,9 @@ window.onload = function() {
 	});
 
 	confirmPassword = function() {
-
 		var password = $('input[type=password]').val();
 		var theForm = document.formName;
-		//		var id = $('#id').val();
-
+		
 		if (password == "") {
 			alert("비밀번호를 입력해주세요.");
 			$('input[type=password]').focus();
@@ -217,12 +247,15 @@ window.onload = function() {
 
 }
 
+
+
 //login js
 
-// 엔터누르면 폼 실행 메소드
+// 엔터누르면 폼 실행 메소드  //javascript에서는 13이 enter키를 의미함 
 function press(f) {
-	if (f.keyCode == 13) {			//javascript에서는 13이 enter키를 의미함 
-		formName.submit();			//formname에 사용자가 지정한 form의 name입력 
+	if (f.keyCode == 13) {
+alert("asd");
+//		formName.submit();
 	}
 }
 
@@ -263,8 +296,8 @@ function confirmId() {
 
 	$.ajax({
 		url:
-		
-		 addr,
+
+			addr,
 		data: {
 			'id': id
 		},
@@ -304,6 +337,19 @@ function confirmId() {
 
 
 // 2. 닉네임 입력 창에서 포커스가 이동하면 닉네임 중복 체크 결과에 따라 메세지를 idDiv에 출력하는 메소드
+
+function reviseNameFnc() {
+
+	if (confirm("닉네임을 변경하시겠습니까?")) {
+
+		$('#name').attr('readonly', false);
+		$('#name').focus();
+		$('#nameCheck').val('false');
+		$('#nameCheckBtn').attr('type', 'button');
+		$('#nameReviceBtn').attr('type', 'hidden');
+	}
+}
+
 function confirmNameFnc() {
 
 	// 1) 요청 주소
@@ -372,3 +418,4 @@ function check() {
 		return false; // 다음 페이지로 넘어갈 수 없도록 설정 
 	}
 }
+

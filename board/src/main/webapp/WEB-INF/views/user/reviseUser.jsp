@@ -25,22 +25,32 @@
 						</tr>
 						<tr>
  							<th class='tCenter'><span>닉네임</span></th>																				<!--한글때문에 오류나는 경우 있어 길이조정 -->
-							<td><input type="text" id="name" class="form-control" name="name" value="${userInfo.name}" onkeyup="noSpaceForm(this);" maxlength="10"></td>
-							<td><input type="button" id="nameCheckBtn" class="btn btn-default" value="중복확인" onclick="confirmNameFnc()"></td>
+							<td>
+								<input type="text" id="name" class="form-control" name="name" value="${userInfo.name}" onkeyup="noSpaceForm(this);" maxlength="10" readonly="readonly">
+							</td>
+							<td>
+								<input type="button" id="nameReviceBtn" class="btn btn-default" value="닉네임 변경" onclick="reviseNameFnc()">
+								<input type="hidden" id="nameCheckBtn" class="btn btn-default" value="중복확인" onclick="confirmNameFnc()">
+							</td>
 							
 						</tr>
 
 						<tr>
 							<th class='tCenter'><span>비밀번호</span></th>
 							<td>
-								<input type="password" id="password" name="password" class="form-control" placeholder="오른쪽 버튼을 눌러주세요"
+								<input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력해주세요"
 									maxlength="12" readonly="readonly">
 							</td>
-							<td><input type="button" id="pwdSwich" class="btn btn-default" value="비밀번호 변경"></td>
+							<td>
+								<input type="button" id="pwdSwichBtn" class="btn btn-default" value="비밀번호 변경">
+								<input type="hidden" id="pwdSwichCancelBtn" class="btn btn-default" value="변경취소">
+								<input type="hidden" id="pwdOkBtn" class="btn btn-default" value="입력완료">
+							</td>
 						</tr>
 					</table>
 				</div>
-				<input type="hidden" id="nameCheck" value="false" />
+				<input type="hidden" id="nameCheck" value="true" />
+				<input type="hidden" id="pwdCheck" value="true" />
 				<input type='button' id="reviseConfirmBtn" class="btn btn-primary btn-lg pull-right" value='변경하기'> 
 			 	<input type='button' id="reviseCancelBtn" class="btn btn-default btn-lg pull-right" value='돌아가기'>
 				<input type='button' id="withdrawBtn" class="btn btn-danger btn-lg" value='회원탈퇴'>

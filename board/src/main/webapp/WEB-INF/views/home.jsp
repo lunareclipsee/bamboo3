@@ -1,16 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!-- session 설정 true 로 변경 -->
-<%@ page session="true"%>
 
-<!-- header.jsp 파일의 내용을 가져와서 삽입 -->
 <section class="content">
 
-	<!-- 회원 가입 성공 메세지 출력 부분 삽입 -->
+	<!-- 회원 가입 성공, 회원탈퇴 시 메세지 출력 부분 삽입 -->
 	<p>${msg}</p>
 
-	<!-- 로그인 링크 생성 ** 수정 -->
 	<div class="box">
 		<!-- 로그인 화면으로 이동하는 링크 생성 -->
 		<div class="box-header with-border">
@@ -28,17 +24,8 @@
 
 		</div>
 
-<!-- 		<div class="box-header with-border"> -->
-<!-- 			<a href="board/write"><h3 class="box-title">게시판 글쓰기</h3></a> -->
-<!-- 		</div> -->
-
-<!-- 		<!-- 게시글 목록 보기 추가 --> 
-<!-- 		<div class="box-header with-border"> -->
-<!-- 			<a href="board/list"><h3 class="box-title">게시판 목록보기</h3></a> -->
-<!-- 		</div> -->
 	</div>
 
 
 
 </section>
-<!-- footer.jsp 파일의 내용을 가져와서 삽입 -->

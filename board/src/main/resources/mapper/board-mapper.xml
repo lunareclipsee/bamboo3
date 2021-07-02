@@ -66,7 +66,8 @@
 	<select id="replyCount" resultType="int">
 		SELECT COUNT(*)
 		FROM
-		board_reply
+		BOARD_REPLY
+		WHERE BOARD_IDX = #{board_idx}
 	</select>
 
 	<select id="replyList" resultType="com.bamboo.board.model.ReplyDto">

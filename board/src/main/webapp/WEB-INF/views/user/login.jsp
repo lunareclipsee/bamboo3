@@ -5,40 +5,46 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
-	<div>
-		<div>
-			<b>bamboo</b>
-		</div>
+	<div class="container outer text-center" style="margin-top: 150px;">
 		<div id="loginfail" align="center"></div>
-		<div>
-			<p>아이디와 비밀번호를 입력하세요</p>
+		<div class="inner">
+			<b style="font-size: 160px">Bamboo</b>
+			<p>아이디와 비밀번호를 입력해주세요</p>
 
 			<!-- 로그인 form에 action값 주기 -->
+			<div>
 			<form action="loginCtr" name="formName" method="post">
-				<div>
-					<input type="text" name="id" class="form-control"
-						placeholder="아이디를 입력하세요" required="required" autofocus="autofocus" onkeypress="JavaScript:press(this.form)"/>
+				<div class="form-group">
+					<input type="text" name="id" class="form-control" style="width: 300px; margin: auto;"
+						placeholder="아이디를 입력해주세요" required="required" autofocus="autofocus" onkeypress="JavaScript:press(this.form)"/>
 				</div>
 				<div class="form-group">
-					<input type="password" name="password" class="form-control"
-						placeholder="비밀번호를 입력하세요" required="required" onkeypress="JavaScript:press(this.form)"/>
+					<input type="password" name="password" class="form-control" style="width: 300px; margin: auto;"
+						placeholder="비밀번호를 입력해주세요" required="required" onkeypress="JavaScript:press(this.form)"/>
 				</div>
-				<div>
+				<div class="">
 					<div>
+						<a href="join" class="btn btn-success">회원가입</a>
 						<button type="submit" class="btn btn-primary">로그인</button>
 					</div>
-					<div>
-						<!-- 회원가입 링크 추가 -->
-						<!-- 링크가 헷갈리면 /프로젝트URL/Controller 요청 포맷/요청 이렇게 만들기-->
-						<!-- 프로젝트 URL 앞에 / 슬래쉬 추가하기 -->
-						<a href="join" class="btn btn-success">회원가입</a>
-					</div>
+					<input type="hidden" id="msgg" value="${msg}">
 				</div>
 			</form>
+			</div>
 		</div>
 	</div>
 </body>
+
+<c:if test="${msg != null}">
+<script type="text/javascript">
+var msgg = $('#msgg').val();
+alert(msgg);
+</script>
+</c:if>
+
+
 </html>

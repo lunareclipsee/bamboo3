@@ -21,7 +21,7 @@
 	
 				<div class="form-group input_write">
 					<label for="content" class="sr-only">내용</label>
-					<textarea id="content" name="content" class="form-control" rows="10" cols="10" maxlength="200" placeholder="내용"></textarea>
+					<textarea id="content" name="content" class="form-control" rows="20" cols="10" maxlength="200" placeholder="내용"></textarea>
 				</div>
 	
 				<div class="input_write pull-right">

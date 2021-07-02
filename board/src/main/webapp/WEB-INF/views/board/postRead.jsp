@@ -27,7 +27,7 @@
 				</tr>
 
 				<tr>
-					<td colspan="4" style="word-break:break-all"><div>${ boardDto.content }</div></td>
+					<td colspan="4" style="word-break:break-all"><div style="white-space:pre; margin: 20px">${ boardDto.content }</div></td>
 				</tr>
 			</table>
 			

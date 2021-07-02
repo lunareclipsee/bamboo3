@@ -36,7 +36,7 @@ public class BoardController {
 		log.info("Welcome postList!");
 		UserDto temp = (UserDto) session.getAttribute("login");
 		List<BoardDto> postList = BoardService.postList(boardDto);
-
+		
 		model.addAttribute("login", temp);
 		model.addAttribute("postList", postList);
 

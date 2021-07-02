@@ -34,13 +34,12 @@ public class UserController {
 		// 단순 페이지 이동
 		// 리턴 타입 - void ==> 받은 요청과 같은 이름의 뷰 페이지로 이동
 		// user/login.jsp 페이지로 이동
-//		return "user/login";
 	}
 
 	// 2. 로그인 처리 요청(/user/loginCtr) 처리 메소드
 	// -> 로그인 처리 시 로그인 성공 결과는 HttpSession에 저장해야함 ****
 	@RequestMapping(value = "loginCtr", method = RequestMethod.POST)
-	public String loginCtr(UserDto userDto, HttpSession session) {
+	public String loginCtr(UserDto userDto, HttpSession session, Model model, RedirectAttributes attr) {
 		log.info("Welcome loginCtr!");
 
 		String viewUrl = "";
@@ -54,6 +53,7 @@ public class UserController {
 			// (1) 로그인 실패 시 session에 null 저장
 			session.setAttribute("login", null);
 			System.out.println("실패 " + session.getAttribute("login")); // (2) 로그인 페이지로 다시 이동
+			attr.addFlashAttribute("msg", "입력하신 정보가 올바르지 않습니다. 다시입력해 주세요");
 			viewUrl = "redirect:login";
 
 		} else { // userVO 값이 null이 아닌 경우 로그인 성공
@@ -149,9 +149,10 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping(value = "pwdCheckCtr.do", method = RequestMethod.POST)
 	public boolean pwCheck(@ModelAttribute UserDto UserDto) {
+		log.info("Welcome User pwdCheck.do!");
 		// 1) UserService의 idCheck 메소드를 실행해서 결과 저장
 		boolean result = userService.pwCheck(UserDto);
-
+System.out.println(result);
 		return result;
 	}
 
@@ -182,7 +183,7 @@ public class UserController {
 
 	// 회원 탈퇴
 	@RequestMapping(value = "withdrawCtr.do", method = RequestMethod.POST)
-	public String withdrawCtr(HttpSession session, Model model) {
+	public String withdrawCtr(HttpSession session, Model model, RedirectAttributes attr) {
 
 		log.info("call withdrawCtr!");
 
@@ -192,6 +193,7 @@ public class UserController {
 		int result = userService.withdrawUser(id);
 
 		if (result==1) {
+			attr.addFlashAttribute("msg", "회원탈퇴가 완료되었습니다.");
 			System.out.println("탈퇴 서비스 완료");
 			session.removeAttribute("login");
 			session.invalidate();
@@ -199,7 +201,7 @@ public class UserController {
 			System.out.println("탈퇴 서비스 실패");
 		}
 
-		return "home";
+		return "redirect:/";
 	}
 
 }

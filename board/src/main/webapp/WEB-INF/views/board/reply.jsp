@@ -17,9 +17,9 @@
 					<tr>
 						<td>   																				<!-- 한줄에 안쓰면 플레이스 홀더 안됨; -->
 							<c:if test="${login.id != null}">
-							<textarea style="width: 1100px" rows="3" cols="30" id="reply_content" name="reply_content" placeholder="텍스트를 입력해주세요."></textarea>
+							<input type="text" style="width: 1100px" id="reply_content" name="reply_content" placeholder="텍스트를 입력해주세요." maxlength="50">
 							<br>
-							<div>
+							<div style="margin: 10px 23px 0px 0px;">
 								<a href='#' onClick="fn_comment()"
 									class="btn pull-right btn-success">등록</a>
 							</div>
@@ -75,7 +75,7 @@ function getCommentList() {
 					html += "<li class='reply_li'><div class='reply_box'><div class='reply_nameBox'><span><strong> "
 							+ data[i].reply_name
 							+ "</strong></span></div>";
-					html += "<div class='pull-left replyTextBox'><span id='"+data[i].reply_idx+"'>"
+					html += "<div class='pull-left replyTextBox'><span id='"+data[i].reply_idx+"' style='white-space:pre;'>"
 							+ data[i].reply_content
 							+ "</span></div>";
 					html += "<div class='pull-right replyBtn'><input type='button' class='btn replyBtn' onclick='reviseComentFnc("+data[i].reply_idx+")' value='수정'>";
@@ -97,7 +97,7 @@ function getCommentList() {
 				}
 			} else {
 				html += "<li>";
-				html += "<div><strong>등록된 댓글이 없습니다.</strong></div>";
+				html += "<div style='margin:10px;'><strong>등록된 댓글이 없습니다.</strong></div>";
 				html += "</li>";
 			}
 				html += "</ul></div>"
@@ -151,9 +151,9 @@ function reviseComentFnc(e) {
 	var reviseComentView = "";
 	var originComent = $('#'+e).html();
 	
-	reviseComentView += "<textarea id='replyEditArea' class='reviseReplyArea'></textarea>";
-	reviseComentView += "<input type='button' class='btn btn-danger replyReviseBtn' onclick='reviseCancelBtn("+e+")' value='수정취소'>";
-	reviseComentView += "<input type='button' class='btn btn-primary replyReviseBtn' onclick='reviseSubmitBtn("+e+")' value='수정완료'>";
+	reviseComentView += "<div class='pull-left'><input type='text' id='replyEditArea' class='reviseReplyArea' maxlength='50'></div>";
+	reviseComentView += "<div class='pull-left'><input type='button' class='btn btn-danger replyReviseBtn' onclick='reviseCancelBtn("+e+")' value='수정취소'>";
+	reviseComentView += "<input type='button' class='btn btn-primary replyReviseBtn' onclick='reviseSubmitBtn("+e+")' value='수정완료'></div>";
 	$('#'+e).replaceWith(reviseComentView);
 	$('#replyEditArea').val(originComent);
 	$('#replyEditArea').focus();

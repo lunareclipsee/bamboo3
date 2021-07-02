@@ -93,12 +93,18 @@ ol, ul {
 }
 
 .reviseReplyArea {
-	height: 50px;
-    width: 400px;
+	height: 34px;
+    width: 500px;
 	
 }
 
 .replyReviseBtn {
 	margin-left: 10px;
-    margin-bottom: 42px;
+    margin-bottom: 3px;
+}
+
+.loginInput {
+	
+	width: 100px;
+	
 }
