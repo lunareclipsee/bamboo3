@@ -30,4 +30,6 @@ public interface BoardDao {
 
 	public int replyDelete(int REPLY_IDX);
 
+	public int getGroupno();
+
 }

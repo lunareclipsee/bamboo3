@@ -30,4 +30,6 @@ public interface BoardService {
 
 	public int replyDelete(int REPLY_IDX);
 
+	public int getGroupno();
+
 }

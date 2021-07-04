@@ -233,7 +233,17 @@ window.onload = function() {
 			});
 		}
 	}
+
+
+	// PostList js
+	postAddFnc = function() {
+		location.href = 'postAdd.do'
+	}
+
+
 }
+
+
 
 //login js
 
@@ -243,6 +253,18 @@ function press(f) {
 alert("asd");
 //		formName.submit();
 	}
+}
+
+//board list js
+
+function fn_view(idx) {
+
+	var form = document.getElementById("frm");
+	var url = "postSelect.do";
+	url = url + "?idx=" + idx;
+
+	form.action = url;
+	form.submit();
 }
 
 // join js
@@ -269,7 +291,9 @@ function confirmId() {
 	var id = $('#id').val();
 
 	$.ajax({
-		url: addr,
+		url:
+
+			addr,
 		data: {
 			'id': id
 		},
@@ -390,21 +414,4 @@ function check() {
 		return false; // 다음 페이지로 넘어갈 수 없도록 설정 
 	}
 }
-
-//board list js
-//게시글 선택
-function fn_view(idx) {
-
-	var form = document.getElementById("frm");
-	var url = "postSelect.do";
-	url = url + "?idx=" + idx;
-
-	form.action = url;
-	form.submit();
-}
-
-//글쓰기 etc..
-var goUrl = function(url) {
-	location.href = url;
-};
 

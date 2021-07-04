@@ -3,10 +3,9 @@
 <mapper namespace="board">
 
 	<select id="list" resultType="com.bamboo.board.model.BoardDto">
-		SELECT IDX, TITLE, NAME, INIP,
-		INDATE
-		FROM
-		BOARD
+		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.groupno, b.groupord, b.depth
+		FROM BOARD b LEFT JOIN board_reply r ON b.IDX = r.BOARD_IDX
+		GROUP BY b.IDX 
 		ORDER BY IDX DESC;
 	</select>
 
@@ -36,6 +35,13 @@
 		FROM
 		BOARD
 		WHERE IDX = #{idx}
+	</select>
+
+	<select id="getGroupno" resultType="int">
+		SELECT auto_increment GROUPNO
+		FROM information_schema.tables
+		WHERE table_name = 'board'
+		AND table_schema = DATABASE( ) ;
 	</select>
 
 <!-- 	<select id="check" resultType="int"> -->

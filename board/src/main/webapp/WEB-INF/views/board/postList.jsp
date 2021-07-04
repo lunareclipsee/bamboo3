@@ -36,14 +36,23 @@
 						<td class="text-left">
 							<a href='#' onClick='fn_view(${ post.idx })'>
 								<c:out value="${ post.title }"/>
-								<span id="replyCnt"></span>
 							</a>
+							<c:if test="${ post.replycount != 0}">
+								<a href='#' onClick='fn_view(${ post.idx })'>
+									<span id="replyCnt" style="color: gray"><c:out value="[${ post.replycount }]"/></span>
+								</a>
+							</c:if>
 						</td>
 						<td><c:out value="${ post.name }"/></td>
 						<td>
 							<fmt:formatDate value="${ post.indate }" pattern="yyyy-MM-dd hh:mm:ss" />
-						<c:if test="${login != null }">
-							<td><input type="button" value="답글달기"></td>
+						<c:if test="${ login != null }">
+							<td>
+								<input type="button" id="depthAddPostBtn" value="답글달기">
+								<input type="hidden" value="${ post.groupno }">
+								<input type="hidden" value="${ post.groupord }">
+								<input type="hidden" value="${ post.depth }">
+							</td>
 						</c:if>
 					</tr>
 				</c:forEach>
@@ -52,7 +61,7 @@
 		</form>
 <%-- 		<c:if test="${login != null }"> --%>
 		<div class="pull-right">
-			<button type="button" class="btn btn-primary" onclick="postAddFnc()">글작성</button>
+			<button type="button" class="btn btn-primary" onclick="goUrl('postAdd.do')">글작성</button>
 		</div>
 <%-- 		</c:if> --%>
 	</div>

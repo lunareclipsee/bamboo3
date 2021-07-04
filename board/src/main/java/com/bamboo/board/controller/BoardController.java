@@ -30,22 +30,36 @@ public class BoardController {
 	@Autowired
 	BoardService BoardService;
 
-	// 게시글 리스트
+	// 계층형 게시글 리스트
 	@RequestMapping(value = "postList", method = RequestMethod.GET)
 	public String list(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
 		log.info("Welcome postList!");
+		
 		UserDto temp = (UserDto) session.getAttribute("login");
 		List<BoardDto> postList = BoardService.postList(boardDto);
-		
+		System.out.println(postList);
 		model.addAttribute("login", temp);
 		model.addAttribute("postList", postList);
 
 		return "board/postList";
 	}
+	
+//	// 게시글 리스트
+//	@RequestMapping(value = "postList", method = RequestMethod.GET)
+//	public String list(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
+//		log.info("Welcome postList!");
+//		UserDto temp = (UserDto) session.getAttribute("login");
+//		List<BoardDto> postList = BoardService.postList(boardDto);
+//		System.out.println(postList);
+//		model.addAttribute("login", temp);
+//		model.addAttribute("postList", postList);
+//		
+//		return "board/postList";
+//	}
 
 	// 게시글 작성
 	@RequestMapping(value = "postAdd.do")
-	public String add(HttpSession session, Model model) {
+	public String add(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
 		log.info("Welcome postAdd!");
 		UserDto temp = (UserDto) session.getAttribute("login");
 		String userName = temp.getName();
@@ -60,8 +74,12 @@ public class BoardController {
 	@RequestMapping(value = "postAddCtr.do")
 	public String addCtr(@ModelAttribute BoardDto boardDto, HttpServletRequest request, Model model) {
 		log.info("Welcome postAddCtr!");
-
+		
+		//그룹넘버 가져오기
+		int groupno = BoardService.getGroupno(); 
 		String userIp = request.getLocalAddr();
+		
+		boardDto.setGroupno(groupno);
 		boardDto.setInip(userIp); // ip넣기
 
 		BoardService.postAdd(boardDto);
@@ -77,7 +95,7 @@ public class BoardController {
 
 		String userIp = request.getLocalAddr();
 		int postCnt = 0; // 작성글 수
-		int blockTime = 10; // 도배방지 시간
+		int blockTime = 1; // 도배방지 시간
 
 		boardDto.setInip(userIp); // ip넣기
 

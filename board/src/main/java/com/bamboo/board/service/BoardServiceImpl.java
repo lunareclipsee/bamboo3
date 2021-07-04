@@ -81,4 +81,10 @@ public class BoardServiceImpl implements BoardService {
 
 		return BoardDao.replyDelete(REPLY_IDX);
 	}
+
+	@Override
+	public int getGroupno() {
+
+		return BoardDao.getGroupno();
+	}
 }

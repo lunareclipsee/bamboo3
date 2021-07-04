@@ -35,12 +35,15 @@
 				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
 				<input type="hidden" id="id" name="id" value="${boardDto.id}"> 
 				<input type="hidden" id="name" name="name" value="${boardDto.name}"> 
+				<input type="hidden" id="name" name="name" value="${boardDto.groupno}"> 
+				<input type="hidden" id="name" name="name" value="${boardDto.groupord}"> 
+				<input type="hidden" id="name" name="name" value="${boardDto.depth}"> 
 			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
 			<c:if test="${login.id == boardDto.id}">
 				<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
 				<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
-				<input type="button" class="btn btn-default" value="답글달기">
+				<input type="button" id="postAnswerBtn" class="btn btn-default" value="답글달기">
 			</c:if>
 		</div>
 	</div>

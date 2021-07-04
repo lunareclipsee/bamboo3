@@ -93,4 +93,10 @@ public class BoardDaoImpl implements BoardDao {
 
 	}
 
+	@Override
+	public int getGroupno() {
+		
+		return sqlSession.selectOne("board.getGroupno");
+	}
+
 }
