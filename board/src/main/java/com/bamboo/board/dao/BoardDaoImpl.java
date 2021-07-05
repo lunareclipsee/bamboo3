@@ -18,6 +18,26 @@ public class BoardDaoImpl implements BoardDao {
 	private SqlSession sqlSession;
 
 	@Override
+	public int postCnt(int idx) {
+
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+
+		paramMap.put("idx", idx);
+
+		return sqlSession.selectOne("board.boardCnt", paramMap);
+	}
+
+	@Override
+	public int postCurPage(int idx) {
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		paramMap.put("idx", idx);
+
+		return sqlSession.selectOne("board.curPage", paramMap);
+	}
+	
+	@Override
 	public List<BoardDto> postList(BoardDto boardDto) {
 		return sqlSession.selectList("board.list", boardDto);
 	}
@@ -31,6 +51,12 @@ public class BoardDaoImpl implements BoardDao {
 	public int setGroupord(BoardDto boardDto) {
 
 		return sqlSession.update("board.setGroupord", boardDto);
+	}
+	
+	@Override
+	public int setAnswerno(BoardDto boardDto) {
+
+		return sqlSession.update("board.setAnswerno", boardDto);
 	}
 
 	@Override
@@ -103,6 +129,19 @@ public class BoardDaoImpl implements BoardDao {
 	public int getGroupno() {
 		
 		return sqlSession.selectOne("board.getGroupno");
+	}
+
+	@Override
+	public List<BoardDto> postList(int idx, int start, int end) {
+	
+		Map<String, Object> map = new HashMap<>();
+		map.put("idx", idx);
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<BoardDto> postList = sqlSession.selectList("board.list", map);
+		System.out.println("postList 보여줘 "+postList);
+		return postList;
 	}
 
 }

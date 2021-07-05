@@ -13,7 +13,7 @@
 				<form action="" id="selectForm" name="formName" method="post">
 				
 					<div class="pwdBox">
-						<input type="password" id="password" name="password" class="form-control" value="" maxlength="10" onkeyup="enterkey();">
+						<input type="password" id="password" name="password" class="form-control" value="" maxlength="10" onkeyup="enterkey();" autofocus="autofocus">
 					</div>
 					
 					<input type="hidden" id="url" value="${URL}">

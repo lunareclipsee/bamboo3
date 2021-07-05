@@ -7,6 +7,10 @@ import com.bamboo.board.model.ReplyDto;
 
 public interface BoardDao {
 
+	public int postCnt(int idx);
+
+	public int postCurPage(int idx);
+	
 	public List<BoardDto> postList(BoardDto boardDto);
 
 	public int postAdd(BoardDto boardDto);
@@ -33,5 +37,9 @@ public interface BoardDao {
 	public int getGroupno();
 
 	public int setGroupord(BoardDto boardDto);
+
+	public int setAnswerno(BoardDto boardDto);
+
+	public List<BoardDto> postList(int idx, int start, int end);
 
 }

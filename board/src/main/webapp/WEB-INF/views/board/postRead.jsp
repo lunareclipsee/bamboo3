@@ -39,11 +39,14 @@
 				<input type="hidden" id="groupord" name="groupord" value="${boardDto.groupord}"> 
 				<input type="hidden" id="depth" name="depth" value="${boardDto.depth}"> 
 				<input type="hidden" id="parentno" name="parentno" value="${boardDto.parentno}"> 
+				<input type="hidden" id="answerno" name="answerno" value="${boardDto.answerno}"> 
 			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
 			<c:if test="${login.id == boardDto.id}">
 				<input type="button" id="editBtn" class="btn btn-primary pull-right" value="수정" onclick="boardEditBtn()" > 
 				<input type="button" id="postDeleteBtn" class="btn btn-danger input_margin pull-right" value='삭제'>
+			</c:if>
+			<c:if test="${login != null}">
 				<input type="button" id="postAnswerBtn" class="btn btn-default" value="답글달기">
 			</c:if>
 		</div>

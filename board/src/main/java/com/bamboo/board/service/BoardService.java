@@ -9,6 +9,10 @@ public interface BoardService {
 
 	public List<BoardDto> postList(BoardDto boardDto);
 
+	public int postCnt(int idx);
+
+	public int postCurPage(int idx);
+	
 	public int postAdd(BoardDto boardDto);
 
 	public int postBlock(String userIp, int blockTime);
@@ -33,5 +37,9 @@ public interface BoardService {
 	public int getGroupno();
 
 	public int setGroupord(BoardDto boardDto);
+
+	public int setAnswerno(BoardDto boardDto);
+
+	public List<BoardDto> postList(int idx, int start, int end);
 
 }

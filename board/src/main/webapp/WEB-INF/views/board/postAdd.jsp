@@ -18,6 +18,7 @@
 				<input type="hidden" id="groupord" name="groupord" value="${groupord}"> 
 				<input type="hidden" id="depth" name="depth" value="${depth}"> 
 				<input type="hidden" id="parentno" name="parentno" value="${parentno}"> 
+				<input type="hidden" id="parentno" name="answerno" value="${answerno}"> 
 				
 				<div class="form-group input_write">
 					<label for="title" class="sr-only">제목</label> 

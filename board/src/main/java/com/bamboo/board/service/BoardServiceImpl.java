@@ -2,6 +2,7 @@ package com.bamboo.board.service;
 
 import java.util.List;
 
+import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +10,26 @@ import com.bamboo.board.dao.BoardDao;
 import com.bamboo.board.model.BoardDto;
 import com.bamboo.board.model.ReplyDto;
 
+
 @Service
 public class BoardServiceImpl implements BoardService {
 
+	
 	@Autowired
 	BoardDao BoardDao; // --- Dao 빈 주입
 
+	@Override
+	public int postCnt(int idx) {
+		
+		return BoardDao.postCnt(idx);
+	}
+
+	@Override
+	public int postCurPage(int idx) {
+		
+		return BoardDao.postCurPage(idx);
+	}
+	
 	@Override
 	public List<BoardDto> postList(BoardDto boardDto) {
 
@@ -31,6 +46,12 @@ public class BoardServiceImpl implements BoardService {
 	public int setGroupord(BoardDto boardDto) {
 
 		return BoardDao.setGroupord(boardDto);
+	}
+
+	@Override
+	public int setAnswerno(BoardDto boardDto) {
+	
+		return BoardDao.setAnswerno(boardDto);
 	}
 
 	@Override
@@ -94,5 +115,14 @@ public class BoardServiceImpl implements BoardService {
 
 		return BoardDao.getGroupno();
 	}
+
+	@Override
+	public List<BoardDto> postList(int idx, int start, int end) {
+	
+		List<BoardDto> postList = BoardDao.postList(idx, start, end);
+		
+		return postList;
+	}
+
 
 }

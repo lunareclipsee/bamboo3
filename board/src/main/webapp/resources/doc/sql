@@ -1,22 +1,12 @@
-CREATE TABLE `user` (
-  `userid` varchar(16) NOT NULL,
-  `username` varchar(20) NOT NULL,
-  `userpwd` varchar(16) NOT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `phonenumber` varchar(20) NOT NULL,
-  `address` varchar(100) DEFAULT NULL,
-  `joindate` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`userid`)
-) ;
+drop table BOARD_REPLY;
+drop table board;
+drop table user;
 
-CREATE TABLE `BOARDTABLE` (
-  IDX INT(10) NOT NULL AUTO_INCREMENT COMMENT '고유번호',
-  NAME VARCHAR(10) NOT NULL COMMENT '닉네임',
-  TITLE VARCHAR(50) NOT NULL COMMENT '제목',
-  CONTENT VARCHAR(200) NOT NULL COMMENT '내용',
-  INIP VARCHAR(15) NOT NULL COMMENT '등록IP',
-  INDATE DATETIME NOT NULL COMMENT '등록일',
-  PRIMARY KEY (`IDX`)
+CREATE TABLE USER (
+	ID VARCHAR(15) NOT NULL COMMENT '아이디',
+	PASSWORD VARCHAR(100) NOT NULL COMMENT '비밀번호',
+	NAME VARCHAR(15) UNIQUE not NULL COMMENT '이름',
+	PRIMARY KEY (`ID`)
 );
 
 CREATE TABLE `BOARD` (
@@ -30,7 +20,13 @@ CREATE TABLE `BOARD` (
   GROUPNO INT(10) DEFAULT NULL COMMENT '원글번호',
   GROUPORD INT(10) DEFAULT NULL COMMENT '원글에대한순서',
   DEPTH INT(10) DEFAULT NULL COMMENT '답글계층',
-  PRIMARY KEY (`IDX`)
+  PARENTNO INT(10) DEFAULT NULL COMMENT '답글부모',
+  ANSWERNO INT(10) DEFAULT NULL COMMENT '자식있는 부모여부',
+  PRIMARY KEY (`IDX`),
+  foreign key(NAME) references USER(name)
+  on update cascade,
+  foreign key(ID) references user(id)
+  on delete cascade
 );
 
 CREATE TABLE `BOARD_REPLY` (
@@ -39,23 +35,26 @@ CREATE TABLE `BOARD_REPLY` (
   REPLY_NAME VARCHAR(10) NOT NULL COMMENT '댓글 작성자 닉네임',
   REPLY_CONTENT TEXT COMMENT '내용',
   REPLY_INDATE DATETIME DEFAULT NULL COMMENT '등록일',
-  PRIMARY KEY (`REPLY_IDX`)
+  PRIMARY KEY (`REPLY_IDX`),
+  foreign key(REPLY_NAME) references USER(name)
+  on update cascade,
+  foreign key(BOARD_IDX) references board(idx)
+  on delete cascade
 );
 
+		
+SELECT b.IDX, b.GROUPNO, b.GROUPORD, b.depth, b.ANSWERNO, b.parentno, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT
+FROM BOARD b LEFT JOIN board_reply r ON b.IDX = r.BOARD_IDX
+GROUP BY b.IDX 
+ORDER BY GROUPNO DESC, GROUPORD ASC;
+		
 
 
 
-drop table user;
-drop table board;
-drop table BOARD_REPLY;
+
+
 select * from user;
 
-CREATE TABLE USER (
-	ID VARCHAR(15) NOT NULL COMMENT '아이디',
-	PASSWORD VARCHAR(100) NOT NULL COMMENT '비밀번호',
-	NAME VARCHAR(15) UNIQUE not NULL COMMENT '이름',
-	PRIMARY KEY (`ID`)
-);
 
 		UPDATE USER	SET	NAME = '김윤진',	PASSWORD = '1234'
 		where ID = '11111';
@@ -65,3 +64,134 @@ CREATE TABLE USER (
 	WHERE ID = 123;
 		
 INSERT INTO USER   VALUES('123', '123', '비개인오후에');
+
+use mysql;
+
+		SELECT COUNT(*)
+		FROM
+		BOARD_REPLY
+		WHERE BOARD_IDX = 1;
+		
+	
+		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, count(r.REPLY_CONTENT)
+		FROM
+		BOARD b
+		join board_reply r on b.IDX = r.BOARD_IDX;
+		ORDER BY IDX DESC;
+		
+	
+	
+	
+		
+		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, r.cnt
+		FROM
+		BOARD b
+		join (select board_idx, count(*) cnt
+				from board_reply 
+				group by BOARD_IDX) r
+			on b.idx = r.board_idx;
+			
+					SELECT IDX, TITLE, NAME, INIP
+		INDATE
+		FROM
+		BOARD
+		ORDER BY IDX DESC;
+	
+		
+		
+		
+		
+		
+		
+	board_reply r on b.IDX = r.BOARD_IDX;
+	
+	
+	select count(*) cnt, board_idx
+			from 
+			board_reply
+			where board_idx = 1;
+		ORDER BY IDX DESC;
+	
+	
+		SELECT auto_increment GROUPNO
+		FROM information_schema.tables
+		WHERE table_name = 'board'
+		AND table_schema = DATABASE( ) ;
+	
+			SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.DEPTH
+		FROM BOARD b LEFT JOIN board_reply r ON b.IDX = r.BOARD_IDX
+		GROUP BY b.IDX 
+		ORDER BY GROUPNO DESC, GROUPORD ASC;
+	
+
+	UPDATE BOARD 
+		SET GROUPORD = GROUPORD + 1
+		WHERE GROUPNO = #{groupno} and GROUPORD > #{groupord};
+	
+	        UPDATE TB_BOARD
+           SET BOARD_RE_SEQ = BOARD_RE_SEQ + 1
+         WHERE BOARD_RE_REF = #{board_re_ref} 인덱스
+           AND BOARD_RE_SEQ > #{board_re_seq} 순서
+           
+	UPDATE BOARD 
+		SET GROUPORD = GROUPORD + 1
+		WHERE GROUPNO = 3 and GROUPORD > 1; 
+	
+	
+
+	
+		DELETE FROM
+		BOARD
+		WHERE IDX = 2 or parentno = 2;
+
+select * 
+from (  select @rownum := @rownum+1 AS RNUM, A.*
+        from(
+        	SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.depth
+			FROM BOARD b LEFT JOIN board_reply r ON (b.IDX = r.BOARD_IDX) join (SELECT @rownum := 0) AS R
+			GROUP BY b.IDX
+			ORDER BY GROUPNO DESC, GROUPORD asc
+			) as a) as b WHERE RNUM BETWEEN 1 AND 5;
+		
+		
+-- 	시도
+	select * 
+	from (  select @rownum := @rownum+1 AS RNUM, A.*
+	        from(
+	        	SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.depth
+				FROM BOARD b LEFT JOIN board_reply r ON (b.IDX = r.BOARD_IDX) join (SELECT @rownum := 0) AS R
+				GROUP BY b.IDX
+				ORDER BY GROUPNO DESC, GROUPORD asc
+				) as a
+		) as b limit 0, 10;	
+		
+		
+		
+		
+		
+		
+		
+		
+			SELECT * 
+			FROM (  SELECT @rownum := @rownum+1 AS RNUM, A.*
+			        FROM(
+			        	SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.depth
+						FROM BOARD b LEFT JOIN board_reply r 
+						ON (b.IDX = r.BOARD_IDX)
+						join (SELECT @rownum := 0) AS R
+						GROUP BY b.IDX
+						ORDER BY GROUPNO DESC, GROUPORD asc
+						) as a
+				 ) as b WHERE RNUM BETWEEN 1 and 10
+				WHERE b.idx = 1;
+
+	
+				
+			select * 
+			from 
+			
+			
+			
+				
+	SELECT COUNT(*)
+		FROM BOARD

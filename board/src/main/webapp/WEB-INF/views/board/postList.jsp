@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>대나무숲</title>
+<title>계층형 게시판</title>
 </head>
 <body>
 <header><jsp:include page="/WEB-INF/views/common/Header.jsp" /></header>
@@ -38,11 +38,11 @@
 								<c:if test="${ post.depth != 0 }">
 								ㄴ
 								</c:if>
-							<a href='#' onClick='fn_view(${ post.idx })'>
+							<a href='#' onClick='fn_view(${ post.idx }, ${ pagingMap.postPaging.curPage })'> 
 								${ post.title }
 							</a>
 							<c:if test="${ post.replycount != 0}">
-								<a href='#' onClick='fn_view(${ post.idx })'>
+								<a href='#' onClick='fn_view(${ post.idx }, ${ pagingMap.postPaging.curPage })'>
 									<span id="replyCnt" style="color: gray"><c:out value="[${ post.replycount }]"/></span>
 								</a>
 							</c:if>
@@ -63,6 +63,15 @@
 		<div class="pull-right">
 			<button type="button" class="btn btn-primary" onclick="goUrl('postAdd.do')">글작성</button>
 		</div>
+		<div style="clear: left; padding: 30px">
+			<jsp:include page="/WEB-INF/views/common/paging.jsp">
+				<jsp:param value="${pagingMap}" name="pagingMap" />
+			</jsp:include>
+		</div>
+		
+		<form action="/board/postList" id="pagingForm" method="get">
+		<input type="hidden" id="curPage" name="curPage" value="${ pagingMap.postPaging.curPage }"> 
+		</form>
 	</div>
 	</div>
 

@@ -97,7 +97,7 @@ public class UserController {
 		// 2) 성공 메세지 저장
 		attr.addFlashAttribute("msg", "회원 가입을 성공하였습니다.");
 		// 3) home 페이지로 리다이렉트
-		return "redirect:/";
+		return "redirect:login";
 
 	}
 

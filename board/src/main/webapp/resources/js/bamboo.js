@@ -103,13 +103,17 @@ window.onload = function() {
 	
 	$('#postAnswerBtn').click(function() {
 		var theForm = document.selectForm;
-		var edit = confirm("답변글을 작성하시겠습니까?");
-		if (edit) {
 			theForm.action = "postAdd.do";
 			theForm.submit();
-		} else {
-			return false;
-		}
+		
+//				var theForm = document.selectForm;
+//		var edit = confirm("답변글을 작성하시겠습니까?");
+//		if (edit) {
+//			theForm.action = "postAdd.do";
+//			theForm.submit();
+//		} else {
+//			return false;
+//		}
 	});
 
 
@@ -404,15 +408,16 @@ function check() {
 
 //board list js
 //게시글 선택
-function fn_view(idx) {
+function fn_view(idx, curPage) {
 
 	var form = document.getElementById("frm");
 	var url = "postSelect.do";
-	url = url + "?idx=" + idx;
+	url = url + "?idx=" + idx +"&curPage=" + curPage;
 
 	form.action = url;
 	form.submit();
 }
+
 
 //글쓰기 etc..
 var goUrl = function(url) {

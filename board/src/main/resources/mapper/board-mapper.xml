@@ -2,20 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board">
 
-	<select id="list" resultType="com.bamboo.board.model.BoardDto">
-		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.DEPTH
-		FROM BOARD b LEFT JOIN board_reply r ON b.IDX = r.BOARD_IDX
-		GROUP BY b.IDX 
-		ORDER BY GROUPNO DESC, GROUPORD ASC;
+
+	<select id="boardCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
 	</select>
+
+	<select id="curPage" parameterType="map" resultType="int">
+		SELECT
+		FLOOR((idx-1) / 10)+1 idx
+		FROM BOARD
+		WHERE IDX = #{idx}
+	</select>
+	
+	<select id="list" resultType="com.bamboo.board.model.BoardDto">
+	SELECT * 
+	FROM (  SELECT @rownum := @rownum+1 AS RNUM, A.*
+	        FROM(
+	        	SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.depth
+				FROM BOARD b LEFT JOIN board_reply r 
+				ON (b.IDX = r.BOARD_IDX) 
+				join (SELECT @rownum := 0) AS R
+				GROUP BY b.IDX
+				ORDER BY GROUPNO DESC, GROUPORD asc
+				) as a
+		 ) as b WHERE RNUM BETWEEN #{start} AND #{end};
+	</select>
+	
+<!-- 	<select id="list" resultType="com.bamboo.board.model.BoardDto"> -->
+<!-- 		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.DEPTH -->
+<!-- 		FROM BOARD b LEFT JOIN board_reply r ON b.IDX = r.BOARD_IDX -->
+<!-- 		WHERE IDX BETWEEN #{start} AND #{end} -->
+<!-- 		GROUP BY b.IDX  -->
+<!-- 		ORDER BY GROUPNO DESC, GROUPORD ASC; -->
+<!-- 	</select> -->
 	
 	<insert id="add" parameterType="com.bamboo.board.model.BoardDto"
 		useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO BOARD
 		(TITLE, NAME, ID, 
-		CONTENT, INIP, INDATE, GROUPNO, GROUPORD, DEPTH, PARENTNO)
+		CONTENT, INIP, INDATE, GROUPNO, GROUPORD, DEPTH, PARENTNO, ANSWERNO)
 		VALUES(#{title}, #{name}, #{id}, #{content}, #{inip}, SYSDATE(), 
-		#{groupno}, #{groupord}, #{depth}, #{parentno}
+		#{groupno}, #{groupord}, #{depth}, #{parentno}, #{answerno}
 		)
 	</insert>
 
@@ -29,7 +57,7 @@
 
 	<select id="select" resultType="com.bamboo.board.model.BoardDto">
 		SELECT IDX, TITLE, CONTENT, NAME, ID,
-		INIP, INDATE, GROUPNO, GROUPORD, DEPTH, PARENTNO
+		INIP, INDATE, GROUPNO, GROUPORD, DEPTH, PARENTNO, ANSWERNO
 		FROM
 		BOARD
 		WHERE IDX = #{idx}
@@ -48,6 +76,13 @@
 		SET GROUPORD = GROUPORD + 1
 		WHERE GROUPNO = #{groupno} and GROUPORD > #{groupord}
 	</update>
+	
+	<update id="setAnswerno" parameterType="com.bamboo.board.model.BoardDto">
+		UPDATE BOARD 
+		SET ANSWERNO = ANSWERNO + 1
+		WHERE IDX = #{parentno}
+	</update>
+	
 
 <!-- 	<select id="check" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
