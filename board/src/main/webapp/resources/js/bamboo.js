@@ -38,7 +38,7 @@ window.onload = function() {
 				url: "postCnt",
 				data: form,
 				success: function(data) {
-					if (data >= 3) {
+					if (data >= 10) {
 						alert("동일 IP로 작성된 게시글은 10분 이내 3건까지만 작성 가능합니다.");
 					} else {
 						alert("게시글 작성이 완료되었습니다.");
@@ -95,6 +95,17 @@ window.onload = function() {
 		var edit = confirm("게시글을 삭제하시겠습니까?");
 		if (edit) {
 			theForm.action = "postDeleteCtr.do";
+			theForm.submit();
+		} else {
+			return false;
+		}
+	});
+	
+	$('#postAnswerBtn').click(function() {
+		var theForm = document.selectForm;
+		var edit = confirm("답변글을 작성하시겠습니까?");
+		if (edit) {
+			theForm.action = "postAdd.do";
 			theForm.submit();
 		} else {
 			return false;

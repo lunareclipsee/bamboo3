@@ -35,9 +35,10 @@
 				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
 				<input type="hidden" id="id" name="id" value="${boardDto.id}"> 
 				<input type="hidden" id="name" name="name" value="${boardDto.name}"> 
-				<input type="hidden" id="name" name="name" value="${boardDto.groupno}"> 
-				<input type="hidden" id="name" name="name" value="${boardDto.groupord}"> 
-				<input type="hidden" id="name" name="name" value="${boardDto.depth}"> 
+				<input type="hidden" id="groupno" name="groupno" value="${boardDto.groupno}"> 
+				<input type="hidden" id="groupord" name="groupord" value="${boardDto.groupord}"> 
+				<input type="hidden" id="depth" name="depth" value="${boardDto.depth}"> 
+				<input type="hidden" id="parentno" name="parentno" value="${boardDto.parentno}"> 
 			</form>
 			<input type="button" onClick="location.href = 'postList?idx=${boardDto.idx}'" id="backBtn" class="btn btn-default" value="목록"> 
 			<c:if test="${login.id == boardDto.id}">

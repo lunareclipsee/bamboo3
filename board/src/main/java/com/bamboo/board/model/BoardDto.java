@@ -14,6 +14,7 @@ public class BoardDto {
 	private Date indate; // 작성시간
 	private int replycount; // 게시글에 달린 댓글 수
 	private int groupno; // 그룹번호 원글은 자신의 값
+	private int parentno; // 답답글의 부모
 	private int groupord; // 원글(답글포함)에 대한 순서
 	private int depth; // 답글 계층
 
@@ -97,6 +98,14 @@ public class BoardDto {
 		this.groupno = groupno;
 	}
 
+	public int getParentno() {
+		return parentno;
+	}
+
+	public void setParentno(int parentno) {
+		this.parentno = parentno;
+	}
+
 	public int getGroupord() {
 		return groupord;
 	}
@@ -117,7 +126,8 @@ public class BoardDto {
 	public String toString() {
 		return "BoardDto [idx=" + idx + ", name=" + name + ", id=" + id + ", title=" + title + ", content=" + content
 				+ ", password=" + password + ", inip=" + inip + ", indate=" + indate + ", replycount=" + replycount
-				+ ", groupno=" + groupno + ", groupord=" + groupord + ", depth=" + depth + "]";
+				+ ", groupno=" + groupno + ", parentno=" + parentno + ", groupord=" + groupord + ", depth=" + depth
+				+ "]";
 	}
 
 }

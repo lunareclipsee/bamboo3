@@ -13,10 +13,15 @@
 			<form id="post_frm" name="post_frm" class="form-inline center-block" action="" method="post">
 				<input type="hidden" id="name" name="name" value="${userName}"/>
 				<input type="hidden" id="id" name="id" value="${userId}"/>
+				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
+				<input type="hidden" id="groupno" name="groupno" value="${groupno}"> 
+				<input type="hidden" id="groupord" name="groupord" value="${groupord}"> 
+				<input type="hidden" id="depth" name="depth" value="${depth}"> 
+				<input type="hidden" id="parentno" name="parentno" value="${parentno}"> 
 				
 				<div class="form-group input_write">
 					<label for="title" class="sr-only">제목</label> 
-					<input type="text" id="title" name="title" class="form-control" placeholder="제목" maxlength="50" value=""/>
+					<input type="text" id="title" name="title" class="form-control" placeholder="제목" maxlength="50" value="" autofocus="autofocus"/>
 				</div>
 	
 				<div class="form-group input_write">

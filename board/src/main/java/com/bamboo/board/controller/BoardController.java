@@ -61,12 +61,22 @@ public class BoardController {
 	@RequestMapping(value = "postAdd.do")
 	public String add(@ModelAttribute BoardDto boardDto, HttpSession session, Model model) {
 		log.info("Welcome postAdd!");
+		System.out.println(boardDto);
 		UserDto temp = (UserDto) session.getAttribute("login");
 		String userName = temp.getName();
 		String userId = temp.getId();
+		int groupno = boardDto.getGroupno();
+		int groupord = boardDto.getGroupord();
+		int depth = boardDto.getDepth();
+		int parentno = boardDto.getParentno();
 
 		model.addAttribute("userName", userName);
 		model.addAttribute("userId", userId);
+		model.addAttribute("groupno", groupno);
+		model.addAttribute("groupord", groupord);
+		model.addAttribute("depth", depth);
+		model.addAttribute("parentno", parentno);
+		
 		return "board/postAdd";
 	}
 	
@@ -74,13 +84,28 @@ public class BoardController {
 	@RequestMapping(value = "postAddCtr.do")
 	public String addCtr(@ModelAttribute BoardDto boardDto, HttpServletRequest request, Model model) {
 		log.info("Welcome postAddCtr!");
-		
-		//그룹넘버 가져오기
-		int groupno = BoardService.getGroupno(); 
+		System.out.println("addCTR"+boardDto);
 		String userIp = request.getLocalAddr();
-		
-		boardDto.setGroupno(groupno);
 		boardDto.setInip(userIp); // ip넣기
+		
+		if (boardDto.getGroupno() < 1) {
+		//새글쓰기
+			//다음 auto inc 값 가져옴
+			int newGroupno = BoardService.getGroupno(); 
+			boardDto.setGroupno(newGroupno);
+		} else {
+		//답글달기	
+			BoardService.setGroupord(boardDto);
+			int newGroupord = boardDto.getGroupord()+1;
+			int newDepth = boardDto.getDepth()+1;
+			int newPaentno = boardDto.getIdx();
+			boardDto.setGroupord(newGroupord);
+			boardDto.setDepth(newDepth);
+			boardDto.setParentno(newPaentno);
+			//답의 이전 답글의 Groupord를 하나씩 올려야함 
+		}
+
+		//그룹넘버 가져오기
 
 		BoardService.postAdd(boardDto);
 
@@ -92,7 +117,7 @@ public class BoardController {
 	@RequestMapping(value = "postCnt")
 	public int postCnt(@ModelAttribute BoardDto boardDto, HttpServletRequest request, Model model) {
 		log.info("Welcome postCnt!"); // HttpServletRequest ip 받아오기위해
-
+		//	js에서 갯수 조정했음
 		String userIp = request.getLocalAddr();
 		int postCnt = 0; // 작성글 수
 		int blockTime = 1; // 도배방지 시간

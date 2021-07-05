@@ -26,6 +26,12 @@ public class BoardServiceImpl implements BoardService {
 
 		return BoardDao.postAdd(boardDto);
 	}
+	
+	@Override
+	public int setGroupord(BoardDto boardDto) {
+
+		return BoardDao.setGroupord(boardDto);
+	}
 
 	@Override
 	public int postBlock(String userIp, int blockTime) {
@@ -35,6 +41,7 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardDto postSelect(BoardDto boardDto) {
+	
 		return BoardDao.postSelect(boardDto);
 	}
 
@@ -87,4 +94,5 @@ public class BoardServiceImpl implements BoardService {
 
 		return BoardDao.getGroupno();
 	}
+
 }

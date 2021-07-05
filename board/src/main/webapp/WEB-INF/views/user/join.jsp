@@ -46,7 +46,7 @@
 									<td bgcolor="#f5f5f5">&nbsp;&nbsp;&nbsp;&nbsp; 
 										<label for="id">아이디</label> <!-- onblur : 아이디 입력란에서 포커스가 다른 곳으로 이동할 때 호출할 함수 설정 -->
 										<input type="text" class="form-control" name="id" id="id" size="20" maxlength="15" onblur="confirmId()"
-											onkeyup="noSpaceForm(this);" required="required" placeholder="아이디를 입력하세요" />
+											onkeyup="noSpaceForm(this);" required="required" placeholder="아이디를 입력하세요" autofocus="autofocus"/>
 										<div id="idDiv"></div>
 									</td>
 

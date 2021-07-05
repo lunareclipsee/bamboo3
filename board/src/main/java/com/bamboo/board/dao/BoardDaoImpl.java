@@ -26,6 +26,12 @@ public class BoardDaoImpl implements BoardDao {
 	public int postAdd(BoardDto boardDto) {
 		return sqlSession.insert("board.add", boardDto);
 	}
+	
+	@Override
+	public int setGroupord(BoardDto boardDto) {
+
+		return sqlSession.update("board.setGroupord", boardDto);
+	}
 
 	@Override
 	public int postBlock(String userIp, int blockTime) {

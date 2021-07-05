@@ -32,4 +32,6 @@ public interface BoardService {
 
 	public int getGroupno();
 
+	public int setGroupord(BoardDto boardDto);
+
 }

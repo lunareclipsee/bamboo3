@@ -3,35 +3,33 @@
 <mapper namespace="board">
 
 	<select id="list" resultType="com.bamboo.board.model.BoardDto">
-		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.groupno, b.groupord, b.depth
+		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.DEPTH
 		FROM BOARD b LEFT JOIN board_reply r ON b.IDX = r.BOARD_IDX
 		GROUP BY b.IDX 
-		ORDER BY IDX DESC;
+		ORDER BY GROUPNO DESC, GROUPORD ASC;
 	</select>
-
+	
 	<insert id="add" parameterType="com.bamboo.board.model.BoardDto"
 		useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO BOARD
 		(TITLE, NAME, ID, 
-		CONTENT, INIP, INDATE, GROUPNO, GROUPORD, DEPTH)
+		CONTENT, INIP, INDATE, GROUPNO, GROUPORD, DEPTH, PARENTNO)
 		VALUES(#{title}, #{name}, #{id}, #{content}, #{inip}, SYSDATE(), 
-		#{groupno}, #{groupord}, #{depth}
+		#{groupno}, #{groupord}, #{depth}, #{parentno}
 		)
 	</insert>
 
 	<select id="cnt" resultType="int">
 		SELECT COUNT(*)
-		
 		FROM
 		BOARD
-		WHERE INDATE
-		> NOW() - INTERVAL ${blockTime} MINUTE
+		WHERE INDATE > NOW() - INTERVAL ${blockTime} MINUTE
 		AND INIP = #{inip}
 	</select>
 
 	<select id="select" resultType="com.bamboo.board.model.BoardDto">
 		SELECT IDX, TITLE, CONTENT, NAME, ID,
-		INIP, INDATE
+		INIP, INDATE, GROUPNO, GROUPORD, DEPTH, PARENTNO
 		FROM
 		BOARD
 		WHERE IDX = #{idx}
@@ -41,8 +39,15 @@
 		SELECT auto_increment GROUPNO
 		FROM information_schema.tables
 		WHERE table_name = 'board'
-		AND table_schema = DATABASE( ) ;
+		AND table_schema = DATABASE()
 	</select>
+	
+	<!-- 기존글 업뎃 -->
+	<update id="setGroupord" parameterType="com.bamboo.board.model.BoardDto">
+		UPDATE BOARD 
+		SET GROUPORD = GROUPORD + 1
+		WHERE GROUPNO = #{groupno} and GROUPORD > #{groupord}
+	</update>
 
 <!-- 	<select id="check" resultType="int"> -->
 <!-- 		SELECT COUNT(*) -->
@@ -66,8 +71,13 @@
 	<delete id="delete"	parameterType="com.bamboo.board.model.BoardDto">
 		DELETE FROM
 		BOARD
-		WHERE IDX = #{idx}
+		WHERE IDX = #{idx} or PARENTNO = #{idx}
 	</delete>
+<!-- 	<delete id="delete"	parameterType="com.bamboo.board.model.BoardDto"> -->
+<!-- 		DELETE FROM -->
+<!-- 		BOARD -->
+<!-- 		WHERE IDX = #{idx} -->
+<!-- 	</delete> -->
 
 	<select id="replyCount" resultType="int">
 		SELECT COUNT(*)
@@ -97,11 +107,9 @@
 	</update>
 
 	<delete id="replyDelete" parameterType="int">
-
 		DELETE FROM BOARD_REPLY
 		WHERE
 		REPLY_IDX = #{reply_idx}
-
 	</delete>
 
 </mapper>
