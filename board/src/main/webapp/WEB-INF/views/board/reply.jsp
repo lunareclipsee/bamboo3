@@ -17,7 +17,8 @@
 					<tr>
 						<td>   																				<!-- 한줄에 안쓰면 플레이스 홀더 안됨; -->
 							<c:if test="${login.id != null}">
-							<input type="text" style="width: 1100px" id="reply_content" name="reply_content" placeholder="텍스트를 입력해주세요." maxlength="50">
+							<input type="text" style="width: 1100px" id="reply_content" name="reply_content"  
+							maxlength="50" placeholder="텍스트를 입력해주세요." autofocus>
 							<br>
 							<div style="margin: 10px 23px 0px 0px;">
 								<a href='#' onClick="fn_comment()"

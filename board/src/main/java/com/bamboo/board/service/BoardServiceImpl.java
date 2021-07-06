@@ -2,7 +2,6 @@ package com.bamboo.board.service;
 
 import java.util.List;
 
-import org.mariadb.jdbc.internal.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,6 +82,13 @@ public class BoardServiceImpl implements BoardService {
 
 		return BoardDao.postDelete(boardDto);
 	}
+	
+	//자식찾기
+	@Override
+	public int findChild(int idx) {
+
+		return BoardDao.findChild(idx);
+	}
 
 	// 댓글 리스트
 
@@ -123,6 +129,5 @@ public class BoardServiceImpl implements BoardService {
 		
 		return postList;
 	}
-
 
 }

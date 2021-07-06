@@ -7,38 +7,35 @@
 		SELECT COUNT(*)
 		FROM BOARD
 	</select>
-
-	<select id="curPage" parameterType="map" resultType="int">
-		SELECT
-		FLOOR((idx-1) / 10)+1 idx
-		FROM BOARD
-		WHERE IDX = #{idx}
-	</select>
 	
 	<select id="list" resultType="com.bamboo.board.model.BoardDto">
 	SELECT * 
 	FROM (  SELECT @rownum := @rownum+1 AS RNUM, A.*
 	        FROM(
-	        	SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.depth
-				FROM BOARD b LEFT JOIN board_reply r 
+	        	SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, 
+	        	b.GROUPNO, b.GROUPORD, b.DEPTH, b.PARENTNO
+				FROM BOARD b LEFT JOIN BOARD_REPLY r 
 				ON (b.IDX = r.BOARD_IDX) 
-				join (SELECT @rownum := 0) AS R
+				JOIN (SELECT @rownum := 0) AS R
 				GROUP BY b.IDX
 				ORDER BY GROUPNO DESC, GROUPORD asc
-				) as a
-		 ) as b WHERE RNUM BETWEEN #{start} AND #{end};
+				) AS A
+		 ) AS B WHERE RNUM BETWEEN #{start} AND #{end};
 	</select>
 	
-<!-- 	<select id="list" resultType="com.bamboo.board.model.BoardDto"> -->
-<!-- 		SELECT b.IDX, b.TITLE, b.NAME, b.INIP, b.INDATE, COUNT(r.REPLY_IDX) REPLYCOUNT, b.GROUPNO, b.GROUPORD, b.DEPTH -->
-<!-- 		FROM BOARD b LEFT JOIN board_reply r ON b.IDX = r.BOARD_IDX -->
-<!-- 		WHERE IDX BETWEEN #{start} AND #{end} -->
-<!-- 		GROUP BY b.IDX  -->
-<!-- 		ORDER BY GROUPNO DESC, GROUPORD ASC; -->
-<!-- 	</select> -->
-	
-	<insert id="add" parameterType="com.bamboo.board.model.BoardDto"
-		useGeneratedKeys="true" keyProperty="idx">
+	<select id="getBoardDetail" parameterType="com.bamboo.board.model.BoardDto" resultType="com.bamboo.board.model.BoardDto">
+        SELECT *
+        FROM BOARD
+        WHERE IDX = #{idx}        
+    </select>
+    	
+	<select id="getAnswerBoardInfo" parameterType="com.bamboo.board.model.BoardDto" resultType="com.bamboo.board.model.BoardDto">
+        SELECT *
+        FROM BOARD
+        WHERE IDX = #{idx}        
+    </select>
+    
+	<insert id="add" parameterType="com.bamboo.board.model.BoardDto" useGeneratedKeys="true" keyProperty="idx">
 		INSERT INTO BOARD
 		(TITLE, NAME, ID, 
 		CONTENT, INIP, INDATE, GROUPNO, GROUPORD, DEPTH, PARENTNO, ANSWERNO)
@@ -77,42 +74,26 @@
 		WHERE GROUPNO = #{groupno} and GROUPORD > #{groupord}
 	</update>
 	
-	<update id="setAnswerno" parameterType="com.bamboo.board.model.BoardDto">
-		UPDATE BOARD 
-		SET ANSWERNO = ANSWERNO + 1
-		WHERE IDX = #{parentno}
-	</update>
-	
-
-<!-- 	<select id="check" resultType="int"> -->
-<!-- 		SELECT COUNT(*) -->
-<!-- 		FROM -->
-<!-- 		BOARD -->
-<!-- 		WHERE IDX -->
-<!-- 		= #{idx} -->
-<!-- 		AND PASSWORD = #{password} -->
-<!-- 	</select> -->
-
 	<update id="revise"	parameterType="com.bamboo.board.model.BoardDto">
 		UPDATE BOARD
 		SET
 		TITLE = #{title},
-		NAME = #{name},
 		CONTENT = #{content}
 		WHERE
 		IDX = #{idx}
 	</update>
-
+	
+	<select id="findChild" resultType="int">
+		SELECT COUNT(*)
+		FROM BOARD
+		WHERE PARENTNO = #{idx}
+	</select>
+	
 	<delete id="delete"	parameterType="com.bamboo.board.model.BoardDto">
 		DELETE FROM
 		BOARD
-		WHERE IDX = #{idx} or PARENTNO = #{idx}
+		WHERE IDX = #{idx}
 	</delete>
-<!-- 	<delete id="delete"	parameterType="com.bamboo.board.model.BoardDto"> -->
-<!-- 		DELETE FROM -->
-<!-- 		BOARD -->
-<!-- 		WHERE IDX = #{idx} -->
-<!-- 	</delete> -->
 
 	<select id="replyCount" resultType="int">
 		SELECT COUNT(*)

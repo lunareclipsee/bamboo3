@@ -11,15 +11,6 @@
 	<div class="container outer">
 		<div class="inner">
 			<form id="post_frm" name="post_frm" class="form-inline center-block" action="" method="post">
-				<input type="hidden" id="name" name="name" value="${userName}"/>
-				<input type="hidden" id="id" name="id" value="${userId}"/>
-				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
-				<input type="hidden" id="groupno" name="groupno" value="${groupno}"> 
-				<input type="hidden" id="groupord" name="groupord" value="${groupord}"> 
-				<input type="hidden" id="depth" name="depth" value="${depth}"> 
-				<input type="hidden" id="parentno" name="parentno" value="${parentno}"> 
-				<input type="hidden" id="parentno" name="answerno" value="${answerno}"> 
-				
 				<div class="form-group input_write">
 					<label for="title" class="sr-only">제목</label> 
 					<input type="text" id="title" name="title" class="form-control" placeholder="제목" maxlength="50" value="" autofocus="autofocus"/>
@@ -33,8 +24,14 @@
 				<div class="input_write pull-right">
 					남은글자: <input type="text" id="counter" name="counter" style="width: 33px" readonly value="200">
 					<input type="button" id="addPostCancelBtn" class="btn btn-default tempBtnOpt" value="취소">  <!-- 여기선 굳이? -->
-					<input type="button" id="addConfirmBtn" class="btn btn-primary tempBtnOpt2 pull-right" value="저장"> 
-				</div>		
+					<input type="button" id="addConfirmBtn" class="btn btn-primary tempBtnOpt2 pull-right" value="저장">
+				</div>
+				<input type="hidden" id="idx" name="idx" value="${boardDto.idx}"> 
+				<input type="hidden" id="groupno" name="groupno" value="${boardDto.groupno}"> 
+				<input type="hidden" id="groupord" name="groupord" value="${boardDto.groupord}"> 
+				<input type="hidden" id="depth" name="depth" value="${boardDto.depth}"> 
+				<input type="hidden" id="parentno" name="parentno" value="${boardDto.parentno}"> 
+				<input type="hidden" id="answerno" name="answerno" value="${boardDto.answerno}"> 		
 			</form>
 		</div>
 	</div>

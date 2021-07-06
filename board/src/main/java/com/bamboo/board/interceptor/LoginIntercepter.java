@@ -1,7 +1,5 @@
 package com.bamboo.board.interceptor;
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,7 +28,8 @@ public class LoginIntercepter implements HandlerInterceptor {
 			response.sendRedirect("/user/login");
 			return false;
 		} else {
-			session.setMaxInactiveInterval(30 * 60);
+			//세션 유효시간 초단위
+			session.setMaxInactiveInterval(1800);
 			return true;
 		}
 

@@ -8,25 +8,15 @@ window.onload = function() {
 
 	addConfirm = function() {
 
-		var password = $('input[type=password]').val();
 		var theForm = document.post_frm;
-
-		var name = $("#name").val();
-		var password = $("#password").val();
 		var title = $("#title").val();
 		var content = $("#content").val();
 
 		var form = {
-			name, password, title, content
+			title, content
 		}
 
-		if (name == "") {
-			alert("닉네임을 입력해주세요.");
-			$("#name").focus();
-		} else if (password == "") {
-			alert("비밀번호를 입력해주세요.");
-			$("#password").focus();
-		} else if (title == "") {
+		if (title == "") {
 			alert("제목을 입력해주세요.");
 			$("#title").focus();
 		} else if (content == "") {
@@ -92,7 +82,7 @@ window.onload = function() {
 
 	$('#postDeleteBtn').click(function() {
 		var theForm = document.selectForm;
-		var edit = confirm("게시글을 삭제하시겠습니까?");
+		var edit = confirm("게시글을 삭제하시겠습니까? 삭제후엔 모든 권한을 잃습니다.");
 		if (edit) {
 			theForm.action = "postDeleteCtr.do";
 			theForm.submit();
@@ -105,15 +95,6 @@ window.onload = function() {
 		var theForm = document.selectForm;
 			theForm.action = "postAdd.do";
 			theForm.submit();
-		
-//				var theForm = document.selectForm;
-//		var edit = confirm("답변글을 작성하시겠습니까?");
-//		if (edit) {
-//			theForm.action = "postAdd.do";
-//			theForm.submit();
-//		} else {
-//			return false;
-//		}
 	});
 
 
@@ -255,7 +236,6 @@ window.onload = function() {
 // 엔터누르면 폼 실행 메소드  //javascript에서는 13이 enter키를 의미함 
 function press(f) {
 	if (f.keyCode == 13) {
-alert("asd");
 //		formName.submit();
 	}
 }

@@ -42,4 +42,6 @@ public interface BoardService {
 
 	public List<BoardDto> postList(int idx, int start, int end);
 
+	public int findChild(int idx);
+
 }
